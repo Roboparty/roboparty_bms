@@ -1,0 +1,12 @@
+Source: roboparty-bms
+Section: base
+Priority: optional
+Maintainer: wentywenty <2321901849@qq.com>
+Build-Depends: debhelper-compat (= 12), cmake, pkg-config,
+               libspdlog-dev, libfmt-dev, pybind11-dev, python3-dev
+
+Package: roboparty-bms
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, roboparty-base (>= 1.0.0), python3, python3-serial
+Description: BMS Heartbeat Daemon with serial port config.
+ Provides a Unix Domain Socket (/tmp/bms.sock) for clients.

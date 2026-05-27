@@ -1,0 +1,23 @@
+#!/bin/bash
+if [ "$1" = "remove" ]; then
+    if [ ! -f /etc/roboparty_force_remove_bms ]; then
+        echo "================================================================="
+        echo "CRITICAL ERROR: roboparty-bms is a CORE system component."
+        echo "Removing this package will disable battery safety monitoring and"
+        echo "cause system instability (shutdown after 5 minutes)."
+        echo ""
+        echo "If you absolutely must remove this package (e.g. for development),"
+        echo "create the file /etc/roboparty_force_remove_bms first:"
+        echo "  sudo touch /etc/roboparty_force_remove_bms"
+        echo "================================================================="
+        exit 1
+    fi
+    rm -f /etc/roboparty_force_remove_bms
+fi
+
+systemctl stop bms.service || true
+systemctl disable bms.service || true
+
+# Remove symlink
+rm -f /usr/bin/bms_daemon
+rm -f /usr/bin/bms_ota.py

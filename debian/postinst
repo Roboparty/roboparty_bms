@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+# Create symlink for bms_daemon in /usr/bin
+ln -sf /opt/roboparty/bin/bms_daemon /usr/bin/bms_daemon
+ln -sf /opt/roboparty/bin/bms_ota.py /usr/bin/bms_ota.py
+
+systemctl daemon-reload
+systemctl enable bms.service
+systemctl start bms.service || true

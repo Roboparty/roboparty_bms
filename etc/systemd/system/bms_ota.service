@@ -1,0 +1,17 @@
+[Unit]
+Description=BMS Firmware OTA Update Task
+After=network.target
+# Ensure no interference from daemon during update (handled in script, double check here)
+Conflicts=bms.service
+
+[Service]
+Type=oneshot
+ExecStartPre=-/bin/systemctl stop bms.service
+# Default OTA firmware package path
+ExecStart=/usr/bin/python3 /usr/bin/bms_ota.py /etc/default/bms_daemon /opt/roboparty/lib/firmware/firmware.bin
+ExecStartPost=-/bin/systemctl start bms.service
+RemainAfterExit=no
+User=root
+
+[Install]
+WantedBy=multi-user.target

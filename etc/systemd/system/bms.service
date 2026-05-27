@@ -1,0 +1,13 @@
+[Unit]
+Description=BMS Heartbeat Daemon
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/default/bms_daemon
+ExecStart=/usr/bin/bms_daemon ${BMS_PORT} ${BAUD_RATE} ${TIMEOUT_MS}
+Restart=always
+RestartSec=5
+User=root
+
+[Install]
+WantedBy=multi-user.target

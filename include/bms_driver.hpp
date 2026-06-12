@@ -83,7 +83,8 @@ namespace tws_bms {
 
 class BmsProtocol {
 public:
-    BmsProtocol(const std::string& port_name, int baud_rate, int timeout_ms = 300);
+    BmsProtocol(const std::string& port_name, int baud_rate,
+                int timeout_ms = 300, uint8_t dev_addr = 0x01);
     ~BmsProtocol();
 
     bool open();
@@ -100,6 +101,7 @@ private:
     int serial_fd_;
     std::string port_name_;
     int baud_rate_;
+    uint8_t dev_addr_;
     int timeout_ms_;
 
     uint16_t calculate_crc(const uint8_t *data, size_t len);
@@ -115,3 +117,45 @@ private:
 };
 
 } // namespace tws_bms
+
+namespace gf_bms {
+
+class GfBmsProtocol {
+public:
+    GfBmsProtocol(const std::string& port_name, int baud_rate,
+                  int timeout_ms = 500, uint8_t dev_addr = 0x03);
+    ~GfBmsProtocol();
+
+    bool open();
+    void close_port();
+    bool is_open() const;
+
+    bool read_basic_info(bms::BatteryStatus& status);
+    bool read_version_info(bms::BatteryStatus& status);
+    bool read_capacity_info(bms::BatteryStatus& status);
+    bool read_serial_number(std::string& sn);
+    bool set_discharge_output(bool enable);
+
+private:
+    int serial_fd_;
+    std::string port_name_;
+    int baud_rate_;
+    uint8_t dev_addr_;
+    int timeout_ms_;
+
+    void flush();
+    uint16_t calculate_crc(const uint8_t* data, size_t len);
+    void send_read_request(uint16_t start_addr, uint16_t num_regs);
+    bool read_response(std::vector<uint8_t>& buffer, int expected_bytes);
+    bool write_multiple_registers(uint16_t start_addr,
+                                  const std::vector<uint16_t>& values);
+
+    uint16_t get_u16_be(const uint8_t* buf, int offset);
+    int16_t get_i16_be(const uint8_t* buf, int offset);
+    uint32_t get_u32_be(const uint8_t* buf, int offset);
+    uint16_t get_u16_be(const std::vector<uint8_t>& buf, int offset);
+    int16_t get_i16_be(const std::vector<uint8_t>& buf, int offset);
+    uint32_t get_u32_be(const std::vector<uint8_t>& buf, int offset);
+};
+
+} // namespace gf_bms

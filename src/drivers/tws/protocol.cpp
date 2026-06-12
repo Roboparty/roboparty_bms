@@ -20,7 +20,6 @@
 
 namespace tws_bms {
 
-#define BMS_ADDR 0x01
 #define FUNC_READ 0x03
 #define FUNC_WRITE_SINGLE 0x06
 #define FUNC_WRITE_MULTI 0x10
@@ -68,8 +67,10 @@ static const uint8_t aucCRCLo[] = {
     0x44, 0x84, 0x85, 0x45, 0x87, 0x47, 0x46, 0x86, 0x82, 0x42, 0x43, 0x83, 0x41, 0x81, 0x80, 0x40
 };
 
-BmsProtocol::BmsProtocol(const std::string& port_name, int baud_rate, int timeout_ms)
-    : serial_fd_(-1), port_name_(port_name), baud_rate_(baud_rate), timeout_ms_(timeout_ms) {}
+BmsProtocol::BmsProtocol(const std::string& port_name, int baud_rate,
+                          int timeout_ms, uint8_t dev_addr)
+    : serial_fd_(-1), port_name_(port_name), baud_rate_(baud_rate),
+      dev_addr_(dev_addr), timeout_ms_(timeout_ms) {}
 
 BmsProtocol::~BmsProtocol() { close_port(); }
 
@@ -120,7 +121,7 @@ uint16_t BmsProtocol::calculate_crc(const uint8_t *data, size_t len) {
 }
 
 void BmsProtocol::send_read_request(uint16_t start_addr, uint16_t num_regs) {
-    uint8_t frame[8] = {BMS_ADDR, FUNC_READ, (uint8_t)(start_addr >> 8), (uint8_t)start_addr, (uint8_t)(num_regs >> 8), (uint8_t)num_regs};
+    uint8_t frame[8] = {dev_addr_, FUNC_READ, (uint8_t)(start_addr >> 8), (uint8_t)start_addr, (uint8_t)(num_regs >> 8), (uint8_t)num_regs};
     uint16_t crc = calculate_crc(frame, 6);
     frame[6] = crc & 0xFF; frame[7] = crc >> 8;
     ssize_t _ = write(serial_fd_, frame, 8);
@@ -228,14 +229,14 @@ bool BmsProtocol::read_serial_number(std::string& sn) {
 bool BmsProtocol::set_discharge_output(bool enable) {
     uint16_t val = enable ? 0x0003 : 0x0001;
     tcflush(serial_fd_, TCIOFLUSH);
-    uint8_t f6[8] = {BMS_ADDR, FUNC_WRITE_SINGLE, (uint8_t)(REG_IO_CONTROL >> 8), (uint8_t)REG_IO_CONTROL, (uint8_t)(val >> 8), (uint8_t)val};
+    uint8_t f6[8] = {dev_addr_, FUNC_WRITE_SINGLE, (uint8_t)(REG_IO_CONTROL >> 8), (uint8_t)REG_IO_CONTROL, (uint8_t)(val >> 8), (uint8_t)val};
     uint16_t crc = calculate_crc(f6, 6); f6[6] = crc & 0xFF; f6[7] = crc >> 8;
     ssize_t _ = write(serial_fd_, f6, 8);
     (void)_;
     std::vector<uint8_t> resp;
     if (read_response(resp, 8)) return true;
     usleep(50000); tcflush(serial_fd_, TCIOFLUSH);
-    uint8_t f10[13] = {BMS_ADDR, FUNC_WRITE_MULTI, (uint8_t)(REG_IO_CONTROL >> 8), (uint8_t)REG_IO_CONTROL, 0x00, 0x01, 0x02, (uint8_t)(val >> 8), (uint8_t)val};
+    uint8_t f10[13] = {dev_addr_, FUNC_WRITE_MULTI, (uint8_t)(REG_IO_CONTROL >> 8), (uint8_t)REG_IO_CONTROL, 0x00, 0x01, 0x02, (uint8_t)(val >> 8), (uint8_t)val};
     crc = calculate_crc(f10, 9); f10[9] = crc & 0xFF; f10[10] = crc >> 8;
     ssize_t _2 = write(serial_fd_, f10, 11);
     (void)_2;

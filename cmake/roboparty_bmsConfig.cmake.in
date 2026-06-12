@@ -14,6 +14,7 @@ if(NOT TARGET roboparty_bms::roboparty_bms)
     target_link_libraries(roboparty_bms::roboparty_bms INTERFACE 
         roboparty_bms::bms
         roboparty_bms::tws_bms
+        roboparty_bms::gf_bms
     )
 endif()
 

@@ -36,7 +36,7 @@ add_executable(bms_daemon
     src/bms_daemon.cpp
 )
 target_include_directories(bms_daemon PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_link_libraries(bms_daemon PRIVATE tws_bms_protocol fmt::fmt spdlog::spdlog pthread)
+target_link_libraries(bms_daemon PRIVATE tws_bms_protocol gf_bms_protocol fmt::fmt spdlog::spdlog pthread)
 
 # ---- Client library ----
 add_library(bms STATIC
@@ -47,7 +47,7 @@ target_include_directories(bms
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
 )
-target_link_libraries(bms PUBLIC ${PUBLIC_DEPENDENCIES} tws_bms)
+target_link_libraries(bms PUBLIC ${PUBLIC_DEPENDENCIES} tws_bms gf_bms)
 
 # ---- Python bindings ----
 pybind11_add_module(bms_py src/pybind_module.cpp)
@@ -58,7 +58,7 @@ install(DIRECTORY include/ DESTINATION include)
 
 install(TARGETS bms_daemon DESTINATION bin)
 
-install(TARGETS bms tws_bms
+install(TARGETS bms tws_bms gf_bms
     EXPORT roboparty_bms-targets
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib

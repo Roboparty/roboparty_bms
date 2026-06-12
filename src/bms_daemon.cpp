@@ -13,13 +13,12 @@
 #include <cstring>
 #include "bms_driver.hpp"
 
-#define SOCKET_PATH "/tmp/bms.sock"
-
 static bool g_running = true;
 static void signal_handler(int) { g_running = false; }
 
 template <typename Protocol>
-static void run_daemon(Protocol& proto, const std::string& port) {
+static void run_daemon(Protocol& proto, const std::string& port,
+                       const std::string& socket_path) {
     while (g_running && !proto.open()) {
         std::cerr << "[BMS Daemon] Waiting for serial port " << port << "..."
                   << std::endl;
@@ -47,9 +46,9 @@ static void run_daemon(Protocol& proto, const std::string& port) {
 
     struct sockaddr_un addr {};
     addr.sun_family = AF_UNIX;
-    strncpy(addr.sun_path, SOCKET_PATH, sizeof(addr.sun_path) - 1);
+    strncpy(addr.sun_path, socket_path.c_str(), sizeof(addr.sun_path) - 1);
 
-    unlink(SOCKET_PATH);
+    unlink(socket_path.c_str());
 
     if (bind(server_fd, reinterpret_cast<struct sockaddr*>(&addr),
              sizeof(addr)) < 0) {
@@ -62,7 +61,7 @@ static void run_daemon(Protocol& proto, const std::string& port) {
         return;
     }
 
-    chmod(SOCKET_PATH, 0666);
+    chmod(socket_path.c_str(), 0666);
 
     std::cout << "[BMS Daemon] Started. Heartbeat Active on " << port
               << std::endl;
@@ -144,7 +143,7 @@ static void run_daemon(Protocol& proto, const std::string& port) {
 
     for (int c : clients) close(c);
     close(server_fd);
-    unlink(SOCKET_PATH);
+    unlink(socket_path.c_str());
     std::cout << "[BMS Daemon] Shutdown complete." << std::endl;
 }
 
@@ -178,12 +177,12 @@ int main(int argc, char** argv) {
         uint8_t dev_addr = (argc > 5) ? static_cast<uint8_t>(std::stoi(argv[5]))
                                        : 0x01;
         tws_bms::BmsProtocol proto(port, baud, timeout, dev_addr);
-        run_daemon(proto, port);
+        run_daemon(proto, port, "/tmp/bms.sock");
     } else if (type == "GF") {
         uint8_t dev_addr = (argc > 5) ? static_cast<uint8_t>(std::stoi(argv[5]))
                                        : 0x03;
         gf_bms::GfBmsProtocol proto(port, baud, timeout, dev_addr);
-        run_daemon(proto, port);
+        run_daemon(proto, port, "/tmp/gf_bms.sock");
     } else {
         std::cerr << "[BMS Daemon] Unknown BMS type: " << type << std::endl;
         return 1;

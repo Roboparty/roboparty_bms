@@ -1,6 +1,7 @@
 #environment
 .vscode/
 .idea/
+build/
 
 # debhelper build outputs
 obj-*/

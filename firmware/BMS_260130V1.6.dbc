@@ -1,0 +1,2185 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: Diag VCU Chrg BMS SBMS
+
+
+BO_ 2564485379 Diag_PhyRes_BMS: 8 Diag
+ SG_ Diag_Resp_BMS_Data_0 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_Resp_BMS_Data_1 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_Resp_BMS_Data_2 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_Resp_BMS_Data_3 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_Resp_BMS_Data_4 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_Resp_BMS_Data_5 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_Resp_BMS_Data_6 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_Resp_BMS_Data_7 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2564424689 Diag_PhyReq_BMS: 8 Diag
+ SG_ Diag_PhyReq_BMS_Data_0 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_PhyReq_BMS_Data_1 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_PhyReq_BMS_Data_2 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_PhyReq_BMS_Data_3 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_PhyReq_BMS_Data_4 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_PhyReq_BMS_Data_5 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_PhyReq_BMS_Data_6 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_PhyReq_BMS_Data_7 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2564502513 Diag_FuncReq_All: 8 Diag
+ SG_ Diag_FuncReq_Data_0 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_FuncReq_Data_1 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_FuncReq_Data_2 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_FuncReq_Data_3 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_FuncReq_Data_4 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_FuncReq_Data_5 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_FuncReq_Data_6 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_FuncReq_Data_7 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2565866241 VCU_0: 8 VCU
+ SG_ VCU_HV_OnAndOff : 0|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ VCU_EmergencyHVOff : 8|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ VCU_AllowCharging : 9|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ VCU_ACCState : 11|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ VCU_State : 13|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ VCU_VehicleLife : 48|8@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ VCU_CheckSum : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2565866242 Chrg_BMS: 8 Chrg
+ SG_ Chrger_OutputVoltage : 0|12@1+ (0.1,0) [0|409.5] "V" Vector__XXX
+ SG_ Chrger_OutputqCurrent : 12|12@1+ (0.1,0) [0|409.5] "A" Vector__XXX
+ SG_ Chrger_HardwareErr : 24|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ Chrger_TempErr : 25|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ Chrger_ConnectErr : 26|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ Chrger_StartErr : 27|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ Chrger_ComErr : 28|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 2565915139 BMS_Chrg: 8 BMS
+ SG_ BMS_ChrgReqVoltage : 0|12@1+ (0.1,0) [0|409.5] "V" Vector__XXX
+ SG_ BMS_ChrgReqCurrent : 12|12@1+ (0.1,0) [0|409.5] "A" Vector__XXX
+ SG_ BMS_SOC : 24|8@1+ (1,0) [0|100] "%" Vector__XXX
+ SG_ BMS_ChrgCtrl : 32|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 2565865475 BMS_0: 8 BMS
+ SG_ BMS_TotalFault : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_FaultSerialNumber : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_FaultCode : 16|18@1+ (1,0) [0|262143] "" Vector__XXX
+ SG_ BMS_TotalFaultGrade : 34|3@1+ (1,0) [0|7] "" Vector__XXX
+
+BO_ 2565865731 BMS_1: 8 BMS
+ SG_ BMS_CellOverVltgErr : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_CellLowVltgErr : 2|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_PackOverVltgErr : 4|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_PackLowVltgErr : 6|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_VltgDifferLargeErr : 8|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_ChrgCurrOverErr : 9|3@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ BMS_DisCurrOverErr : 12|3@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ BMS_RegenerateCurrOverErr : 15|3@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ BMS_ShortCircuitErr : 18|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellChrgTempLowErr : 19|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_CellChrgTempHigErr : 21|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_CellDisTempLowErr : 23|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_CellDisTempHigErr : 25|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_TempDifferLargeErr : 27|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellTempHigFailure : 28|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_EnvirTempLowErr : 29|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_EnvirTempHigErr : 31|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_MosTempHigErr : 33|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_ThermalWarningErr : 35|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_NTC_Failure : 36|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_DisMosFailure : 37|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_ChrgMosFailure : 38|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_StatusAbnormal : 39|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_ReplaceBatteryTip : 40|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_BatteryFault_Old : 41|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_LowPower : 42|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_BalanceErr : 43|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 2565865987 BMS_2: 8 BMS
+ SG_ BMS_SOC : 0|8@1+ (1,0) [0|100] "%" Vector__XXX
+ SG_ BMS_SOH : 8|8@1+ (1,0) [0|100] "%" Vector__XXX
+ SG_ BMS_Voltage : 16|16@1+ (0.1,0) [0|1000] "V" Vector__XXX
+ SG_ BMS_Current : 32|16@1+ (0.1,-1000) [-1000|1000] "A" Vector__XXX
+ SG_ BMS_DrvRange : 48|16@1+ (1,0) [0|65535] "km" Vector__XXX
+
+BO_ 2565866243 BMS_3: 8 BMS
+ SG_ BMS_DuringChargeCurrent : 0|8@1+ (1,0) [0|255] "A" Vector__XXX
+ SG_ BMS_DuringDischargeCurrent : 8|8@1+ (1,0) [0|255] "A" Vector__XXX
+ SG_ BMS_PeakDischargeCurrent : 16|8@1+ (1,0) [0|255] "A" Vector__XXX
+ SG_ BMS_PeakFeedbackCurrent : 24|8@1+ (1,0) [0|255] "A" Vector__XXX
+ SG_ BMS_ChrgReqCurrent : 32|8@1+ (1,0) [0|255] "A" Vector__XXX
+
+BO_ 2565866499 BMS_4: 8 BMS
+ SG_ BMS_CellTemp1 : 0|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+ SG_ BMS_CellTemp2 : 8|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+ SG_ BMS_CellTemp3 : 16|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+ SG_ BMS_CellTempHigh : 24|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+ SG_ BMS_CellTempLow : 32|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+ SG_ BMS_CellTempDiff : 40|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+ SG_ BMS_EnvironmentTemp : 48|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+ SG_ BMS_MOSTemp : 56|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+
+BO_ 2565866755 BMS_5: 8 BMS
+ SG_ BMS_CellMaxVoltage : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_MaxVoltageNumber : 16|16@1+ (1,0) [0|65535] "" Vector__XXX
+ SG_ BMS_CellMinVoltage : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_06_MinVoltageNumber : 48|16@1+ (1,0) [0|65535] "" Vector__XXX
+
+BO_ 2565867011 BMS_6: 8 BMS
+ SG_ BMS_Code1 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code2 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code3 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code4 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code5 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code6 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code7 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code8 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2565867267 BMS_7: 8 BMS
+ SG_ BMS_Code9 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code10 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code11 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code12 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code13 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code14 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code15 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code16 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2565867523 BMS_8: 8 BMS
+ SG_ BMS_Code17 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code18 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code19 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code20 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code21 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code22 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code23 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code24 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2565867779 BMS_9: 8 BMS
+ SG_ BMS_SoftwareVersion1 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_SoftwareVersion2 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_SoftwareVersion3 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_HardwareVersion1 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_HardwareVersion2 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_HardwareVersion3 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2565868035 BMS_10: 8 BMS
+ SG_ BMS_BatteryPackState : 0|2@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_MainChrgMosCtrlCmd : 2|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_MainDisMosCtrlCmd : 3|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_SlaveChrgMosCtrlCmd : 4|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_SlaveDisMosCtrlCmd : 5|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 2565868291 BMS_11: 8 BMS
+ SG_ BMS_ChrgMosStatus : 0|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_DisMosStatus : 1|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_PreChrgMosStatus : 2|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_HeatMosStatus : 3|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CurrLimModuleState : 4|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_FuseStatus : 5|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_State : 8|3@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_ChrgerConnectStatus : 11|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_DischrgConnectStatus : 12|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_BuzzerStatus : 13|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 2565868547 BMS_12: 8 BMS
+ SG_ BMS_CellEqState1 : 0|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState2 : 1|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState3 : 2|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState4 : 3|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState5 : 4|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState6 : 5|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState7 : 6|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState8 : 7|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState9 : 8|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState10 : 9|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState11 : 10|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState12 : 11|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState13 : 12|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState14 : 13|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState15 : 14|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState16 : 15|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState17 : 16|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState18 : 17|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState19 : 18|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState20 : 19|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState21 : 20|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState22 : 21|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState23 : 22|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState24 : 23|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState25 : 24|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState26 : 25|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState27 : 26|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState28 : 27|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState29 : 28|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState30 : 29|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState31 : 30|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState32 : 31|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 2565868803 BMS_13: 8 BMS
+ SG_ BMS_CellVoltage1 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage2 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage3 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage4 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565869059 BMS_14: 8 BMS
+ SG_ BMS_CellVoltage5 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage6 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage7 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage8 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565869315 BMS_15: 8 BMS
+ SG_ BMS_CellVoltage9 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage10 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage11 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage12 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565869571 BMS_16: 8 BMS
+ SG_ BMS_CellVoltage13 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage14 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage15 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage16 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565869827 BMS_17: 8 BMS
+ SG_ BMS_CellVoltage1 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage2 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage3 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage4 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565870083 BMS_18: 8 BMS
+ SG_ BMS_CellVoltage5 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage6 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage7 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage8 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565870339 BMS_19: 8 BMS
+ SG_ BMS_CellVoltage9 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage10 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage11 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage12 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565870595 BMS_20: 8 BMS
+ SG_ BMS_CellVoltage13 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage14 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage15 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage16 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565870851 BMS_21: 8 BMS
+ SG_ BMS_DesignCapacity : 0|16@1+ (0.01,0) [0|655.35] "Ah" Vector__XXX
+ SG_ BMS_FullChrgCapacity : 16|16@1+ (0.01,0) [0|655.35] "Ah" Vector__XXX
+ SG_ BMS_LearnCapacity : 32|16@1+ (0.01,0) [0|655.35] "Ah" Vector__XXX
+ SG_ BMS_CurrentCapacity : 48|16@1+ (0.01,0) [0|655.35] "Ah" Vector__XXX
+
+BO_ 2565871107 BMS_22: 8 BMS
+ SG_ BMS_TotalChrgCapacity : 0|16@1+ (1,0) [0|65535] "Ah" Vector__XXX
+ SG_ BMS_TotalDisCapacity : 16|16@1+ (1,0) [0|65535] "Ah" Vector__XXX
+ SG_ BMS_TotalChrgCycles : 32|16@1+ (1,0) [0|65535] "" Vector__XXX
+
+BO_ 2565871363 BMS_23: 8 BMS
+ SG_ BMS_Year : 0|8@1+ (1,0) [0|99] "Year" Vector__XXX
+ SG_ BMS_Month : 8|8@1+ (1,0) [0|24] "Mon" Vector__XXX
+ SG_ BMS_Day : 16|8@1+ (1,0) [0|31] "Day" Vector__XXX
+ SG_ BMS_Week : 24|8@1+ (1,0) [0|7] "Week" Vector__XXX
+ SG_ BMS_Hour : 32|8@1+ (1,0) [0|24] "h" Vector__XXX
+ SG_ BMS_Minute : 40|8@1+ (1,0) [0|60] "Min" Vector__XXX
+ SG_ BMS_Second : 48|8@1+ (1,0) [0|60] "s" Vector__XXX
+
+BO_ 2565871601 BMS_23_Set: 8 BMS
+ SG_ BMS_YearSet : 0|8@1+ (1,0) [0|99] "Year" Vector__XXX
+ SG_ BMS_MonthSet : 8|8@1+ (1,0) [0|24] "Mon" Vector__XXX
+ SG_ BMS_DaySet : 16|8@1+ (1,0) [0|31] "Day" Vector__XXX
+ SG_ BMS_WeekSet : 24|8@1+ (1,0) [0|7] "Week" Vector__XXX
+ SG_ BMS_HourSet : 32|8@1+ (1,0) [0|24] "h" Vector__XXX
+ SG_ BMS_MinuteSet : 40|8@1+ (1,0) [0|60] "min" Vector__XXX
+ SG_ BMS_SecondSet : 48|8@1+ (1,0) [0|60] "s" Vector__XXX
+
+BO_ 2565871619 BMS_24: 8 BMS
+ SG_ BMS_CellChemistry : 0|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ BMS_CellPackageType : 4|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ BMS_CellCount : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_CellManufacturerInfo : 16|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ BMS_BMSManufacturerInfo : 20|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ BMS_PackManufacturerInfo : 24|4@1+ (1,0) [0|15] "" Vector__XXX
+
+BO_ 2565871875 BMS_25: 8 BMS
+ SG_ BMS_BluetoothState : 0|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_FourthGenerationState : 1|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_GPSState : 2|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 2566848771 BMS_Test1: 8 BMS
+ SG_ BMS_ActuralSOC : 0|16@1+ (0.1,0) [0|100] "%" Vector__XXX
+ SG_ BMS_SOCHigEst : 16|16@1+ (0.1,0) [0|100] "%" Vector__XXX
+ SG_ BMS_SOCLowEst : 32|16@1+ (0.1,0) [0|100] "%" Vector__XXX
+ SG_ BMS_SOCEEP : 48|16@1+ (0.1,0) [0|100] "%" Vector__XXX
+
+BO_ 2566849027 BMS_Test2: 8 BMS
+ SG_ BMS_ActuralSOH : 0|16@1+ (0.1,0) [0|100] "%" Vector__XXX
+ SG_ BMS_CorrectCurrent : 16|16@1+ (0.1,-1000) [-1000|1000] "A" Vector__XXX
+ SG_ BMS_SOCEnableFalg : 32|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_SOCHigCorrFlg : 33|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_SOCLowCorrFlg : 34|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_DeltSOCAh : 40|16@1+ (0.1,0) [0|100] "%" Vector__XXX
+
+BO_ 2566849283 BMS_Test3: 8 BMS
+ SG_ BMS_DischrgWakeUp : 1|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_ChrgWakeUp : 2|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_NM_Wakeup : 3|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_ChrgVltgWakeUp : 4|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_RTCWakeUp : 5|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_RTCSleepTime : 8|8@1+ (1,0) [0|255] "h" Vector__XXX
+ SG_ BMS_RTCWakeTime : 16|8@1+ (1,0) [0|255] "min" Vector__XXX
+
+BO_ 2566849521 BMS_Test3_Set: 8 BMS
+ SG_ BMS_RTCSleepTimeSet : 0|8@1+ (1,0) [0|255] "h" Vector__XXX
+ SG_ BMS_RTCWakeTimeSet : 8|8@1+ (1,0) [0|255] "min" Vector__XXX
+
+BO_ 2566849539 BMS_Test4: 8 BMS
+ SG_ BMS_SingleCellTemp_Num : 0|16@1+ (1,0) [0|65535] "" Vector__XXX
+ SG_ BMS_SingleCellTemperature1 : 16|8@1+ (1,-40) [-40|210] "℃" Vector__XXX
+ SG_ BMS_SingleCellTemperature2 : 24|8@1+ (1,-40) [-40|210] "℃" Vector__XXX
+ SG_ BMS_SingleCellTemperature3 : 32|8@1+ (1,-40) [-40|210] "℃" Vector__XXX
+ SG_ BMS_SingleCellTemperature4 : 40|8@1+ (1,-40) [-40|210] "℃" Vector__XXX
+ SG_ BMS_SingleCellTemperature5 : 48|8@1+ (1,-40) [-40|210] "℃" Vector__XXX
+ SG_ BMS_SingleCellTemperature6 : 56|8@1+ (1,-40) [-40|210] "℃" Vector__XXX
+
+BO_ 2566849795 BMS_Test5: 8 BMS
+ SG_ BMS_SingleCellVoltage_Num : 0|16@1+ (1,0) [0|65535] "" Vector__XXX
+ SG_ BMS_SingleCellVoltage1 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_SingleCellVoltage2 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_SingleCellVoltage3 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2566850051 BMS_Test6: 8 BMS
+ SG_ BMS_TotalDisCycles : 0|12@1+ (1,0) [0|4095] "" Vector__XXX
+ SG_ BMS_TotalChrgCycles : 12|12@1+ (1,0) [0|4095] "" Vector__XXX
+
+BO_ 2566893569 VCU_NM: 8 VCU
+ SG_ NM_VCU_SourceAddress : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_VCU_RepeatMessageRequest : 8|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ NM_VCU_ActiveWakeup : 12|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ NM_VCU_Message2 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_VCU_Message3 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_VCU_Message4 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_VCU_Message5 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_VCU_Message6 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_VCU_Message7 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2566893571 BMS_NM: 8 BMS
+ SG_ NM_BMS_SourceAddress : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_BMS_RepeatMessageRequest : 8|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ NM_BMS_ActiveWakeup : 12|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ NM_BMS_Message2 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_BMS_Message3 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_BMS_Message4 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_BMS_Message5 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_BMS_Message6 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_BMS_Message7 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2564485380 Diag_PhyRes_BMS: 8 Diag
+ SG_ Diag_Resp_BMS_Data_0 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_Resp_BMS_Data_1 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_Resp_BMS_Data_2 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_Resp_BMS_Data_3 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_Resp_BMS_Data_4 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_Resp_BMS_Data_5 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_Resp_BMS_Data_6 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_Resp_BMS_Data_7 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2564424945 Diag_PhyReq_BMS: 8 Diag
+ SG_ Diag_PhyReq_BMS_Data_0 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_PhyReq_BMS_Data_1 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_PhyReq_BMS_Data_2 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_PhyReq_BMS_Data_3 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_PhyReq_BMS_Data_4 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_PhyReq_BMS_Data_5 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_PhyReq_BMS_Data_6 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_PhyReq_BMS_Data_7 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2564506865 Diag_FuncReq_All: 8 Diag
+ SG_ Diag_FuncReq_Data_0 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_FuncReq_Data_1 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_FuncReq_Data_2 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_FuncReq_Data_3 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_FuncReq_Data_4 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_FuncReq_Data_5 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_FuncReq_Data_6 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ Diag_FuncReq_Data_7 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2565915140 SBMS_Chrg: 8 SBMS
+ SG_ BMS_ChrgReqVoltage : 0|12@1+ (0.1,0) [0|409.5] "V" Vector__XXX
+ SG_ BMS_ChrgReqCurrent : 12|12@1+ (0.1,0) [0|409.5] "A" Vector__XXX
+ SG_ BMS_SOC : 24|8@1+ (1,0) [0|100] "%" Vector__XXX
+ SG_ BMS_ChrgCtrl : 32|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 2565865476 SBMS_0: 8 SBMS
+ SG_ BMS_TotalFault : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_FaultSerialNumber : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_FaultCode : 16|18@1+ (1,0) [0|262143] "" Vector__XXX
+ SG_ BMS_TotalFaultGrade : 34|3@1+ (1,0) [0|7] "" Vector__XXX
+
+BO_ 2565865732 SBMS_1: 8 SBMS
+ SG_ BMS_CellOverVltgErr : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_CellLowVltgErr : 2|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_PackOverVltgErr : 4|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_PackLowVltgErr : 6|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_VltgDifferLargeErr : 8|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_ChrgCurrOverErr : 9|3@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ BMS_DisCurrOverErr : 12|3@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ BMS_RegenerateCurrOverErr : 15|3@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ BMS_ShortCircuitErr : 18|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellChrgTempLowErr : 19|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_CellChrgTempHigErr : 21|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_CellDisTempLowErr : 23|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_CellDisTempHigErr : 25|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_TempDifferLargeErr : 27|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellTempHigFailure : 28|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_EnvirTempLowErr : 29|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_EnvirTempHigErr : 31|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_MosTempHigErr : 33|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BMS_ThermalWarningErr : 35|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_NTC_Failure : 36|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_DisMosFailure : 37|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_ChrgMosFailure : 38|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_StatusAbnormal : 39|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_ReplaceBatteryTip : 40|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_BatteryFault_Old : 41|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_LowPower : 42|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_BalanceErr : 43|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 2565865988 SBMS_2: 8 SBMS
+ SG_ BMS_SOC : 0|8@1+ (1,0) [0|100] "%" Vector__XXX
+ SG_ BMS_SOH : 8|8@1+ (1,0) [0|100] "%" Vector__XXX
+ SG_ BMS_Voltage : 16|16@1+ (0.1,0) [0|1000] "V" Vector__XXX
+ SG_ BMS_Current : 32|16@1+ (0.1,-1000) [-1000|1000] "A" Vector__XXX
+ SG_ BMS_DrvRange : 48|16@1+ (1,0) [0|65535] "km" Vector__XXX
+
+BO_ 2565866244 SBMS_3: 8 SBMS
+ SG_ BMS_DuringChargeCurrent : 0|8@1+ (1,0) [0|255] "A" Vector__XXX
+ SG_ BMS_DuringDischargeCurrent : 8|8@1+ (1,0) [0|255] "A" Vector__XXX
+ SG_ BMS_PeakDischargeCurrent : 16|8@1+ (1,0) [0|255] "A" Vector__XXX
+ SG_ BMS_PeakFeedbackCurrent : 24|8@1+ (1,0) [0|255] "A" Vector__XXX
+ SG_ BMS_ChrgReqCurrent : 32|8@1+ (1,0) [0|255] "A" Vector__XXX
+
+BO_ 2565866500 SBMS_4: 8 SBMS
+ SG_ BMS_CellTemp1 : 0|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+ SG_ BMS_CellTemp2 : 8|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+ SG_ BMS_CellTemp3 : 16|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+ SG_ BMS_CellTempHigh : 24|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+ SG_ BMS_CellTempLow : 32|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+ SG_ BMS_CellTempDiff : 40|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+ SG_ BMS_EnvironmentTemp : 48|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+ SG_ BMS_MOSTemp : 56|8@1+ (1,-40) [-40|210] "°C" Vector__XXX
+
+BO_ 2565866756 SBMS_5: 8 SBMS
+ SG_ BMS_CellMaxVoltage : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_MaxVoltageNumber : 16|16@1+ (1,0) [0|65535] "" Vector__XXX
+ SG_ BMS_CellMinVoltage : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_06_MinVoltageNumber : 48|16@1+ (1,0) [0|65535] "" Vector__XXX
+
+BO_ 2565867012 SBMS_6: 8 SBMS
+ SG_ BMS_Code1 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code2 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code3 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code4 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code5 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code6 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code7 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code8 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2565867268 SBMS_7: 8 SBMS
+ SG_ BMS_Code9 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code10 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code11 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code12 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code13 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code14 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code15 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code16 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2565867524 SBMS_8: 8 SBMS
+ SG_ BMS_Code17 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code18 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code19 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code20 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code21 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code22 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code23 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_Code24 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2565867780 SBMS_9: 8 SBMS
+ SG_ BMS_SoftwareVersion1 : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_SoftwareVersion2 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_SoftwareVersion3 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_HardwareVersion1 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_HardwareVersion2 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_HardwareVersion3 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2565868036 SBMS_10: 8 SBMS
+ SG_ BMS_BatteryPackState : 0|2@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 2565868292 SBMS_11: 8 SBMS
+ SG_ BMS_ChrgMosStatus : 0|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_DisMosStatus : 1|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_PreChrgMosStatus : 2|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_HeatMosStatus : 3|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CurrLimModuleState : 4|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_FuseStatus : 5|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_State : 8|3@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_ChrgerConnectStatus : 11|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_DischrgConnectStatus : 12|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_BuzzerStatus : 13|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 2565868548 SBMS_12: 8 SBMS
+ SG_ BMS_CellEqState1 : 0|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState2 : 1|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState3 : 2|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState4 : 3|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState5 : 4|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState6 : 5|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState7 : 6|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState8 : 7|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState9 : 8|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState10 : 9|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState11 : 10|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState12 : 11|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState13 : 12|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState14 : 13|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState15 : 14|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState16 : 15|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState17 : 16|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState18 : 17|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState19 : 18|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState20 : 19|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState21 : 20|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState22 : 21|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState23 : 22|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState24 : 23|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState25 : 24|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState26 : 25|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState27 : 26|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState28 : 27|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState29 : 28|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState30 : 29|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState31 : 30|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_CellEqState32 : 31|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 2565868804 SBMS_13: 8 SBMS
+ SG_ BMS_CellVoltage1 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage2 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage3 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage4 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565869060 SBMS_14: 8 SBMS
+ SG_ BMS_CellVoltage5 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage6 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage7 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage8 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565869316 SBMS_15: 8 SBMS
+ SG_ BMS_CellVoltage9 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage10 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage11 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage12 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565869572 SBMS_16: 8 SBMS
+ SG_ BMS_CellVoltage13 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage14 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage15 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage16 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565869828 SBMS_17: 8 SBMS
+ SG_ BMS_CellVoltage1 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage2 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage3 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage4 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565870084 SBMS_18: 8 SBMS
+ SG_ BMS_CellVoltage5 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage6 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage7 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage8 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565870340 SBMS_19: 8 SBMS
+ SG_ BMS_CellVoltage9 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage10 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage11 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage12 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565870596 SBMS_20: 8 SBMS
+ SG_ BMS_CellVoltage13 : 0|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage14 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage15 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_CellVoltage16 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2565870852 SBMS_21: 8 SBMS
+ SG_ BMS_DesignCapacity : 0|16@1+ (0.01,0) [0|655.35] "Ah" Vector__XXX
+ SG_ BMS_FullChrgCapacity : 16|16@1+ (0.01,0) [0|655.35] "Ah" Vector__XXX
+ SG_ BMS_LearnCapacity : 32|16@1+ (0.01,0) [0|655.35] "Ah" Vector__XXX
+ SG_ BMS_CurrentCapacity : 48|16@1+ (0.01,0) [0|655.35] "Ah" Vector__XXX
+
+BO_ 2565871108 SBMS_22: 8 SBMS
+ SG_ BMS_TotalChrgCapacity : 0|16@1+ (1,0) [0|65535] "Ah" Vector__XXX
+ SG_ BMS_TotalDisCapacity : 16|16@1+ (1,0) [0|65535] "Ah" Vector__XXX
+ SG_ BMS_TotalChrgCycles : 32|16@1+ (1,0) [0|65535] "" Vector__XXX
+
+BO_ 2565871364 SBMS_23: 8 SBMS
+ SG_ BMS_Year : 0|8@1+ (1,0) [0|99] "Year" Vector__XXX
+ SG_ BMS_Month : 8|8@1+ (1,0) [0|24] "Mon" Vector__XXX
+ SG_ BMS_Day : 16|8@1+ (1,0) [0|31] "Day" Vector__XXX
+ SG_ BMS_Week : 24|8@1+ (1,0) [0|7] "Week" Vector__XXX
+ SG_ BMS_Hour : 32|8@1+ (1,0) [0|24] "h" Vector__XXX
+ SG_ BMS_Minute : 40|8@1+ (1,0) [0|60] "Min" Vector__XXX
+ SG_ BMS_Second : 48|8@1+ (1,0) [0|60] "s" Vector__XXX
+
+BO_ 2565871620 SBMS_24: 8 SBMS
+ SG_ BMS_CellChemistry : 0|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ BMS_CellPackageType : 4|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ BMS_CellCount : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ BMS_CellManufacturerInfo : 16|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ BMS_BMSManufacturerInfo : 20|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ BMS_PackManufacturerInfo : 24|4@1+ (1,0) [0|15] "" Vector__XXX
+
+BO_ 2565871876 SBMS_25: 8 SBMS
+ SG_ BMS_BluetoothState : 0|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_FourthGenerationState : 1|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_GPSState : 2|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 2566848772 SBMS_Test1: 8 SBMS
+ SG_ BMS_ActuralSOC : 0|16@1+ (0.1,0) [0|100] "%" Vector__XXX
+ SG_ BMS_SOCHigEst : 16|16@1+ (0.1,0) [0|100] "%" Vector__XXX
+ SG_ BMS_SOCLowEst : 32|16@1+ (0.1,0) [0|100] "%" Vector__XXX
+ SG_ BMS_SOCEEP : 48|16@1+ (0.1,0) [0|100] "%" Vector__XXX
+
+BO_ 2566849028 SBMS_Test2: 8 SBMS
+ SG_ BMS_ActuralSOH : 0|16@1+ (0.1,0) [0|100] "%" Vector__XXX
+ SG_ BMS_CorrectCurrent : 16|16@1+ (0.1,-1000) [-1000|1000] "A" Vector__XXX
+ SG_ BMS_SOCEnableFalg : 32|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_SOCHigCorrFlg : 33|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_SOCLowCorrFlg : 34|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_DeltSOCAh : 40|16@1+ (0.1,0) [0|100] "%" Vector__XXX
+
+BO_ 2566849284 SBMS_Test3: 8 SBMS
+ SG_ BMS_DischrgWakeUp : 1|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_ChrgWakeUp : 2|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_NM_Wakeup : 3|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_ChrgVltgWakeUp : 4|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_RTCWakeUp : 5|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ BMS_RTCSleepTime : 8|8@1+ (1,0) [0|255] "h" Vector__XXX
+ SG_ BMS_RTCWakeTime : 16|8@1+ (1,0) [0|255] "min" Vector__XXX
+
+BO_ 2566849540 SBMS_Test4: 8 SBMS
+ SG_ BMS_SingleCellTemp_Num : 0|16@1+ (1,0) [0|65535] "" Vector__XXX
+ SG_ BMS_SingleCellTemperature1 : 16|8@1+ (1,-40) [-40|210] "℃" Vector__XXX
+ SG_ BMS_SingleCellTemperature2 : 24|8@1+ (1,-40) [-40|210] "℃" Vector__XXX
+ SG_ BMS_SingleCellTemperature3 : 32|8@1+ (1,-40) [-40|210] "℃" Vector__XXX
+ SG_ BMS_SingleCellTemperature4 : 40|8@1+ (1,-40) [-40|210] "℃" Vector__XXX
+ SG_ BMS_SingleCellTemperature5 : 48|8@1+ (1,-40) [-40|210] "℃" Vector__XXX
+ SG_ BMS_SingleCellTemperature6 : 56|8@1+ (1,-40) [-40|210] "℃" Vector__XXX
+
+BO_ 2566849796 SBMS_Test5: 8 SBMS
+ SG_ BMS_SingleCellVoltage_Num : 0|16@1+ (1,0) [0|65535] "" Vector__XXX
+ SG_ BMS_SingleCellVoltage1 : 16|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_SingleCellVoltage2 : 32|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+ SG_ BMS_SingleCellVoltage3 : 48|16@1+ (0.001,0) [0|65.535] "V" Vector__XXX
+
+BO_ 2566850052 SBMS_Test6: 8 SBMS
+ SG_ BMS_TotalDisCycles : 0|12@1+ (1,0) [0|4095] "" Vector__XXX
+ SG_ BMS_TotalChrgCycles : 12|12@1+ (1,0) [0|4095] "" Vector__XXX
+
+BO_ 2566893572 SBMS_NM: 8 SBMS
+ SG_ NM_BMS_SourceAddress : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_BMS_RepeatMessageRequest : 8|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ NM_BMS_ActiveWakeup : 12|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ NM_BMS_Message2 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_BMS_Message3 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_BMS_Message4 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_BMS_Message5 : 40|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_BMS_Message6 : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NM_BMS_Message7 : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+
+
+CM_ "Author:Xiaoshuai ;
+";
+CM_ BO_ 2564485379 "BMS诊断响应";
+CM_ SG_ 2564485379 Diag_Resp_BMS_Data_0 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ SG_ 2564485379 Diag_Resp_BMS_Data_1 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ SG_ 2564485379 Diag_Resp_BMS_Data_2 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ SG_ 2564485379 Diag_Resp_BMS_Data_3 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ SG_ 2564485379 Diag_Resp_BMS_Data_4 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ SG_ 2564485379 Diag_Resp_BMS_Data_5 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ SG_ 2564485379 Diag_Resp_BMS_Data_6 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ SG_ 2564485379 Diag_Resp_BMS_Data_7 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ BO_ 2564424689 "BMS物理寻址诊断请求";
+CM_ SG_ 2564424689 Diag_PhyReq_BMS_Data_0 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ SG_ 2564424689 Diag_PhyReq_BMS_Data_1 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ SG_ 2564424689 Diag_PhyReq_BMS_Data_2 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ SG_ 2564424689 Diag_PhyReq_BMS_Data_3 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ SG_ 2564424689 Diag_PhyReq_BMS_Data_4 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ SG_ 2564424689 Diag_PhyReq_BMS_Data_5 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ SG_ 2564424689 Diag_PhyReq_BMS_Data_6 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ SG_ 2564424689 Diag_PhyReq_BMS_Data_7 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ BO_ 2564502513 "功能寻址诊断请求";
+CM_ SG_ 2564502513 Diag_FuncReq_Data_0 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ SG_ 2564502513 Diag_FuncReq_Data_1 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ SG_ 2564502513 Diag_FuncReq_Data_2 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ SG_ 2564502513 Diag_FuncReq_Data_3 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ SG_ 2564502513 Diag_FuncReq_Data_4 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ SG_ 2564502513 Diag_FuncReq_Data_5 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ SG_ 2564502513 Diag_FuncReq_Data_6 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ SG_ 2564502513 Diag_FuncReq_Data_7 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ BO_ 2565866241 "中控上下电指令";
+CM_ SG_ 2565866241 VCU_HV_OnAndOff "高压上下电指令";
+CM_ SG_ 2565866241 VCU_EmergencyHVOff "紧急下电";
+CM_ SG_ 2565866241 VCU_AllowCharging "充电允许指令(VCU判断是否允许充电)";
+CM_ SG_ 2565866241 VCU_ACCState "钥匙状态";
+CM_ SG_ 2565866241 VCU_State "主机状态";
+CM_ SG_ 2565866241 VCU_VehicleLife "整车life";
+CM_ SG_ 2565866241 VCU_CheckSum "算法采用CRC-8-SAEJ1850算法的多项式，即多项式值Note1为0x1D(x8+x4+x3+x2+1)，但采用与CRC-8-SAEJ1850不同的起始值和异或值。起始值和异或值均设为0x00.详见E2E规范";
+CM_ BO_ 2565866242 "充电器状态";
+CM_ SG_ 2565866242 Chrger_OutputVoltage "充电器输出电压";
+CM_ SG_ 2565866242 Chrger_OutputqCurrent "充电器输出电流";
+CM_ SG_ 2565866242 Chrger_HardwareErr "充电器硬件故障";
+CM_ SG_ 2565866242 Chrger_TempErr "充电器过温故障";
+CM_ SG_ 2565866242 Chrger_ConnectErr "充电器充电口故障";
+CM_ SG_ 2565866242 Chrger_StartErr "充电器启动状态异常故障";
+CM_ SG_ 2565866242 Chrger_ComErr "充电器通讯故障";
+CM_ BO_ 2565915139 "电池充电信息";
+CM_ SG_ 2565915139 BMS_ChrgReqVoltage "充电请求电压";
+CM_ SG_ 2565915139 BMS_ChrgReqCurrent "充电请求电流";
+CM_ SG_ 2565915139 BMS_SOC "电池SOC（显示SOC）";
+CM_ SG_ 2565915139 BMS_ChrgCtrl "禁止充电控制";
+CM_ BO_ 2565865475 "电池故障等级";
+CM_ SG_ 2565865475 BMS_TotalFault "BMS故障总数";
+CM_ SG_ 2565865475 BMS_FaultSerialNumber "BMS故障序号";
+CM_ SG_ 2565865475 BMS_FaultCode "BMS故障码";
+CM_ SG_ 2565865475 BMS_TotalFaultGrade "总故障等级";
+CM_ BO_ 2565865731 "电池故障信息";
+CM_ SG_ 2565865731 BMS_CellOverVltgErr "单体过压故障";
+CM_ SG_ 2565865731 BMS_CellLowVltgErr "单体欠压故障";
+CM_ SG_ 2565865731 BMS_PackOverVltgErr "总压过压故障";
+CM_ SG_ 2565865731 BMS_PackLowVltgErr "总压欠压故障";
+CM_ SG_ 2565865731 BMS_VltgDifferLargeErr "压差过大故障";
+CM_ SG_ 2565865731 BMS_ChrgCurrOverErr "充电过流故障";
+CM_ SG_ 2565865731 BMS_DisCurrOverErr "放电过流故障";
+CM_ SG_ 2565865731 BMS_RegenerateCurrOverErr "回馈过流故障";
+CM_ SG_ 2565865731 BMS_ShortCircuitErr "短路故障";
+CM_ SG_ 2565865731 BMS_CellChrgTempLowErr "电芯充电低温故障";
+CM_ SG_ 2565865731 BMS_CellChrgTempHigErr "电芯充电高温故障";
+CM_ SG_ 2565865731 BMS_CellDisTempLowErr "电芯放电低温故障";
+CM_ SG_ 2565865731 BMS_CellDisTempHigErr "电芯放电高温故障";
+CM_ SG_ 2565865731 BMS_TempDifferLargeErr "电芯温差过大故障";
+CM_ SG_ 2565865731 BMS_CellTempHigFailure "电芯超高温失效";
+CM_ SG_ 2565865731 BMS_EnvirTempLowErr "环境低温故障";
+CM_ SG_ 2565865731 BMS_EnvirTempHigErr "环境高温故障";
+CM_ SG_ 2565865731 BMS_MosTempHigErr "MOS高温故障";
+CM_ SG_ 2565865731 BMS_ThermalWarningErr "热扩散故障";
+CM_ SG_ 2565865731 BMS_NTC_Failure "NTC失效";
+CM_ SG_ 2565865731 BMS_DisMosFailure "放电MOS失效";
+CM_ SG_ 2565865731 BMS_ChrgMosFailure "充电MOS失效";
+CM_ SG_ 2565865731 BMS_StatusAbnormal "BMS状态异常";
+CM_ SG_ 2565865731 BMS_ReplaceBatteryTip "电池更换提示";
+CM_ SG_ 2565865731 BMS_BatteryFault_Old "电池老化故障";
+CM_ SG_ 2565865731 BMS_LowPower "低电量提示";
+CM_ SG_ 2565865731 BMS_BalanceErr "均衡故障信号";
+CM_ BO_ 2565865987 "电池电量信息";
+CM_ SG_ 2565865987 BMS_SOC "电池SOC（显示SOC）";
+CM_ SG_ 2565865987 BMS_SOH "电池SOH";
+CM_ SG_ 2565865987 BMS_Voltage "电池总电压";
+CM_ SG_ 2565865987 BMS_Current "电池总电流";
+CM_ SG_ 2565865987 BMS_DrvRange "续航里程（预留）";
+CM_ BO_ 2565866243 "电池电流信息";
+CM_ SG_ 2565866243 BMS_DuringChargeCurrent "持续充电电流";
+CM_ SG_ 2565866243 BMS_DuringDischargeCurrent "持续放电电流";
+CM_ SG_ 2565866243 BMS_PeakDischargeCurrent "峰值放电电流";
+CM_ SG_ 2565866243 BMS_PeakFeedbackCurrent "峰值回馈电流";
+CM_ SG_ 2565866243 BMS_ChrgReqCurrent "充电请求电流";
+CM_ BO_ 2565866499 "电池温度信息";
+CM_ SG_ 2565866499 BMS_CellTemp1 "电芯温度值1";
+CM_ SG_ 2565866499 BMS_CellTemp2 "电芯温度值2";
+CM_ SG_ 2565866499 BMS_CellTemp3 "电芯温度值3";
+CM_ SG_ 2565866499 BMS_CellTempHigh "电池最高温";
+CM_ SG_ 2565866499 BMS_CellTempLow "电池最低温";
+CM_ SG_ 2565866499 BMS_CellTempDiff "电芯温差（可改为电芯温度4）";
+CM_ SG_ 2565866499 BMS_EnvironmentTemp "环境温度值";
+CM_ SG_ 2565866499 BMS_MOSTemp "MOS温度值";
+CM_ BO_ 2565866755 "电池电压最值信息";
+CM_ SG_ 2565866755 BMS_CellMaxVoltage "电池单体电压最高值";
+CM_ SG_ 2565866755 BMS_MaxVoltageNumber "最高电压单体编号";
+CM_ SG_ 2565866755 BMS_CellMinVoltage "电池单体电压最低值";
+CM_ SG_ 2565866755 BMS_06_MinVoltageNumber "最低电压单体编号";
+CM_ BO_ 2565867011 "电池编码信息1-8位";
+CM_ SG_ 2565867011 BMS_Code1 "第1位（ASCⅡ码）";
+CM_ SG_ 2565867011 BMS_Code2 "第2位（ASCⅡ码）";
+CM_ SG_ 2565867011 BMS_Code3 "第3位（ASCⅡ码）";
+CM_ SG_ 2565867011 BMS_Code4 "第4位（ASCⅡ码）";
+CM_ SG_ 2565867011 BMS_Code5 "第5位（ASCⅡ码）";
+CM_ SG_ 2565867011 BMS_Code6 "第6位（ASCⅡ码）";
+CM_ SG_ 2565867011 BMS_Code7 "第7位（ASCⅡ码）";
+CM_ SG_ 2565867011 BMS_Code8 "第8位（ASCⅡ码）";
+CM_ BO_ 2565867267 "电池编码信息9-16位";
+CM_ SG_ 2565867267 BMS_Code9 "第9位（ASCⅡ码）";
+CM_ SG_ 2565867267 BMS_Code10 "第10位（ASCⅡ码）";
+CM_ SG_ 2565867267 BMS_Code11 "第11位（ASCⅡ码）";
+CM_ SG_ 2565867267 BMS_Code12 "第12位（ASCⅡ码）";
+CM_ SG_ 2565867267 BMS_Code13 "第13位（ASCⅡ码）";
+CM_ SG_ 2565867267 BMS_Code14 "第14位（ASCⅡ码）";
+CM_ SG_ 2565867267 BMS_Code15 "第15位（ASCⅡ码）";
+CM_ SG_ 2565867267 BMS_Code16 "第16位（ASCⅡ码）";
+CM_ BO_ 2565867523 "电池编码信息17-24位";
+CM_ SG_ 2565867523 BMS_Code17 "第17位（ASCⅡ码）";
+CM_ SG_ 2565867523 BMS_Code18 "第18位（ASCⅡ码）";
+CM_ SG_ 2565867523 BMS_Code19 "第19位（ASCⅡ码）";
+CM_ SG_ 2565867523 BMS_Code20 "第20位（ASCⅡ码）";
+CM_ SG_ 2565867523 BMS_Code21 "第21位（ASCⅡ码）";
+CM_ SG_ 2565867523 BMS_Code22 "第22位（ASCⅡ码）";
+CM_ SG_ 2565867523 BMS_Code23 "第23位（ASCⅡ码）";
+CM_ SG_ 2565867523 BMS_Code24 "第24位（ASCⅡ码）";
+CM_ BO_ 2565867779 "电池BMS版本号";
+CM_ SG_ 2565867779 BMS_SoftwareVersion1 "软件大版本号";
+CM_ SG_ 2565867779 BMS_SoftwareVersion2 "软件中版本号";
+CM_ SG_ 2565867779 BMS_SoftwareVersion3 "软件小版本号";
+CM_ SG_ 2565867779 BMS_HardwareVersion1 "硬件大版本号";
+CM_ SG_ 2565867779 BMS_HardwareVersion2 "硬件中版本号";
+CM_ SG_ 2565867779 BMS_HardwareVersion3 "硬件小版本号";
+CM_ BO_ 2565868035 "电池并包状态及控制";
+CM_ SG_ 2565868035 BMS_BatteryPackState "电池并包状态";
+CM_ SG_ 2565868035 BMS_MainChrgMosCtrlCmd "主BMS充电MOS控制指令";
+CM_ SG_ 2565868035 BMS_MainDisMosCtrlCmd "主BMS放电MOS控制指令";
+CM_ SG_ 2565868035 BMS_SlaveChrgMosCtrlCmd "从BMS充电MOS控制指令";
+CM_ SG_ 2565868035 BMS_SlaveDisMosCtrlCmd "从BMS放电MOS控制指令";
+CM_ BO_ 2565868291 "电池状态信息";
+CM_ SG_ 2565868291 BMS_ChrgMosStatus "充电MOS状态";
+CM_ SG_ 2565868291 BMS_DisMosStatus "放电MOS状态";
+CM_ SG_ 2565868291 BMS_PreChrgMosStatus "预充MOS状态";
+CM_ SG_ 2565868291 BMS_HeatMosStatus "加热MOS状态";
+CM_ SG_ 2565868291 BMS_CurrLimModuleState "限流模块状态";
+CM_ SG_ 2565868291 BMS_FuseStatus "保险丝状态";
+CM_ SG_ 2565868291 BMS_State "电池充放电状态";
+CM_ SG_ 2565868291 BMS_ChrgerConnectStatus "充电器接入状态（充电识别接入）";
+CM_ SG_ 2565868291 BMS_DischrgConnectStatus "放电识别接入";
+CM_ SG_ 2565868291 BMS_BuzzerStatus "蜂鸣器状态";
+CM_ BO_ 2565868547 "电池均衡状态信息";
+CM_ SG_ 2565868547 BMS_CellEqState1 "第1节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState2 "第2节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState3 "第3节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState4 "第4节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState5 "第5节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState6 "第6节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState7 "第7节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState8 "第8节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState9 "第9节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState10 "第10节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState11 "第11节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState12 "第12节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState13 "第13节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState14 "第14节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState15 "第15节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState16 "第16节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState17 "第17节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState18 "第18节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState19 "第19节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState20 "第20节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState21 "第21节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState22 "第22节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState23 "第23节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState24 "第24节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState25 "第25节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState26 "第26节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState27 "第27节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState28 "第28节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState29 "第29节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState30 "第30节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState31 "第31节电芯均衡状态";
+CM_ SG_ 2565868547 BMS_CellEqState32 "第32节电芯均衡状态";
+CM_ BO_ 2565868803 "电池电压信息1-4节";
+CM_ SG_ 2565868803 BMS_CellVoltage1 "第1节电芯电压";
+CM_ SG_ 2565868803 BMS_CellVoltage2 "第2节电芯电压";
+CM_ SG_ 2565868803 BMS_CellVoltage3 "第3节电芯电压";
+CM_ SG_ 2565868803 BMS_CellVoltage4 "第4节电芯电压";
+CM_ BO_ 2565869059 "电池电压信息5-8节";
+CM_ SG_ 2565869059 BMS_CellVoltage5 "第5节电芯电压";
+CM_ SG_ 2565869059 BMS_CellVoltage6 "第6节电芯电压";
+CM_ SG_ 2565869059 BMS_CellVoltage7 "第7节电芯电压";
+CM_ SG_ 2565869059 BMS_CellVoltage8 "第8节电芯电压";
+CM_ BO_ 2565869315 "电池电压信息9-12节";
+CM_ SG_ 2565869315 BMS_CellVoltage9 "第9节电芯电压";
+CM_ SG_ 2565869315 BMS_CellVoltage10 "第10节电芯电压";
+CM_ SG_ 2565869315 BMS_CellVoltage11 "第11节电芯电压";
+CM_ SG_ 2565869315 BMS_CellVoltage12 "第12节电芯电压";
+CM_ BO_ 2565869571 "电池电压信息13-16节";
+CM_ SG_ 2565869571 BMS_CellVoltage13 "第13节电芯电压";
+CM_ SG_ 2565869571 BMS_CellVoltage14 "第14节电芯电压";
+CM_ SG_ 2565869571 BMS_CellVoltage15 "第15节电芯电压";
+CM_ SG_ 2565869571 BMS_CellVoltage16 "第16节电芯电压";
+CM_ BO_ 2565869827 "电池电压信息17-20节";
+CM_ SG_ 2565869827 BMS_CellVoltage1 "第17节电芯电压";
+CM_ SG_ 2565869827 BMS_CellVoltage2 "第18节电芯电压";
+CM_ SG_ 2565869827 BMS_CellVoltage3 "第19节电芯电压";
+CM_ SG_ 2565869827 BMS_CellVoltage4 "第20节电芯电压";
+CM_ BO_ 2565870083 "电池电压信息21-24节";
+CM_ SG_ 2565870083 BMS_CellVoltage5 "第21节电芯电压";
+CM_ SG_ 2565870083 BMS_CellVoltage6 "第22节电芯电压";
+CM_ SG_ 2565870083 BMS_CellVoltage7 "第23节电芯电压";
+CM_ SG_ 2565870083 BMS_CellVoltage8 "第24节电芯电压";
+CM_ BO_ 2565870339 "电池电压信息25-28节";
+CM_ SG_ 2565870339 BMS_CellVoltage9 "第25节电芯电压";
+CM_ SG_ 2565870339 BMS_CellVoltage10 "第26节电芯电压";
+CM_ SG_ 2565870339 BMS_CellVoltage11 "第27节电芯电压";
+CM_ SG_ 2565870339 BMS_CellVoltage12 "第28节电芯电压";
+CM_ BO_ 2565870595 "电池电压信息29-32节";
+CM_ SG_ 2565870595 BMS_CellVoltage13 "第29节电芯电压";
+CM_ SG_ 2565870595 BMS_CellVoltage14 "第30节电芯电压";
+CM_ SG_ 2565870595 BMS_CellVoltage15 "第31节电芯电压";
+CM_ SG_ 2565870595 BMS_CellVoltage16 "第32节电芯电压";
+CM_ BO_ 2565870851 "电池容量信息";
+CM_ SG_ 2565870851 BMS_DesignCapacity "设计容量值";
+CM_ SG_ 2565870851 BMS_FullChrgCapacity "满充容量值";
+CM_ SG_ 2565870851 BMS_LearnCapacity "学习容量值";
+CM_ SG_ 2565870851 BMS_CurrentCapacity "当前容量值";
+CM_ BO_ 2565871107 "电池累积容量";
+CM_ SG_ 2565871107 BMS_TotalChrgCapacity "累积充电容量";
+CM_ SG_ 2565871107 BMS_TotalDisCapacity "累积放电容量";
+CM_ SG_ 2565871107 BMS_TotalChrgCycles "累计循环圈数";
+CM_ BO_ 2565871363 "电池当前时间";
+CM_ SG_ 2565871363 BMS_Year "年";
+CM_ SG_ 2565871363 BMS_Month "月";
+CM_ SG_ 2565871363 BMS_Day "日";
+CM_ SG_ 2565871363 BMS_Week "周";
+CM_ SG_ 2565871363 BMS_Hour "时";
+CM_ SG_ 2565871363 BMS_Minute "分";
+CM_ SG_ 2565871363 BMS_Second "秒";
+CM_ BO_ 2565871601 "电池BMS时间设置";
+CM_ SG_ 2565871601 BMS_YearSet "年";
+CM_ SG_ 2565871601 BMS_MonthSet "月";
+CM_ SG_ 2565871601 BMS_DaySet "日";
+CM_ SG_ 2565871601 BMS_WeekSet "周";
+CM_ SG_ 2565871601 BMS_HourSet "时";
+CM_ SG_ 2565871601 BMS_MinuteSet "分";
+CM_ SG_ 2565871601 BMS_SecondSet "秒";
+CM_ BO_ 2565871619 "电池类型";
+CM_ SG_ 2565871619 BMS_CellChemistry "电芯类型";
+CM_ SG_ 2565871619 BMS_CellPackageType "电池类型";
+CM_ SG_ 2565871619 BMS_CellCount "电芯串数";
+CM_ SG_ 2565871619 BMS_CellManufacturerInfo "电芯厂商信息";
+CM_ SG_ 2565871619 BMS_BMSManufacturerInfo "BMS厂商信息";
+CM_ SG_ 2565871619 BMS_PackManufacturerInfo "Pack厂商信息";
+CM_ BO_ 2565871875 "提手信息";
+CM_ SG_ 2565871875 BMS_BluetoothState "蓝牙（可选）";
+CM_ SG_ 2565871875 BMS_FourthGenerationState "4G（可选）";
+CM_ SG_ 2565871875 BMS_GPSState "GPS（可选）";
+CM_ BO_ 2566848771 "电池真实SOC信息1";
+CM_ SG_ 2566848771 BMS_ActuralSOC "真实SOC值";
+CM_ SG_ 2566848771 BMS_SOCHigEst "SOCHig";
+CM_ SG_ 2566848771 BMS_SOCLowEst "SOCLow";
+CM_ SG_ 2566848771 BMS_SOCEEP "SOC存储值";
+CM_ BO_ 2566849027 "电池真实SOC信息2";
+CM_ SG_ 2566849027 BMS_ActuralSOH "真实SOH";
+CM_ SG_ 2566849027 BMS_CorrectCurrent "修正电流值";
+CM_ SG_ 2566849027 BMS_SOCEnableFalg "触发SOC模块使能";
+CM_ SG_ 2566849027 BMS_SOCHigCorrFlg "SOCHig修正使能";
+CM_ SG_ 2566849027 BMS_SOCLowCorrFlg "SOCLow修正使能";
+CM_ SG_ 2566849027 BMS_DeltSOCAh "SOC累计变化量";
+CM_ BO_ 2566849283 "电池唤醒信号";
+CM_ SG_ 2566849283 BMS_DischrgWakeUp "放电识别信号唤醒";
+CM_ SG_ 2566849283 BMS_ChrgWakeUp "充电识别信号唤醒";
+CM_ SG_ 2566849283 BMS_NM_Wakeup "网络管理NM唤醒";
+CM_ SG_ 2566849283 BMS_ChrgVltgWakeUp "充电电压唤醒";
+CM_ SG_ 2566849283 BMS_RTCWakeUp "定时唤醒";
+CM_ SG_ 2566849283 BMS_RTCSleepTime "定时休眠时间";
+CM_ SG_ 2566849283 BMS_RTCWakeTime "定时唤醒时间";
+CM_ BO_ 2566849521 "定时唤醒写入信号";
+CM_ SG_ 2566849521 BMS_RTCSleepTimeSet "定时休眠时间写入";
+CM_ SG_ 2566849521 BMS_RTCWakeTimeSet "定时唤醒时间写入";
+CM_ BO_ 2566849539 "BMS温度轮询发送";
+CM_ SG_ 2566849539 BMS_SingleCellTemp_Num "单体电池温度代号";
+CM_ SG_ 2566849539 BMS_SingleCellTemperature1 "单体电池温度1";
+CM_ SG_ 2566849539 BMS_SingleCellTemperature2 "单体电池温度2";
+CM_ SG_ 2566849539 BMS_SingleCellTemperature3 "单体电池温度3";
+CM_ SG_ 2566849539 BMS_SingleCellTemperature4 "单体电池温度4";
+CM_ SG_ 2566849539 BMS_SingleCellTemperature5 "单体电池温度5";
+CM_ SG_ 2566849539 BMS_SingleCellTemperature6 "单体电池温度6";
+CM_ BO_ 2566849795 "BMS电压轮询发送";
+CM_ SG_ 2566849795 BMS_SingleCellVoltage_Num "单体电池电压代号";
+CM_ SG_ 2566849795 BMS_SingleCellVoltage1 "单体电池电压1";
+CM_ SG_ 2566849795 BMS_SingleCellVoltage2 "单体电池电压2";
+CM_ SG_ 2566849795 BMS_SingleCellVoltage3 "单体电池电压3";
+CM_ BO_ 2566850051 "电池累计充放电次数";
+CM_ SG_ 2566850051 BMS_TotalDisCycles "累计放电次数";
+CM_ SG_ 2566850051 BMS_TotalChrgCycles "累计充电次数";
+CM_ BO_ 2566893569 "VCU网络管理报文";
+CM_ SG_ 2566893569 NM_VCU_SourceAddress "SourceNodeIdentifier";
+CM_ SG_ 2566893569 NM_VCU_RepeatMessageRequest "RepeatMessageRequestBit";
+CM_ SG_ 2566893569 NM_VCU_ActiveWakeup "ActiveWakeupBit";
+CM_ SG_ 2566893569 NM_VCU_Message2 "Userdata0";
+CM_ SG_ 2566893569 NM_VCU_Message3 "Userdata1";
+CM_ SG_ 2566893569 NM_VCU_Message4 "Userdata2";
+CM_ SG_ 2566893569 NM_VCU_Message5 "Userdata3";
+CM_ SG_ 2566893569 NM_VCU_Message6 "Userdata4";
+CM_ SG_ 2566893569 NM_VCU_Message7 "Userdata5";
+CM_ BO_ 2566893571 "BMS网络管理报文";
+CM_ SG_ 2566893571 NM_BMS_SourceAddress "SourceNodeIdentifier";
+CM_ SG_ 2566893571 NM_BMS_RepeatMessageRequest "RepeatMessageRequestBit";
+CM_ SG_ 2566893571 NM_BMS_ActiveWakeup "ActiveWakeupBit";
+CM_ SG_ 2566893571 NM_BMS_Message2 "Userdata0";
+CM_ SG_ 2566893571 NM_BMS_Message3 "Userdata1";
+CM_ SG_ 2566893571 NM_BMS_Message4 "Userdata2";
+CM_ SG_ 2566893571 NM_BMS_Message5 "Userdata3";
+CM_ SG_ 2566893571 NM_BMS_Message6 "Userdata4";
+CM_ SG_ 2566893571 NM_BMS_Message7 "Userdata5";
+CM_ BO_ 2564485380 "BMS诊断响应";
+CM_ SG_ 2564485380 Diag_Resp_BMS_Data_0 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ SG_ 2564485380 Diag_Resp_BMS_Data_1 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ SG_ 2564485380 Diag_Resp_BMS_Data_2 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ SG_ 2564485380 Diag_Resp_BMS_Data_3 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ SG_ 2564485380 Diag_Resp_BMS_Data_4 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ SG_ 2564485380 Diag_Resp_BMS_Data_5 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ SG_ 2564485380 Diag_Resp_BMS_Data_6 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ SG_ 2564485380 Diag_Resp_BMS_Data_7 "DiagnosticResponseDataFromBMSBMS诊断响应";
+CM_ BO_ 2564424945 "BMS物理寻址诊断请求";
+CM_ SG_ 2564424945 Diag_PhyReq_BMS_Data_0 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ SG_ 2564424945 Diag_PhyReq_BMS_Data_1 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ SG_ 2564424945 Diag_PhyReq_BMS_Data_2 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ SG_ 2564424945 Diag_PhyReq_BMS_Data_3 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ SG_ 2564424945 Diag_PhyReq_BMS_Data_4 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ SG_ 2564424945 Diag_PhyReq_BMS_Data_5 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ SG_ 2564424945 Diag_PhyReq_BMS_Data_6 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ SG_ 2564424945 Diag_PhyReq_BMS_Data_7 "DiagnosticPhysicalRequestDatatoBMSBMS物理寻址诊断请求";
+CM_ BO_ 2564506865 "功能寻址诊断请求";
+CM_ SG_ 2564506865 Diag_FuncReq_Data_0 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ SG_ 2564506865 Diag_FuncReq_Data_1 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ SG_ 2564506865 Diag_FuncReq_Data_2 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ SG_ 2564506865 Diag_FuncReq_Data_3 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ SG_ 2564506865 Diag_FuncReq_Data_4 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ SG_ 2564506865 Diag_FuncReq_Data_5 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ SG_ 2564506865 Diag_FuncReq_Data_6 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ SG_ 2564506865 Diag_FuncReq_Data_7 "DiagnosticFunctionalRequestData功能寻址诊断请求";
+CM_ BO_ 2565915140 "电池充电信息";
+CM_ SG_ 2565915140 BMS_ChrgReqVoltage "充电请求电压";
+CM_ SG_ 2565915140 BMS_ChrgReqCurrent "充电请求电流";
+CM_ SG_ 2565915140 BMS_SOC "电池SOC（显示SOC）";
+CM_ SG_ 2565915140 BMS_ChrgCtrl "禁止充电控制";
+CM_ BO_ 2565865476 "电池故障等级";
+CM_ SG_ 2565865476 BMS_TotalFault "BMS故障总数";
+CM_ SG_ 2565865476 BMS_FaultSerialNumber "BMS故障序号";
+CM_ SG_ 2565865476 BMS_FaultCode "BMS故障码";
+CM_ SG_ 2565865476 BMS_TotalFaultGrade "总故障等级";
+CM_ BO_ 2565865732 "电池故障信息";
+CM_ SG_ 2565865732 BMS_CellOverVltgErr "单体过压故障";
+CM_ SG_ 2565865732 BMS_CellLowVltgErr "单体欠压故障";
+CM_ SG_ 2565865732 BMS_PackOverVltgErr "总压过压故障";
+CM_ SG_ 2565865732 BMS_PackLowVltgErr "总压欠压故障";
+CM_ SG_ 2565865732 BMS_VltgDifferLargeErr "压差过大故障";
+CM_ SG_ 2565865732 BMS_ChrgCurrOverErr "充电过流故障";
+CM_ SG_ 2565865732 BMS_DisCurrOverErr "放电过流故障";
+CM_ SG_ 2565865732 BMS_RegenerateCurrOverErr "回馈过流故障";
+CM_ SG_ 2565865732 BMS_ShortCircuitErr "短路故障";
+CM_ SG_ 2565865732 BMS_CellChrgTempLowErr "电芯充电低温故障";
+CM_ SG_ 2565865732 BMS_CellChrgTempHigErr "电芯充电高温故障";
+CM_ SG_ 2565865732 BMS_CellDisTempLowErr "电芯放电低温故障";
+CM_ SG_ 2565865732 BMS_CellDisTempHigErr "电芯放电高温故障";
+CM_ SG_ 2565865732 BMS_TempDifferLargeErr "电芯温差过大故障";
+CM_ SG_ 2565865732 BMS_CellTempHigFailure "电芯超高温失效";
+CM_ SG_ 2565865732 BMS_EnvirTempLowErr "环境低温故障";
+CM_ SG_ 2565865732 BMS_EnvirTempHigErr "环境高温故障";
+CM_ SG_ 2565865732 BMS_MosTempHigErr "MOS高温故障";
+CM_ SG_ 2565865732 BMS_ThermalWarningErr "热扩散故障";
+CM_ SG_ 2565865732 BMS_NTC_Failure "NTC失效";
+CM_ SG_ 2565865732 BMS_DisMosFailure "放电MOS失效";
+CM_ SG_ 2565865732 BMS_ChrgMosFailure "充电MOS失效";
+CM_ SG_ 2565865732 BMS_StatusAbnormal "BMS状态异常";
+CM_ SG_ 2565865732 BMS_ReplaceBatteryTip "电池更换提示";
+CM_ SG_ 2565865732 BMS_BatteryFault_Old "电池老化故障";
+CM_ SG_ 2565865732 BMS_LowPower "低电量提示";
+CM_ SG_ 2565865732 BMS_BalanceErr "均衡故障信号";
+CM_ BO_ 2565865988 "电池电量信息";
+CM_ SG_ 2565865988 BMS_SOC "电池SOC（显示SOC）";
+CM_ SG_ 2565865988 BMS_SOH "电池SOH";
+CM_ SG_ 2565865988 BMS_Voltage "电池总电压";
+CM_ SG_ 2565865988 BMS_Current "电池总电流";
+CM_ SG_ 2565865988 BMS_DrvRange "续航里程（预留）";
+CM_ BO_ 2565866244 "电池电流信息";
+CM_ SG_ 2565866244 BMS_DuringChargeCurrent "持续充电电流";
+CM_ SG_ 2565866244 BMS_DuringDischargeCurrent "持续放电电流";
+CM_ SG_ 2565866244 BMS_PeakDischargeCurrent "峰值放电电流";
+CM_ SG_ 2565866244 BMS_PeakFeedbackCurrent "峰值回馈电流";
+CM_ SG_ 2565866244 BMS_ChrgReqCurrent "充电请求电流";
+CM_ BO_ 2565866500 "电池温度信息";
+CM_ SG_ 2565866500 BMS_CellTemp1 "电芯温度值1";
+CM_ SG_ 2565866500 BMS_CellTemp2 "电芯温度值2";
+CM_ SG_ 2565866500 BMS_CellTemp3 "电芯温度值3";
+CM_ SG_ 2565866500 BMS_CellTempHigh "电池最高温";
+CM_ SG_ 2565866500 BMS_CellTempLow "电池最低温";
+CM_ SG_ 2565866500 BMS_CellTempDiff "电芯温差";
+CM_ SG_ 2565866500 BMS_EnvironmentTemp "环境温度值";
+CM_ SG_ 2565866500 BMS_MOSTemp "MOS温度值";
+CM_ BO_ 2565866756 "电池电压最值信息";
+CM_ SG_ 2565866756 BMS_CellMaxVoltage "电池单体电压最高值";
+CM_ SG_ 2565866756 BMS_MaxVoltageNumber "最高电压单体编号";
+CM_ SG_ 2565866756 BMS_CellMinVoltage "电池单体电压最低值";
+CM_ SG_ 2565866756 BMS_06_MinVoltageNumber "最低电压单体编号";
+CM_ BO_ 2565867012 "电池编码信息1-8位";
+CM_ SG_ 2565867012 BMS_Code1 "第1位（ASCⅡ码）";
+CM_ SG_ 2565867012 BMS_Code2 "第2位（ASCⅡ码）";
+CM_ SG_ 2565867012 BMS_Code3 "第3位（ASCⅡ码）";
+CM_ SG_ 2565867012 BMS_Code4 "第4位（ASCⅡ码）";
+CM_ SG_ 2565867012 BMS_Code5 "第5位（ASCⅡ码）";
+CM_ SG_ 2565867012 BMS_Code6 "第6位（ASCⅡ码）";
+CM_ SG_ 2565867012 BMS_Code7 "第7位（ASCⅡ码）";
+CM_ SG_ 2565867012 BMS_Code8 "第8位（ASCⅡ码）";
+CM_ BO_ 2565867268 "电池编码信息9-16位";
+CM_ SG_ 2565867268 BMS_Code9 "第9位（ASCⅡ码）";
+CM_ SG_ 2565867268 BMS_Code10 "第10位（ASCⅡ码）";
+CM_ SG_ 2565867268 BMS_Code11 "第11位（ASCⅡ码）";
+CM_ SG_ 2565867268 BMS_Code12 "第12位（ASCⅡ码）";
+CM_ SG_ 2565867268 BMS_Code13 "第13位（ASCⅡ码）";
+CM_ SG_ 2565867268 BMS_Code14 "第14位（ASCⅡ码）";
+CM_ SG_ 2565867268 BMS_Code15 "第15位（ASCⅡ码）";
+CM_ SG_ 2565867268 BMS_Code16 "第16位（ASCⅡ码）";
+CM_ BO_ 2565867524 "电池编码信息17-24位";
+CM_ SG_ 2565867524 BMS_Code17 "第17位（ASCⅡ码）";
+CM_ SG_ 2565867524 BMS_Code18 "第18位（ASCⅡ码）";
+CM_ SG_ 2565867524 BMS_Code19 "第19位（ASCⅡ码）";
+CM_ SG_ 2565867524 BMS_Code20 "第20位（ASCⅡ码）";
+CM_ SG_ 2565867524 BMS_Code21 "第21位（ASCⅡ码）";
+CM_ SG_ 2565867524 BMS_Code22 "第22位（ASCⅡ码）";
+CM_ SG_ 2565867524 BMS_Code23 "第23位（ASCⅡ码）";
+CM_ SG_ 2565867524 BMS_Code24 "第24位（ASCⅡ码）";
+CM_ BO_ 2565867780 "电池BMS版本号";
+CM_ SG_ 2565867780 BMS_SoftwareVersion1 "软件大版本号";
+CM_ SG_ 2565867780 BMS_SoftwareVersion2 "软件中版本号";
+CM_ SG_ 2565867780 BMS_SoftwareVersion3 "软件小版本号";
+CM_ SG_ 2565867780 BMS_HardwareVersion1 "硬件大版本号";
+CM_ SG_ 2565867780 BMS_HardwareVersion2 "硬件中版本号";
+CM_ SG_ 2565867780 BMS_HardwareVersion3 "硬件小版本号";
+CM_ BO_ 2565868036 "电池并包状态及控制";
+CM_ SG_ 2565868036 BMS_BatteryPackState "电池并包状态";
+CM_ BO_ 2565868292 "电池状态信息";
+CM_ SG_ 2565868292 BMS_ChrgMosStatus "充电MOS状态";
+CM_ SG_ 2565868292 BMS_DisMosStatus "放电MOS状态";
+CM_ SG_ 2565868292 BMS_PreChrgMosStatus "预充MOS状态";
+CM_ SG_ 2565868292 BMS_HeatMosStatus "加热MOS状态";
+CM_ SG_ 2565868292 BMS_CurrLimModuleState "限流模块状态";
+CM_ SG_ 2565868292 BMS_FuseStatus "保险丝状态";
+CM_ SG_ 2565868292 BMS_State "电池充放电状态";
+CM_ SG_ 2565868292 BMS_ChrgerConnectStatus "充电器接入状态（充电识别接入）";
+CM_ SG_ 2565868292 BMS_DischrgConnectStatus "放电识别接入";
+CM_ SG_ 2565868292 BMS_BuzzerStatus "蜂鸣器状态";
+CM_ BO_ 2565868548 "电池均衡状态信息";
+CM_ SG_ 2565868548 BMS_CellEqState1 "第1节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState2 "第2节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState3 "第3节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState4 "第4节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState5 "第5节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState6 "第6节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState7 "第7节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState8 "第8节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState9 "第9节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState10 "第10节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState11 "第11节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState12 "第12节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState13 "第13节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState14 "第14节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState15 "第15节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState16 "第16节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState17 "第17节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState18 "第18节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState19 "第19节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState20 "第20节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState21 "第21节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState22 "第22节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState23 "第23节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState24 "第24节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState25 "第25节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState26 "第26节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState27 "第27节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState28 "第28节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState29 "第29节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState30 "第30节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState31 "第31节电芯均衡状态";
+CM_ SG_ 2565868548 BMS_CellEqState32 "第32节电芯均衡状态";
+CM_ BO_ 2565868804 "电池电压信息1-4节";
+CM_ SG_ 2565868804 BMS_CellVoltage1 "第1节电芯电压";
+CM_ SG_ 2565868804 BMS_CellVoltage2 "第2节电芯电压";
+CM_ SG_ 2565868804 BMS_CellVoltage3 "第3节电芯电压";
+CM_ SG_ 2565868804 BMS_CellVoltage4 "第4节电芯电压";
+CM_ BO_ 2565869060 "电池电压信息5-8节";
+CM_ SG_ 2565869060 BMS_CellVoltage5 "第5节电芯电压";
+CM_ SG_ 2565869060 BMS_CellVoltage6 "第6节电芯电压";
+CM_ SG_ 2565869060 BMS_CellVoltage7 "第7节电芯电压";
+CM_ SG_ 2565869060 BMS_CellVoltage8 "第8节电芯电压";
+CM_ BO_ 2565869316 "电池电压信息9-12节";
+CM_ SG_ 2565869316 BMS_CellVoltage9 "第9节电芯电压";
+CM_ SG_ 2565869316 BMS_CellVoltage10 "第10节电芯电压";
+CM_ SG_ 2565869316 BMS_CellVoltage11 "第11节电芯电压";
+CM_ SG_ 2565869316 BMS_CellVoltage12 "第12节电芯电压";
+CM_ BO_ 2565869572 "电池电压信息13-16节";
+CM_ SG_ 2565869572 BMS_CellVoltage13 "第13节电芯电压";
+CM_ SG_ 2565869572 BMS_CellVoltage14 "第14节电芯电压";
+CM_ SG_ 2565869572 BMS_CellVoltage15 "第15节电芯电压";
+CM_ SG_ 2565869572 BMS_CellVoltage16 "第16节电芯电压";
+CM_ BO_ 2565869828 "电池电压信息17-20节";
+CM_ SG_ 2565869828 BMS_CellVoltage1 "第17节电芯电压";
+CM_ SG_ 2565869828 BMS_CellVoltage2 "第18节电芯电压";
+CM_ SG_ 2565869828 BMS_CellVoltage3 "第19节电芯电压";
+CM_ SG_ 2565869828 BMS_CellVoltage4 "第20节电芯电压";
+CM_ BO_ 2565870084 "电池电压信息21-24节";
+CM_ SG_ 2565870084 BMS_CellVoltage5 "第21节电芯电压";
+CM_ SG_ 2565870084 BMS_CellVoltage6 "第22节电芯电压";
+CM_ SG_ 2565870084 BMS_CellVoltage7 "第23节电芯电压";
+CM_ SG_ 2565870084 BMS_CellVoltage8 "第24节电芯电压";
+CM_ BO_ 2565870340 "电池电压信息25-28节";
+CM_ SG_ 2565870340 BMS_CellVoltage9 "第25节电芯电压";
+CM_ SG_ 2565870340 BMS_CellVoltage10 "第26节电芯电压";
+CM_ SG_ 2565870340 BMS_CellVoltage11 "第27节电芯电压";
+CM_ SG_ 2565870340 BMS_CellVoltage12 "第28节电芯电压";
+CM_ BO_ 2565870596 "电池电压信息29-32节";
+CM_ SG_ 2565870596 BMS_CellVoltage13 "第29节电芯电压";
+CM_ SG_ 2565870596 BMS_CellVoltage14 "第30节电芯电压";
+CM_ SG_ 2565870596 BMS_CellVoltage15 "第31节电芯电压";
+CM_ SG_ 2565870596 BMS_CellVoltage16 "第32节电芯电压";
+CM_ BO_ 2565870852 "电池容量信息";
+CM_ SG_ 2565870852 BMS_DesignCapacity "设计容量值";
+CM_ SG_ 2565870852 BMS_FullChrgCapacity "满充容量值";
+CM_ SG_ 2565870852 BMS_LearnCapacity "学习容量值";
+CM_ SG_ 2565870852 BMS_CurrentCapacity "当前容量值";
+CM_ BO_ 2565871108 "电池累积容量";
+CM_ SG_ 2565871108 BMS_TotalChrgCapacity "累积充电容量";
+CM_ SG_ 2565871108 BMS_TotalDisCapacity "累积放电容量";
+CM_ SG_ 2565871108 BMS_TotalChrgCycles "累计循环圈数";
+CM_ BO_ 2565871364 "电池当前时间";
+CM_ SG_ 2565871364 BMS_Year "年";
+CM_ SG_ 2565871364 BMS_Month "月";
+CM_ SG_ 2565871364 BMS_Day "日";
+CM_ SG_ 2565871364 BMS_Week "周";
+CM_ SG_ 2565871364 BMS_Hour "时";
+CM_ SG_ 2565871364 BMS_Minute "分";
+CM_ SG_ 2565871364 BMS_Second "秒";
+CM_ BO_ 2565871620 "电池类型";
+CM_ SG_ 2565871620 BMS_CellChemistry "电芯类型";
+CM_ SG_ 2565871620 BMS_CellPackageType "电池类型";
+CM_ SG_ 2565871620 BMS_CellCount "电芯串数";
+CM_ SG_ 2565871620 BMS_CellManufacturerInfo "电芯厂商信息";
+CM_ SG_ 2565871620 BMS_BMSManufacturerInfo "BMS厂商信息";
+CM_ SG_ 2565871620 BMS_PackManufacturerInfo "Pack厂商信息";
+CM_ BO_ 2565871876 "提手信息";
+CM_ SG_ 2565871876 BMS_BluetoothState "蓝牙（可选）";
+CM_ SG_ 2565871876 BMS_FourthGenerationState "4G（可选）";
+CM_ SG_ 2565871876 BMS_GPSState "GPS（可选）";
+CM_ BO_ 2566848772 "电池真实SOC信息1";
+CM_ SG_ 2566848772 BMS_ActuralSOC "真实SOC值";
+CM_ SG_ 2566848772 BMS_SOCHigEst "SOCHig";
+CM_ SG_ 2566848772 BMS_SOCLowEst "SOCLow";
+CM_ SG_ 2566848772 BMS_SOCEEP "SOC存储值";
+CM_ BO_ 2566849028 "电池真实SOC信息2";
+CM_ SG_ 2566849028 BMS_ActuralSOH "真实SOH";
+CM_ SG_ 2566849028 BMS_CorrectCurrent "修正电流值";
+CM_ SG_ 2566849028 BMS_SOCEnableFalg "触发SOC模块使能";
+CM_ SG_ 2566849028 BMS_SOCHigCorrFlg "SOCHig修正使能";
+CM_ SG_ 2566849028 BMS_SOCLowCorrFlg "SOCLow修正使能";
+CM_ SG_ 2566849028 BMS_DeltSOCAh "SOC累计变化量";
+CM_ BO_ 2566849284 "电池唤醒信号";
+CM_ SG_ 2566849284 BMS_DischrgWakeUp "放电识别信号唤醒";
+CM_ SG_ 2566849284 BMS_ChrgWakeUp "充电识别信号唤醒";
+CM_ SG_ 2566849284 BMS_NM_Wakeup "网络管理NM唤醒";
+CM_ SG_ 2566849284 BMS_ChrgVltgWakeUp "充电电压唤醒";
+CM_ SG_ 2566849284 BMS_RTCWakeUp "定时唤醒";
+CM_ SG_ 2566849284 BMS_RTCSleepTime "定时休眠时间";
+CM_ SG_ 2566849284 BMS_RTCWakeTime "定时唤醒时间";
+CM_ BO_ 2566849540 "BMS温度轮询发送";
+CM_ SG_ 2566849540 BMS_SingleCellTemp_Num "单体电池温度代号";
+CM_ SG_ 2566849540 BMS_SingleCellTemperature1 "单体电池温度1";
+CM_ SG_ 2566849540 BMS_SingleCellTemperature2 "单体电池温度2";
+CM_ SG_ 2566849540 BMS_SingleCellTemperature3 "单体电池温度3";
+CM_ SG_ 2566849540 BMS_SingleCellTemperature4 "单体电池温度4";
+CM_ SG_ 2566849540 BMS_SingleCellTemperature5 "单体电池温度5";
+CM_ SG_ 2566849540 BMS_SingleCellTemperature6 "单体电池温度6";
+CM_ BO_ 2566849796 "BMS电压轮询发送";
+CM_ SG_ 2566849796 BMS_SingleCellVoltage_Num "单体电池电压代号";
+CM_ SG_ 2566849796 BMS_SingleCellVoltage1 "单体电池电压1";
+CM_ SG_ 2566849796 BMS_SingleCellVoltage2 "单体电池电压2";
+CM_ SG_ 2566849796 BMS_SingleCellVoltage3 "单体电池电压3";
+CM_ BO_ 2566850052 "电池累计充放电次数";
+CM_ SG_ 2566850052 BMS_TotalDisCycles "累计放电次数";
+CM_ SG_ 2566850052 BMS_TotalChrgCycles "累计充电次数";
+CM_ BO_ 2566893572 "BMS网络管理报文";
+CM_ SG_ 2566893572 NM_BMS_SourceAddress "SourceNodeIdentifier";
+CM_ SG_ 2566893572 NM_BMS_RepeatMessageRequest "RepeatMessageRequestBit";
+CM_ SG_ 2566893572 NM_BMS_ActiveWakeup "ActiveWakeupBit";
+CM_ SG_ 2566893572 NM_BMS_Message2 "Userdata0";
+CM_ SG_ 2566893572 NM_BMS_Message3 "Userdata1";
+CM_ SG_ 2566893572 NM_BMS_Message4 "Userdata2";
+CM_ SG_ 2566893572 NM_BMS_Message5 "Userdata3";
+CM_ SG_ 2566893572 NM_BMS_Message6 "Userdata4";
+CM_ SG_ 2566893572 NM_BMS_Message7 "Userdata5";
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_ SG_  "NWM-WakeupAllowed" ENUM  "No","Yes";
+BA_DEF_ BO_  "NmMessage" ENUM  "no","yes";
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BU_  "NmNode" ENUM  "no","yes";
+BA_DEF_ BU_  "NmStationAddress" INT 0 63;
+BA_DEF_  "NmBaseAddress" HEX 1024 1087;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 50000;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 50000;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 1000;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 999999;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "Cyclic","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed","IfActive","NoMsgSendType","NotUsed","vector_leerstring";
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 100000;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition","NoSigSendType","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed";
+BA_DEF_ SG_  "GenSigStartValue" FLOAT 0 100000000000;
+BA_DEF_DEF_  "NodeLayerModules" "CANoeILNLVector.dll";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "NWM-WakeupAllowed" "";
+BA_DEF_DEF_  "NmMessage" "no";
+BA_DEF_DEF_  "GenMsgILSupport" "Yes";
+BA_DEF_DEF_  "NmNode" "no";
+BA_DEF_DEF_  "NmStationAddress" 0;
+BA_DEF_DEF_  "NmBaseAddress" 1024;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "GenMsgCycleTime" 100;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgSendType" "Cyclic";
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenSigSendType" "Cyclic";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_ "GenMsgCycleTime" BO_ 2564485379 0;
+BA_ "GenMsgCycleTime" BO_ 2564424689 0;
+BA_ "GenMsgCycleTime" BO_ 2564502513 0;
+BA_ "GenMsgCycleTime" BO_ 2565866241 100;
+BA_ "GenMsgCycleTime" BO_ 2565866242 1000;
+BA_ "GenMsgCycleTime" BO_ 2565915139 1000;
+BA_ "GenMsgCycleTime" BO_ 2565865475 100;
+BA_ "GenMsgCycleTime" BO_ 2565865731 100;
+BA_ "GenMsgCycleTime" BO_ 2565865987 100;
+BA_ "GenMsgCycleTime" BO_ 2565866243 100;
+BA_ "GenMsgCycleTime" BO_ 2565866499 1000;
+BA_ "GenMsgCycleTime" BO_ 2565866755 100;
+BA_ "GenMsgCycleTime" BO_ 2565867011 2000;
+BA_ "GenMsgCycleTime" BO_ 2565867267 2000;
+BA_ "GenMsgCycleTime" BO_ 2565867523 2000;
+BA_ "GenMsgCycleTime" BO_ 2565867779 2000;
+BA_ "GenMsgCycleTime" BO_ 2565868035 100;
+BA_ "GenMsgCycleTime" BO_ 2565868291 100;
+BA_ "GenMsgCycleTime" BO_ 2565868547 100;
+BA_ "GenMsgCycleTime" BO_ 2565868803 100;
+BA_ "GenMsgCycleTime" BO_ 2565869059 100;
+BA_ "GenMsgCycleTime" BO_ 2565869315 100;
+BA_ "GenMsgCycleTime" BO_ 2565869571 100;
+BA_ "GenMsgCycleTime" BO_ 2565869827 100;
+BA_ "GenMsgCycleTime" BO_ 2565870083 100;
+BA_ "GenMsgCycleTime" BO_ 2565870339 100;
+BA_ "GenMsgCycleTime" BO_ 2565870595 100;
+BA_ "GenMsgCycleTime" BO_ 2565870851 1000;
+BA_ "GenMsgCycleTime" BO_ 2565871107 1000;
+BA_ "GenMsgCycleTime" BO_ 2565871363 1000;
+BA_ "GenMsgCycleTime" BO_ 2565871601 1000;
+BA_ "GenMsgCycleTime" BO_ 2565871619 2000;
+BA_ "GenMsgCycleTime" BO_ 2565871875 100;
+BA_ "GenMsgCycleTime" BO_ 2566848771 100;
+BA_ "GenMsgCycleTime" BO_ 2566849027 100;
+BA_ "GenMsgCycleTime" BO_ 2566849283 100;
+BA_ "GenMsgCycleTime" BO_ 2566849521 1000;
+BA_ "GenMsgCycleTime" BO_ 2566849539 100;
+BA_ "GenMsgCycleTime" BO_ 2566849795 100;
+BA_ "GenMsgCycleTime" BO_ 2566850051 1000;
+BA_ "GenMsgCycleTime" BO_ 2566893569 0;
+BA_ "GenMsgCycleTime" BO_ 2566893571 0;
+BA_ "GenMsgCycleTime" BO_ 2564485380 0;
+BA_ "GenMsgCycleTime" BO_ 2564424945 0;
+BA_ "GenMsgCycleTime" BO_ 2564506865 0;
+BA_ "GenMsgCycleTime" BO_ 2565915140 1000;
+BA_ "GenMsgCycleTime" BO_ 2565865476 100;
+BA_ "GenMsgCycleTime" BO_ 2565865732 100;
+BA_ "GenMsgCycleTime" BO_ 2565865988 100;
+BA_ "GenMsgCycleTime" BO_ 2565866244 100;
+BA_ "GenMsgCycleTime" BO_ 2565866500 1000;
+BA_ "GenMsgCycleTime" BO_ 2565866756 100;
+BA_ "GenMsgCycleTime" BO_ 2565867012 2000;
+BA_ "GenMsgCycleTime" BO_ 2565867268 2000;
+BA_ "GenMsgCycleTime" BO_ 2565867524 2000;
+BA_ "GenMsgCycleTime" BO_ 2565867780 2000;
+BA_ "GenMsgCycleTime" BO_ 2565868036 100;
+BA_ "GenMsgCycleTime" BO_ 2565868292 100;
+BA_ "GenMsgCycleTime" BO_ 2565868548 100;
+BA_ "GenMsgCycleTime" BO_ 2565868804 100;
+BA_ "GenMsgCycleTime" BO_ 2565869060 100;
+BA_ "GenMsgCycleTime" BO_ 2565869316 100;
+BA_ "GenMsgCycleTime" BO_ 2565869572 100;
+BA_ "GenMsgCycleTime" BO_ 2565869828 100;
+BA_ "GenMsgCycleTime" BO_ 2565870084 100;
+BA_ "GenMsgCycleTime" BO_ 2565870340 100;
+BA_ "GenMsgCycleTime" BO_ 2565870596 100;
+BA_ "GenMsgCycleTime" BO_ 2565870852 1000;
+BA_ "GenMsgCycleTime" BO_ 2565871108 1000;
+BA_ "GenMsgCycleTime" BO_ 2565871364 1000;
+BA_ "GenMsgCycleTime" BO_ 2565871620 2000;
+BA_ "GenMsgCycleTime" BO_ 2565871876 100;
+BA_ "GenMsgCycleTime" BO_ 2566848772 100;
+BA_ "GenMsgCycleTime" BO_ 2566849028 100;
+BA_ "GenMsgCycleTime" BO_ 2566849284 100;
+BA_ "GenMsgCycleTime" BO_ 2566849540 100;
+BA_ "GenMsgCycleTime" BO_ 2566849796 100;
+BA_ "GenMsgCycleTime" BO_ 2566850052 1000;
+BA_ "GenMsgCycleTime" BO_ 2566893572 0;
+BA_ "GenSigStartValue" SG_ 2564485379 Diag_Resp_BMS_Data_0 0;
+BA_ "GenSigStartValue" SG_ 2564485379 Diag_Resp_BMS_Data_1 0;
+BA_ "GenSigStartValue" SG_ 2564485379 Diag_Resp_BMS_Data_2 0;
+BA_ "GenSigStartValue" SG_ 2564485379 Diag_Resp_BMS_Data_3 0;
+BA_ "GenSigStartValue" SG_ 2564485379 Diag_Resp_BMS_Data_4 0;
+BA_ "GenSigStartValue" SG_ 2564485379 Diag_Resp_BMS_Data_5 0;
+BA_ "GenSigStartValue" SG_ 2564485379 Diag_Resp_BMS_Data_6 0;
+BA_ "GenSigStartValue" SG_ 2564485379 Diag_Resp_BMS_Data_7 0;
+BA_ "GenSigStartValue" SG_ 2564424689 Diag_PhyReq_BMS_Data_0 0;
+BA_ "GenSigStartValue" SG_ 2564424689 Diag_PhyReq_BMS_Data_1 0;
+BA_ "GenSigStartValue" SG_ 2564424689 Diag_PhyReq_BMS_Data_2 0;
+BA_ "GenSigStartValue" SG_ 2564424689 Diag_PhyReq_BMS_Data_3 0;
+BA_ "GenSigStartValue" SG_ 2564424689 Diag_PhyReq_BMS_Data_4 0;
+BA_ "GenSigStartValue" SG_ 2564424689 Diag_PhyReq_BMS_Data_5 0;
+BA_ "GenSigStartValue" SG_ 2564424689 Diag_PhyReq_BMS_Data_6 0;
+BA_ "GenSigStartValue" SG_ 2564424689 Diag_PhyReq_BMS_Data_7 0;
+BA_ "GenSigStartValue" SG_ 2564502513 Diag_FuncReq_Data_0 0;
+BA_ "GenSigStartValue" SG_ 2564502513 Diag_FuncReq_Data_1 0;
+BA_ "GenSigStartValue" SG_ 2564502513 Diag_FuncReq_Data_2 0;
+BA_ "GenSigStartValue" SG_ 2564502513 Diag_FuncReq_Data_3 0;
+BA_ "GenSigStartValue" SG_ 2564502513 Diag_FuncReq_Data_4 0;
+BA_ "GenSigStartValue" SG_ 2564502513 Diag_FuncReq_Data_5 0;
+BA_ "GenSigStartValue" SG_ 2564502513 Diag_FuncReq_Data_6 0;
+BA_ "GenSigStartValue" SG_ 2564502513 Diag_FuncReq_Data_7 0;
+BA_ "GenSigStartValue" SG_ 2565866241 VCU_HV_OnAndOff 0;
+BA_ "GenSigStartValue" SG_ 2565866241 VCU_EmergencyHVOff 0;
+BA_ "GenSigStartValue" SG_ 2565866241 VCU_AllowCharging 0;
+BA_ "GenSigStartValue" SG_ 2565866241 VCU_ACCState 0;
+BA_ "GenSigStartValue" SG_ 2565866241 VCU_State 0;
+BA_ "GenSigStartValue" SG_ 2565866241 VCU_VehicleLife 0;
+BA_ "GenSigStartValue" SG_ 2565866241 VCU_CheckSum 0;
+BA_ "GenSigStartValue" SG_ 2565866242 Chrger_OutputVoltage 0;
+BA_ "GenSigStartValue" SG_ 2565866242 Chrger_OutputqCurrent 0;
+BA_ "GenSigStartValue" SG_ 2565866242 Chrger_HardwareErr 0;
+BA_ "GenSigStartValue" SG_ 2565866242 Chrger_TempErr 0;
+BA_ "GenSigStartValue" SG_ 2565866242 Chrger_ConnectErr 0;
+BA_ "GenSigStartValue" SG_ 2565866242 Chrger_StartErr 0;
+BA_ "GenSigStartValue" SG_ 2565866242 Chrger_ComErr 0;
+BA_ "GenSigStartValue" SG_ 2565915139 BMS_ChrgReqVoltage 0;
+BA_ "GenSigStartValue" SG_ 2565915139 BMS_ChrgReqCurrent 0;
+BA_ "GenSigStartValue" SG_ 2565915139 BMS_SOC 0;
+BA_ "GenSigStartValue" SG_ 2565915139 BMS_ChrgCtrl 0;
+BA_ "GenSigStartValue" SG_ 2565865475 BMS_TotalFault 0;
+BA_ "GenSigStartValue" SG_ 2565865475 BMS_FaultSerialNumber 0;
+BA_ "GenSigStartValue" SG_ 2565865475 BMS_FaultCode 0;
+BA_ "GenSigStartValue" SG_ 2565865475 BMS_TotalFaultGrade 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_CellOverVltgErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_CellLowVltgErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_PackOverVltgErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_PackLowVltgErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_VltgDifferLargeErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_ChrgCurrOverErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_DisCurrOverErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_RegenerateCurrOverErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_ShortCircuitErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_CellChrgTempLowErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_CellChrgTempHigErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_CellDisTempLowErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_CellDisTempHigErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_TempDifferLargeErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_CellTempHigFailure 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_EnvirTempLowErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_EnvirTempHigErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_MosTempHigErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_ThermalWarningErr 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_NTC_Failure 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_DisMosFailure 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_ChrgMosFailure 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_StatusAbnormal 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_ReplaceBatteryTip 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_BatteryFault_Old 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_LowPower 0;
+BA_ "GenSigStartValue" SG_ 2565865731 BMS_BalanceErr 0;
+BA_ "GenSigStartValue" SG_ 2565865987 BMS_SOC 0;
+BA_ "GenSigStartValue" SG_ 2565865987 BMS_SOH 0;
+BA_ "GenSigStartValue" SG_ 2565865987 BMS_Voltage 0;
+BA_ "GenSigStartValue" SG_ 2565865987 BMS_Current 0;
+BA_ "GenSigStartValue" SG_ 2565865987 BMS_DrvRange 0;
+BA_ "GenSigStartValue" SG_ 2565866243 BMS_DuringChargeCurrent 0;
+BA_ "GenSigStartValue" SG_ 2565866243 BMS_DuringDischargeCurrent 0;
+BA_ "GenSigStartValue" SG_ 2565866243 BMS_PeakDischargeCurrent 0;
+BA_ "GenSigStartValue" SG_ 2565866243 BMS_PeakFeedbackCurrent 0;
+BA_ "GenSigStartValue" SG_ 2565866243 BMS_ChrgReqCurrent 0;
+BA_ "GenSigStartValue" SG_ 2565866499 BMS_CellTemp1 0;
+BA_ "GenSigStartValue" SG_ 2565866499 BMS_CellTemp2 0;
+BA_ "GenSigStartValue" SG_ 2565866499 BMS_CellTemp3 0;
+BA_ "GenSigStartValue" SG_ 2565866499 BMS_CellTempHigh 0;
+BA_ "GenSigStartValue" SG_ 2565866499 BMS_CellTempLow 0;
+BA_ "GenSigStartValue" SG_ 2565866499 BMS_CellTempDiff 0;
+BA_ "GenSigStartValue" SG_ 2565866499 BMS_EnvironmentTemp 0;
+BA_ "GenSigStartValue" SG_ 2565866499 BMS_MOSTemp 0;
+BA_ "GenSigStartValue" SG_ 2565866755 BMS_CellMaxVoltage 0;
+BA_ "GenSigStartValue" SG_ 2565866755 BMS_MaxVoltageNumber 0;
+BA_ "GenSigStartValue" SG_ 2565866755 BMS_CellMinVoltage 0;
+BA_ "GenSigStartValue" SG_ 2565866755 BMS_06_MinVoltageNumber 0;
+BA_ "GenSigStartValue" SG_ 2565867011 BMS_Code1 0;
+BA_ "GenSigStartValue" SG_ 2565867011 BMS_Code2 0;
+BA_ "GenSigStartValue" SG_ 2565867011 BMS_Code3 0;
+BA_ "GenSigStartValue" SG_ 2565867011 BMS_Code4 0;
+BA_ "GenSigStartValue" SG_ 2565867011 BMS_Code5 0;
+BA_ "GenSigStartValue" SG_ 2565867011 BMS_Code6 0;
+BA_ "GenSigStartValue" SG_ 2565867011 BMS_Code7 0;
+BA_ "GenSigStartValue" SG_ 2565867011 BMS_Code8 0;
+BA_ "GenSigStartValue" SG_ 2565867267 BMS_Code9 0;
+BA_ "GenSigStartValue" SG_ 2565867267 BMS_Code10 0;
+BA_ "GenSigStartValue" SG_ 2565867267 BMS_Code11 0;
+BA_ "GenSigStartValue" SG_ 2565867267 BMS_Code12 0;
+BA_ "GenSigStartValue" SG_ 2565867267 BMS_Code13 0;
+BA_ "GenSigStartValue" SG_ 2565867267 BMS_Code14 0;
+BA_ "GenSigStartValue" SG_ 2565867267 BMS_Code15 0;
+BA_ "GenSigStartValue" SG_ 2565867267 BMS_Code16 0;
+BA_ "GenSigStartValue" SG_ 2565867523 BMS_Code17 0;
+BA_ "GenSigStartValue" SG_ 2565867523 BMS_Code18 0;
+BA_ "GenSigStartValue" SG_ 2565867523 BMS_Code19 0;
+BA_ "GenSigStartValue" SG_ 2565867523 BMS_Code20 0;
+BA_ "GenSigStartValue" SG_ 2565867523 BMS_Code21 0;
+BA_ "GenSigStartValue" SG_ 2565867523 BMS_Code22 0;
+BA_ "GenSigStartValue" SG_ 2565867523 BMS_Code23 0;
+BA_ "GenSigStartValue" SG_ 2565867523 BMS_Code24 0;
+BA_ "GenSigStartValue" SG_ 2565867779 BMS_SoftwareVersion1 0;
+BA_ "GenSigStartValue" SG_ 2565867779 BMS_SoftwareVersion2 0;
+BA_ "GenSigStartValue" SG_ 2565867779 BMS_SoftwareVersion3 0;
+BA_ "GenSigStartValue" SG_ 2565867779 BMS_HardwareVersion1 0;
+BA_ "GenSigStartValue" SG_ 2565867779 BMS_HardwareVersion2 0;
+BA_ "GenSigStartValue" SG_ 2565867779 BMS_HardwareVersion3 0;
+BA_ "GenSigStartValue" SG_ 2565868035 BMS_BatteryPackState 0;
+BA_ "GenSigStartValue" SG_ 2565868035 BMS_MainChrgMosCtrlCmd 0;
+BA_ "GenSigStartValue" SG_ 2565868035 BMS_MainDisMosCtrlCmd 0;
+BA_ "GenSigStartValue" SG_ 2565868035 BMS_SlaveChrgMosCtrlCmd 0;
+BA_ "GenSigStartValue" SG_ 2565868035 BMS_SlaveDisMosCtrlCmd 0;
+BA_ "GenSigStartValue" SG_ 2565868291 BMS_ChrgMosStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868291 BMS_DisMosStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868291 BMS_PreChrgMosStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868291 BMS_HeatMosStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868291 BMS_CurrLimModuleState 0;
+BA_ "GenSigStartValue" SG_ 2565868291 BMS_FuseStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868291 BMS_State 0;
+BA_ "GenSigStartValue" SG_ 2565868291 BMS_ChrgerConnectStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868291 BMS_DischrgConnectStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868291 BMS_BuzzerStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState1 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState2 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState3 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState4 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState5 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState6 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState7 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState8 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState9 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState10 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState11 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState12 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState13 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState14 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState15 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState16 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState17 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState18 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState19 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState20 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState21 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState22 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState23 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState24 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState25 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState26 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState27 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState28 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState29 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState30 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState31 0;
+BA_ "GenSigStartValue" SG_ 2565868547 BMS_CellEqState32 0;
+BA_ "GenSigStartValue" SG_ 2565868803 BMS_CellVoltage1 0;
+BA_ "GenSigStartValue" SG_ 2565868803 BMS_CellVoltage2 0;
+BA_ "GenSigStartValue" SG_ 2565868803 BMS_CellVoltage3 0;
+BA_ "GenSigStartValue" SG_ 2565868803 BMS_CellVoltage4 0;
+BA_ "GenSigStartValue" SG_ 2565869059 BMS_CellVoltage5 0;
+BA_ "GenSigStartValue" SG_ 2565869059 BMS_CellVoltage6 0;
+BA_ "GenSigStartValue" SG_ 2565869059 BMS_CellVoltage7 0;
+BA_ "GenSigStartValue" SG_ 2565869059 BMS_CellVoltage8 0;
+BA_ "GenSigStartValue" SG_ 2565869315 BMS_CellVoltage9 0;
+BA_ "GenSigStartValue" SG_ 2565869315 BMS_CellVoltage10 0;
+BA_ "GenSigStartValue" SG_ 2565869315 BMS_CellVoltage11 0;
+BA_ "GenSigStartValue" SG_ 2565869315 BMS_CellVoltage12 0;
+BA_ "GenSigStartValue" SG_ 2565869571 BMS_CellVoltage13 0;
+BA_ "GenSigStartValue" SG_ 2565869571 BMS_CellVoltage14 0;
+BA_ "GenSigStartValue" SG_ 2565869571 BMS_CellVoltage15 0;
+BA_ "GenSigStartValue" SG_ 2565869571 BMS_CellVoltage16 0;
+BA_ "GenSigStartValue" SG_ 2565869827 BMS_CellVoltage1 0;
+BA_ "GenSigStartValue" SG_ 2565869827 BMS_CellVoltage2 0;
+BA_ "GenSigStartValue" SG_ 2565869827 BMS_CellVoltage3 0;
+BA_ "GenSigStartValue" SG_ 2565869827 BMS_CellVoltage4 0;
+BA_ "GenSigStartValue" SG_ 2565870083 BMS_CellVoltage5 0;
+BA_ "GenSigStartValue" SG_ 2565870083 BMS_CellVoltage6 0;
+BA_ "GenSigStartValue" SG_ 2565870083 BMS_CellVoltage7 0;
+BA_ "GenSigStartValue" SG_ 2565870083 BMS_CellVoltage8 0;
+BA_ "GenSigStartValue" SG_ 2565870339 BMS_CellVoltage9 0;
+BA_ "GenSigStartValue" SG_ 2565870339 BMS_CellVoltage10 0;
+BA_ "GenSigStartValue" SG_ 2565870339 BMS_CellVoltage11 0;
+BA_ "GenSigStartValue" SG_ 2565870339 BMS_CellVoltage12 0;
+BA_ "GenSigStartValue" SG_ 2565870595 BMS_CellVoltage13 0;
+BA_ "GenSigStartValue" SG_ 2565870595 BMS_CellVoltage14 0;
+BA_ "GenSigStartValue" SG_ 2565870595 BMS_CellVoltage15 0;
+BA_ "GenSigStartValue" SG_ 2565870595 BMS_CellVoltage16 0;
+BA_ "GenSigStartValue" SG_ 2565870851 BMS_DesignCapacity 0;
+BA_ "GenSigStartValue" SG_ 2565870851 BMS_FullChrgCapacity 0;
+BA_ "GenSigStartValue" SG_ 2565870851 BMS_LearnCapacity 0;
+BA_ "GenSigStartValue" SG_ 2565870851 BMS_CurrentCapacity 0;
+BA_ "GenSigStartValue" SG_ 2565871107 BMS_TotalChrgCapacity 0;
+BA_ "GenSigStartValue" SG_ 2565871107 BMS_TotalDisCapacity 0;
+BA_ "GenSigStartValue" SG_ 2565871107 BMS_TotalChrgCycles 0;
+BA_ "GenSigStartValue" SG_ 2565871363 BMS_Year 0;
+BA_ "GenSigStartValue" SG_ 2565871363 BMS_Month 0;
+BA_ "GenSigStartValue" SG_ 2565871363 BMS_Day 0;
+BA_ "GenSigStartValue" SG_ 2565871363 BMS_Week 0;
+BA_ "GenSigStartValue" SG_ 2565871363 BMS_Hour 0;
+BA_ "GenSigStartValue" SG_ 2565871363 BMS_Minute 0;
+BA_ "GenSigStartValue" SG_ 2565871363 BMS_Second 0;
+BA_ "GenSigStartValue" SG_ 2565871601 BMS_YearSet 0;
+BA_ "GenSigStartValue" SG_ 2565871601 BMS_MonthSet 0;
+BA_ "GenSigStartValue" SG_ 2565871601 BMS_DaySet 0;
+BA_ "GenSigStartValue" SG_ 2565871601 BMS_WeekSet 0;
+BA_ "GenSigStartValue" SG_ 2565871601 BMS_HourSet 0;
+BA_ "GenSigStartValue" SG_ 2565871601 BMS_MinuteSet 0;
+BA_ "GenSigStartValue" SG_ 2565871601 BMS_SecondSet 0;
+BA_ "GenSigStartValue" SG_ 2565871619 BMS_CellChemistry 15;
+BA_ "GenSigStartValue" SG_ 2565871619 BMS_CellPackageType 15;
+BA_ "GenSigStartValue" SG_ 2565871619 BMS_CellCount 0;
+BA_ "GenSigStartValue" SG_ 2565871619 BMS_CellManufacturerInfo 0;
+BA_ "GenSigStartValue" SG_ 2565871619 BMS_BMSManufacturerInfo 0;
+BA_ "GenSigStartValue" SG_ 2565871619 BMS_PackManufacturerInfo 0;
+BA_ "GenSigStartValue" SG_ 2565871875 BMS_BluetoothState 0;
+BA_ "GenSigStartValue" SG_ 2565871875 BMS_FourthGenerationState 0;
+BA_ "GenSigStartValue" SG_ 2565871875 BMS_GPSState 0;
+BA_ "GenSigStartValue" SG_ 2566848771 BMS_ActuralSOC 0;
+BA_ "GenSigStartValue" SG_ 2566848771 BMS_SOCHigEst 0;
+BA_ "GenSigStartValue" SG_ 2566848771 BMS_SOCLowEst 0;
+BA_ "GenSigStartValue" SG_ 2566848771 BMS_SOCEEP 0;
+BA_ "GenSigStartValue" SG_ 2566849027 BMS_ActuralSOH 0;
+BA_ "GenSigStartValue" SG_ 2566849027 BMS_CorrectCurrent 0;
+BA_ "GenSigStartValue" SG_ 2566849027 BMS_SOCEnableFalg 0;
+BA_ "GenSigStartValue" SG_ 2566849027 BMS_SOCHigCorrFlg 0;
+BA_ "GenSigStartValue" SG_ 2566849027 BMS_SOCLowCorrFlg 0;
+BA_ "GenSigStartValue" SG_ 2566849027 BMS_DeltSOCAh 0;
+BA_ "GenSigStartValue" SG_ 2566849283 BMS_DischrgWakeUp 0;
+BA_ "GenSigStartValue" SG_ 2566849283 BMS_ChrgWakeUp 0;
+BA_ "GenSigStartValue" SG_ 2566849283 BMS_NM_Wakeup 0;
+BA_ "GenSigStartValue" SG_ 2566849283 BMS_ChrgVltgWakeUp 0;
+BA_ "GenSigStartValue" SG_ 2566849283 BMS_RTCWakeUp 0;
+BA_ "GenSigStartValue" SG_ 2566849283 BMS_RTCSleepTime 0;
+BA_ "GenSigStartValue" SG_ 2566849283 BMS_RTCWakeTime 0;
+BA_ "GenSigStartValue" SG_ 2566849521 BMS_RTCSleepTimeSet 0;
+BA_ "GenSigStartValue" SG_ 2566849521 BMS_RTCWakeTimeSet 0;
+BA_ "GenSigStartValue" SG_ 2566849539 BMS_SingleCellTemp_Num 0;
+BA_ "GenSigStartValue" SG_ 2566849539 BMS_SingleCellTemperature1 0;
+BA_ "GenSigStartValue" SG_ 2566849539 BMS_SingleCellTemperature2 0;
+BA_ "GenSigStartValue" SG_ 2566849539 BMS_SingleCellTemperature3 0;
+BA_ "GenSigStartValue" SG_ 2566849539 BMS_SingleCellTemperature4 0;
+BA_ "GenSigStartValue" SG_ 2566849539 BMS_SingleCellTemperature5 0;
+BA_ "GenSigStartValue" SG_ 2566849539 BMS_SingleCellTemperature6 0;
+BA_ "GenSigStartValue" SG_ 2566849795 BMS_SingleCellVoltage_Num 0;
+BA_ "GenSigStartValue" SG_ 2566849795 BMS_SingleCellVoltage1 0;
+BA_ "GenSigStartValue" SG_ 2566849795 BMS_SingleCellVoltage2 0;
+BA_ "GenSigStartValue" SG_ 2566849795 BMS_SingleCellVoltage3 0;
+BA_ "GenSigStartValue" SG_ 2566850051 BMS_TotalDisCycles 0;
+BA_ "GenSigStartValue" SG_ 2566850051 BMS_TotalChrgCycles 0;
+BA_ "GenSigStartValue" SG_ 2566893569 NM_VCU_SourceAddress 0;
+BA_ "GenSigStartValue" SG_ 2566893569 NM_VCU_RepeatMessageRequest 0;
+BA_ "GenSigStartValue" SG_ 2566893569 NM_VCU_ActiveWakeup 0;
+BA_ "GenSigStartValue" SG_ 2566893569 NM_VCU_Message2 0;
+BA_ "GenSigStartValue" SG_ 2566893569 NM_VCU_Message3 0;
+BA_ "GenSigStartValue" SG_ 2566893569 NM_VCU_Message4 0;
+BA_ "GenSigStartValue" SG_ 2566893569 NM_VCU_Message5 0;
+BA_ "GenSigStartValue" SG_ 2566893569 NM_VCU_Message6 0;
+BA_ "GenSigStartValue" SG_ 2566893569 NM_VCU_Message7 0;
+BA_ "GenSigStartValue" SG_ 2566893571 NM_BMS_SourceAddress 0;
+BA_ "GenSigStartValue" SG_ 2566893571 NM_BMS_RepeatMessageRequest 0;
+BA_ "GenSigStartValue" SG_ 2566893571 NM_BMS_ActiveWakeup 0;
+BA_ "GenSigStartValue" SG_ 2566893571 NM_BMS_Message2 0;
+BA_ "GenSigStartValue" SG_ 2566893571 NM_BMS_Message3 0;
+BA_ "GenSigStartValue" SG_ 2566893571 NM_BMS_Message4 0;
+BA_ "GenSigStartValue" SG_ 2566893571 NM_BMS_Message5 0;
+BA_ "GenSigStartValue" SG_ 2566893571 NM_BMS_Message6 0;
+BA_ "GenSigStartValue" SG_ 2566893571 NM_BMS_Message7 0;
+BA_ "GenSigStartValue" SG_ 2564485380 Diag_Resp_BMS_Data_0 0;
+BA_ "GenSigStartValue" SG_ 2564485380 Diag_Resp_BMS_Data_1 0;
+BA_ "GenSigStartValue" SG_ 2564485380 Diag_Resp_BMS_Data_2 0;
+BA_ "GenSigStartValue" SG_ 2564485380 Diag_Resp_BMS_Data_3 0;
+BA_ "GenSigStartValue" SG_ 2564485380 Diag_Resp_BMS_Data_4 0;
+BA_ "GenSigStartValue" SG_ 2564485380 Diag_Resp_BMS_Data_5 0;
+BA_ "GenSigStartValue" SG_ 2564485380 Diag_Resp_BMS_Data_6 0;
+BA_ "GenSigStartValue" SG_ 2564485380 Diag_Resp_BMS_Data_7 0;
+BA_ "GenSigStartValue" SG_ 2564424945 Diag_PhyReq_BMS_Data_0 0;
+BA_ "GenSigStartValue" SG_ 2564424945 Diag_PhyReq_BMS_Data_1 0;
+BA_ "GenSigStartValue" SG_ 2564424945 Diag_PhyReq_BMS_Data_2 0;
+BA_ "GenSigStartValue" SG_ 2564424945 Diag_PhyReq_BMS_Data_3 0;
+BA_ "GenSigStartValue" SG_ 2564424945 Diag_PhyReq_BMS_Data_4 0;
+BA_ "GenSigStartValue" SG_ 2564424945 Diag_PhyReq_BMS_Data_5 0;
+BA_ "GenSigStartValue" SG_ 2564424945 Diag_PhyReq_BMS_Data_6 0;
+BA_ "GenSigStartValue" SG_ 2564424945 Diag_PhyReq_BMS_Data_7 0;
+BA_ "GenSigStartValue" SG_ 2564506865 Diag_FuncReq_Data_0 0;
+BA_ "GenSigStartValue" SG_ 2564506865 Diag_FuncReq_Data_1 0;
+BA_ "GenSigStartValue" SG_ 2564506865 Diag_FuncReq_Data_2 0;
+BA_ "GenSigStartValue" SG_ 2564506865 Diag_FuncReq_Data_3 0;
+BA_ "GenSigStartValue" SG_ 2564506865 Diag_FuncReq_Data_4 0;
+BA_ "GenSigStartValue" SG_ 2564506865 Diag_FuncReq_Data_5 0;
+BA_ "GenSigStartValue" SG_ 2564506865 Diag_FuncReq_Data_6 0;
+BA_ "GenSigStartValue" SG_ 2564506865 Diag_FuncReq_Data_7 0;
+BA_ "GenSigStartValue" SG_ 2565915140 BMS_ChrgReqVoltage 0;
+BA_ "GenSigStartValue" SG_ 2565915140 BMS_ChrgReqCurrent 0;
+BA_ "GenSigStartValue" SG_ 2565915140 BMS_SOC 0;
+BA_ "GenSigStartValue" SG_ 2565915140 BMS_ChrgCtrl 0;
+BA_ "GenSigStartValue" SG_ 2565865476 BMS_TotalFault 0;
+BA_ "GenSigStartValue" SG_ 2565865476 BMS_FaultSerialNumber 0;
+BA_ "GenSigStartValue" SG_ 2565865476 BMS_FaultCode 0;
+BA_ "GenSigStartValue" SG_ 2565865476 BMS_TotalFaultGrade 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_CellOverVltgErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_CellLowVltgErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_PackOverVltgErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_PackLowVltgErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_VltgDifferLargeErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_ChrgCurrOverErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_DisCurrOverErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_RegenerateCurrOverErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_ShortCircuitErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_CellChrgTempLowErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_CellChrgTempHigErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_CellDisTempLowErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_CellDisTempHigErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_TempDifferLargeErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_CellTempHigFailure 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_EnvirTempLowErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_EnvirTempHigErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_MosTempHigErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_ThermalWarningErr 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_NTC_Failure 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_DisMosFailure 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_ChrgMosFailure 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_StatusAbnormal 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_ReplaceBatteryTip 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_BatteryFault_Old 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_LowPower 0;
+BA_ "GenSigStartValue" SG_ 2565865732 BMS_BalanceErr 0;
+BA_ "GenSigStartValue" SG_ 2565865988 BMS_SOC 0;
+BA_ "GenSigStartValue" SG_ 2565865988 BMS_SOH 0;
+BA_ "GenSigStartValue" SG_ 2565865988 BMS_Voltage 0;
+BA_ "GenSigStartValue" SG_ 2565865988 BMS_Current 0;
+BA_ "GenSigStartValue" SG_ 2565865988 BMS_DrvRange 0;
+BA_ "GenSigStartValue" SG_ 2565866244 BMS_DuringChargeCurrent 0;
+BA_ "GenSigStartValue" SG_ 2565866244 BMS_DuringDischargeCurrent 0;
+BA_ "GenSigStartValue" SG_ 2565866244 BMS_PeakDischargeCurrent 0;
+BA_ "GenSigStartValue" SG_ 2565866244 BMS_PeakFeedbackCurrent 0;
+BA_ "GenSigStartValue" SG_ 2565866244 BMS_ChrgReqCurrent 0;
+BA_ "GenSigStartValue" SG_ 2565866500 BMS_CellTemp1 0;
+BA_ "GenSigStartValue" SG_ 2565866500 BMS_CellTemp2 0;
+BA_ "GenSigStartValue" SG_ 2565866500 BMS_CellTemp3 0;
+BA_ "GenSigStartValue" SG_ 2565866500 BMS_CellTempHigh 0;
+BA_ "GenSigStartValue" SG_ 2565866500 BMS_CellTempLow 0;
+BA_ "GenSigStartValue" SG_ 2565866500 BMS_CellTempDiff 0;
+BA_ "GenSigStartValue" SG_ 2565866500 BMS_EnvironmentTemp 0;
+BA_ "GenSigStartValue" SG_ 2565866500 BMS_MOSTemp 0;
+BA_ "GenSigStartValue" SG_ 2565866756 BMS_CellMaxVoltage 0;
+BA_ "GenSigStartValue" SG_ 2565866756 BMS_MaxVoltageNumber 0;
+BA_ "GenSigStartValue" SG_ 2565866756 BMS_CellMinVoltage 0;
+BA_ "GenSigStartValue" SG_ 2565866756 BMS_06_MinVoltageNumber 0;
+BA_ "GenSigStartValue" SG_ 2565867012 BMS_Code1 0;
+BA_ "GenSigStartValue" SG_ 2565867012 BMS_Code2 0;
+BA_ "GenSigStartValue" SG_ 2565867012 BMS_Code3 0;
+BA_ "GenSigStartValue" SG_ 2565867012 BMS_Code4 0;
+BA_ "GenSigStartValue" SG_ 2565867012 BMS_Code5 0;
+BA_ "GenSigStartValue" SG_ 2565867012 BMS_Code6 0;
+BA_ "GenSigStartValue" SG_ 2565867012 BMS_Code7 0;
+BA_ "GenSigStartValue" SG_ 2565867012 BMS_Code8 0;
+BA_ "GenSigStartValue" SG_ 2565867268 BMS_Code9 0;
+BA_ "GenSigStartValue" SG_ 2565867268 BMS_Code10 0;
+BA_ "GenSigStartValue" SG_ 2565867268 BMS_Code11 0;
+BA_ "GenSigStartValue" SG_ 2565867268 BMS_Code12 0;
+BA_ "GenSigStartValue" SG_ 2565867268 BMS_Code13 0;
+BA_ "GenSigStartValue" SG_ 2565867268 BMS_Code14 0;
+BA_ "GenSigStartValue" SG_ 2565867268 BMS_Code15 0;
+BA_ "GenSigStartValue" SG_ 2565867268 BMS_Code16 0;
+BA_ "GenSigStartValue" SG_ 2565867524 BMS_Code17 0;
+BA_ "GenSigStartValue" SG_ 2565867524 BMS_Code18 0;
+BA_ "GenSigStartValue" SG_ 2565867524 BMS_Code19 0;
+BA_ "GenSigStartValue" SG_ 2565867524 BMS_Code20 0;
+BA_ "GenSigStartValue" SG_ 2565867524 BMS_Code21 0;
+BA_ "GenSigStartValue" SG_ 2565867524 BMS_Code22 0;
+BA_ "GenSigStartValue" SG_ 2565867524 BMS_Code23 0;
+BA_ "GenSigStartValue" SG_ 2565867524 BMS_Code24 0;
+BA_ "GenSigStartValue" SG_ 2565867780 BMS_SoftwareVersion1 0;
+BA_ "GenSigStartValue" SG_ 2565867780 BMS_SoftwareVersion2 0;
+BA_ "GenSigStartValue" SG_ 2565867780 BMS_SoftwareVersion3 0;
+BA_ "GenSigStartValue" SG_ 2565867780 BMS_HardwareVersion1 0;
+BA_ "GenSigStartValue" SG_ 2565867780 BMS_HardwareVersion2 0;
+BA_ "GenSigStartValue" SG_ 2565867780 BMS_HardwareVersion3 0;
+BA_ "GenSigStartValue" SG_ 2565868036 BMS_BatteryPackState 0;
+BA_ "GenSigStartValue" SG_ 2565868292 BMS_ChrgMosStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868292 BMS_DisMosStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868292 BMS_PreChrgMosStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868292 BMS_HeatMosStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868292 BMS_CurrLimModuleState 0;
+BA_ "GenSigStartValue" SG_ 2565868292 BMS_FuseStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868292 BMS_State 0;
+BA_ "GenSigStartValue" SG_ 2565868292 BMS_ChrgerConnectStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868292 BMS_DischrgConnectStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868292 BMS_BuzzerStatus 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState1 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState2 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState3 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState4 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState5 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState6 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState7 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState8 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState9 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState10 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState11 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState12 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState13 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState14 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState15 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState16 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState17 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState18 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState19 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState20 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState21 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState22 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState23 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState24 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState25 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState26 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState27 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState28 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState29 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState30 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState31 0;
+BA_ "GenSigStartValue" SG_ 2565868548 BMS_CellEqState32 0;
+BA_ "GenSigStartValue" SG_ 2565868804 BMS_CellVoltage1 0;
+BA_ "GenSigStartValue" SG_ 2565868804 BMS_CellVoltage2 0;
+BA_ "GenSigStartValue" SG_ 2565868804 BMS_CellVoltage3 0;
+BA_ "GenSigStartValue" SG_ 2565868804 BMS_CellVoltage4 0;
+BA_ "GenSigStartValue" SG_ 2565869060 BMS_CellVoltage5 0;
+BA_ "GenSigStartValue" SG_ 2565869060 BMS_CellVoltage6 0;
+BA_ "GenSigStartValue" SG_ 2565869060 BMS_CellVoltage7 0;
+BA_ "GenSigStartValue" SG_ 2565869060 BMS_CellVoltage8 0;
+BA_ "GenSigStartValue" SG_ 2565869316 BMS_CellVoltage9 0;
+BA_ "GenSigStartValue" SG_ 2565869316 BMS_CellVoltage10 0;
+BA_ "GenSigStartValue" SG_ 2565869316 BMS_CellVoltage11 0;
+BA_ "GenSigStartValue" SG_ 2565869316 BMS_CellVoltage12 0;
+BA_ "GenSigStartValue" SG_ 2565869572 BMS_CellVoltage13 0;
+BA_ "GenSigStartValue" SG_ 2565869572 BMS_CellVoltage14 0;
+BA_ "GenSigStartValue" SG_ 2565869572 BMS_CellVoltage15 0;
+BA_ "GenSigStartValue" SG_ 2565869572 BMS_CellVoltage16 0;
+BA_ "GenSigStartValue" SG_ 2565869828 BMS_CellVoltage1 0;
+BA_ "GenSigStartValue" SG_ 2565869828 BMS_CellVoltage2 0;
+BA_ "GenSigStartValue" SG_ 2565869828 BMS_CellVoltage3 0;
+BA_ "GenSigStartValue" SG_ 2565869828 BMS_CellVoltage4 0;
+BA_ "GenSigStartValue" SG_ 2565870084 BMS_CellVoltage5 0;
+BA_ "GenSigStartValue" SG_ 2565870084 BMS_CellVoltage6 0;
+BA_ "GenSigStartValue" SG_ 2565870084 BMS_CellVoltage7 0;
+BA_ "GenSigStartValue" SG_ 2565870084 BMS_CellVoltage8 0;
+BA_ "GenSigStartValue" SG_ 2565870340 BMS_CellVoltage9 0;
+BA_ "GenSigStartValue" SG_ 2565870340 BMS_CellVoltage10 0;
+BA_ "GenSigStartValue" SG_ 2565870340 BMS_CellVoltage11 0;
+BA_ "GenSigStartValue" SG_ 2565870340 BMS_CellVoltage12 0;
+BA_ "GenSigStartValue" SG_ 2565870596 BMS_CellVoltage13 0;
+BA_ "GenSigStartValue" SG_ 2565870596 BMS_CellVoltage14 0;
+BA_ "GenSigStartValue" SG_ 2565870596 BMS_CellVoltage15 0;
+BA_ "GenSigStartValue" SG_ 2565870596 BMS_CellVoltage16 0;
+BA_ "GenSigStartValue" SG_ 2565870852 BMS_DesignCapacity 0;
+BA_ "GenSigStartValue" SG_ 2565870852 BMS_FullChrgCapacity 0;
+BA_ "GenSigStartValue" SG_ 2565870852 BMS_LearnCapacity 0;
+BA_ "GenSigStartValue" SG_ 2565870852 BMS_CurrentCapacity 0;
+BA_ "GenSigStartValue" SG_ 2565871108 BMS_TotalChrgCapacity 0;
+BA_ "GenSigStartValue" SG_ 2565871108 BMS_TotalDisCapacity 0;
+BA_ "GenSigStartValue" SG_ 2565871108 BMS_TotalChrgCycles 0;
+BA_ "GenSigStartValue" SG_ 2565871364 BMS_Year 0;
+BA_ "GenSigStartValue" SG_ 2565871364 BMS_Month 0;
+BA_ "GenSigStartValue" SG_ 2565871364 BMS_Day 0;
+BA_ "GenSigStartValue" SG_ 2565871364 BMS_Week 0;
+BA_ "GenSigStartValue" SG_ 2565871364 BMS_Hour 0;
+BA_ "GenSigStartValue" SG_ 2565871364 BMS_Minute 0;
+BA_ "GenSigStartValue" SG_ 2565871364 BMS_Second 0;
+BA_ "GenSigStartValue" SG_ 2565871620 BMS_CellChemistry 15;
+BA_ "GenSigStartValue" SG_ 2565871620 BMS_CellPackageType 15;
+BA_ "GenSigStartValue" SG_ 2565871620 BMS_CellCount 0;
+BA_ "GenSigStartValue" SG_ 2565871620 BMS_CellManufacturerInfo 0;
+BA_ "GenSigStartValue" SG_ 2565871620 BMS_BMSManufacturerInfo 0;
+BA_ "GenSigStartValue" SG_ 2565871620 BMS_PackManufacturerInfo 0;
+BA_ "GenSigStartValue" SG_ 2565871876 BMS_BluetoothState 0;
+BA_ "GenSigStartValue" SG_ 2565871876 BMS_FourthGenerationState 0;
+BA_ "GenSigStartValue" SG_ 2565871876 BMS_GPSState 0;
+BA_ "GenSigStartValue" SG_ 2566848772 BMS_ActuralSOC 0;
+BA_ "GenSigStartValue" SG_ 2566848772 BMS_SOCHigEst 0;
+BA_ "GenSigStartValue" SG_ 2566848772 BMS_SOCLowEst 0;
+BA_ "GenSigStartValue" SG_ 2566848772 BMS_SOCEEP 0;
+BA_ "GenSigStartValue" SG_ 2566849028 BMS_ActuralSOH 0;
+BA_ "GenSigStartValue" SG_ 2566849028 BMS_CorrectCurrent 0;
+BA_ "GenSigStartValue" SG_ 2566849028 BMS_SOCEnableFalg 0;
+BA_ "GenSigStartValue" SG_ 2566849028 BMS_SOCHigCorrFlg 0;
+BA_ "GenSigStartValue" SG_ 2566849028 BMS_SOCLowCorrFlg 0;
+BA_ "GenSigStartValue" SG_ 2566849028 BMS_DeltSOCAh 0;
+BA_ "GenSigStartValue" SG_ 2566849284 BMS_DischrgWakeUp 0;
+BA_ "GenSigStartValue" SG_ 2566849284 BMS_ChrgWakeUp 0;
+BA_ "GenSigStartValue" SG_ 2566849284 BMS_NM_Wakeup 0;
+BA_ "GenSigStartValue" SG_ 2566849284 BMS_ChrgVltgWakeUp 0;
+BA_ "GenSigStartValue" SG_ 2566849284 BMS_RTCWakeUp 0;
+BA_ "GenSigStartValue" SG_ 2566849284 BMS_RTCSleepTime 0;
+BA_ "GenSigStartValue" SG_ 2566849284 BMS_RTCWakeTime 0;
+BA_ "GenSigStartValue" SG_ 2566849540 BMS_SingleCellTemp_Num 0;
+BA_ "GenSigStartValue" SG_ 2566849540 BMS_SingleCellTemperature1 0;
+BA_ "GenSigStartValue" SG_ 2566849540 BMS_SingleCellTemperature2 0;
+BA_ "GenSigStartValue" SG_ 2566849540 BMS_SingleCellTemperature3 0;
+BA_ "GenSigStartValue" SG_ 2566849540 BMS_SingleCellTemperature4 0;
+BA_ "GenSigStartValue" SG_ 2566849540 BMS_SingleCellTemperature5 0;
+BA_ "GenSigStartValue" SG_ 2566849540 BMS_SingleCellTemperature6 0;
+BA_ "GenSigStartValue" SG_ 2566849796 BMS_SingleCellVoltage_Num 0;
+BA_ "GenSigStartValue" SG_ 2566849796 BMS_SingleCellVoltage1 0;
+BA_ "GenSigStartValue" SG_ 2566849796 BMS_SingleCellVoltage2 0;
+BA_ "GenSigStartValue" SG_ 2566849796 BMS_SingleCellVoltage3 0;
+BA_ "GenSigStartValue" SG_ 2566850052 BMS_TotalDisCycles 0;
+BA_ "GenSigStartValue" SG_ 2566850052 BMS_TotalChrgCycles 0;
+BA_ "GenSigStartValue" SG_ 2566893572 NM_BMS_SourceAddress 0;
+BA_ "GenSigStartValue" SG_ 2566893572 NM_BMS_RepeatMessageRequest 0;
+BA_ "GenSigStartValue" SG_ 2566893572 NM_BMS_ActiveWakeup 0;
+BA_ "GenSigStartValue" SG_ 2566893572 NM_BMS_Message2 0;
+BA_ "GenSigStartValue" SG_ 2566893572 NM_BMS_Message3 0;
+BA_ "GenSigStartValue" SG_ 2566893572 NM_BMS_Message4 0;
+BA_ "GenSigStartValue" SG_ 2566893572 NM_BMS_Message5 0;
+BA_ "GenSigStartValue" SG_ 2566893572 NM_BMS_Message6 0;
+BA_ "GenSigStartValue" SG_ 2566893572 NM_BMS_Message7 0;
+VAL_ 2565866241 VCU_HV_OnAndOff 0 "下高压 " 1 "上高压" ;
+VAL_ 2565866241 VCU_EmergencyHVOff 0 "无情求" 1 "紧急下电" ;
+VAL_ 2565866241 VCU_AllowCharging 0 "充电不允许" 1 "充电允许" 2 "Reserved" 3 "Reserved" ;
+VAL_ 2565866241 VCU_ACCState 0 "None" 1 "ACC ON仪表上电" 2 "ACC OFF仪表下电" ;
+VAL_ 2565866241 VCU_State 0 "None" 1 "待机模式" 2 "飞行模式" 3 "充电模式" ;
+VAL_ 2565866242 Chrger_HardwareErr 0 "正常" 1 "硬件故障" ;
+VAL_ 2565866242 Chrger_TempErr 0 "正常" 1 "充电机温度过高保护" ;
+VAL_ 2565866242 Chrger_ConnectErr 0 "正常" 1 "充电口故障" ;
+VAL_ 2565866242 Chrger_StartErr 0 "电池接入正常" 1 "电池未接" ;
+VAL_ 2565866242 Chrger_ComErr 0 "通信正常" 1 "通信接收超时" ;
+VAL_ 2565915139 BMS_ChrgCtrl 0 "允许充电 " 1 "禁止充电" ;
+VAL_ 2565865475 BMS_TotalFaultGrade 0 "正常 " 1 "一级故障 " 2 "二级故障 " 3 "三级故障 " 4 "四级故障 " 5 "五级故障 （预留）" 6 "六级故障（预留） " 7 "七级故障（预留）" ;
+VAL_ 2565865731 BMS_CellOverVltgErr 0 "正常" 1 "一级故障告警 " 2 "二级故障保护" 3 "三级故障失效" ;
+VAL_ 2565865731 BMS_CellLowVltgErr 0 "正常" 1 "一级故障告警 " 2 "二级故障保护" 3 "三级故障失效" ;
+VAL_ 2565865731 BMS_PackOverVltgErr 0 "正常" 1 "一级故障告警 " 2 "二级故障保护" 3 "三级故障失效" ;
+VAL_ 2565865731 BMS_PackLowVltgErr 0 "正常无故障" 1 "一级故障告警 " 2 "二级故障保护" 3 "三级故障失效" ;
+VAL_ 2565865731 BMS_VltgDifferLargeErr 0 "正常无故障" 1 "二级故障保护" ;
+VAL_ 2565865731 BMS_ChrgCurrOverErr 0 "正常无故障" 1 "一级故障告警 " 2 "一级故障保护" 3 "二级故障保护" 4 "三级故障保护" ;
+VAL_ 2565865731 BMS_DisCurrOverErr 0 "正常无故障" 1 "一级故障告警 " 2 "一级故障保护" 3 "二级故障保护" 4 "三级故障保护" ;
+VAL_ 2565865731 BMS_RegenerateCurrOverErr 0 "正常无故障" 1 "一级故障告警 " 2 "一级故障保护" 3 "二级故障保护" 4 "三级故障保护" ;
+VAL_ 2565865731 BMS_ShortCircuitErr 0 "正常 " 1 "二级故障保护" ;
+VAL_ 2565865731 BMS_CellChrgTempLowErr 0 "正常无故障" 1 "一级故障告警 " 2 "二级故障保护" ;
+VAL_ 2565865731 BMS_CellChrgTempHigErr 0 "正常 " 1 "一级故障告警 " 2 "二级故障保护" ;
+VAL_ 2565865731 BMS_CellDisTempLowErr 0 "正常无故障" 1 "一级故障告警 " 2 "二级故障保护" ;
+VAL_ 2565865731 BMS_CellDisTempHigErr 0 "正常 " 1 "一级故障告警 " 2 "二级故障保护" ;
+VAL_ 2565865731 BMS_TempDifferLargeErr 0 "正常 " 1 "二级故障保护" ;
+VAL_ 2565865731 BMS_CellTempHigFailure 0 "正常 " 1 "三级故障失效" ;
+VAL_ 2565865731 BMS_EnvirTempLowErr 0 "正常无故障" 1 "一级故障告警 " 2 "二级故障保护" ;
+VAL_ 2565865731 BMS_EnvirTempHigErr 0 "正常 " 1 "一级故障告警 " 2 "二级故障保护" ;
+VAL_ 2565865731 BMS_MosTempHigErr 0 "正常 " 1 "一级故障告警 " 2 "二级故障保护" ;
+VAL_ 2565865731 BMS_ThermalWarningErr 0 "正常" 1 "四级故障失效" ;
+VAL_ 2565865731 BMS_NTC_Failure 0 "正常" 1 "三级故障失效" ;
+VAL_ 2565865731 BMS_DisMosFailure 0 "正常" 1 "三级故障失效" ;
+VAL_ 2565865731 BMS_ChrgMosFailure 0 "正常" 1 "三级故障失效" ;
+VAL_ 2565865731 BMS_StatusAbnormal 0 "正常" 1 "三级故障失效" ;
+VAL_ 2565865731 BMS_ReplaceBatteryTip 0 "无提示 " 1 "四级电池更换提示" ;
+VAL_ 2565865731 BMS_BatteryFault_Old 0 "正常" 1 "一级老化故障告警" ;
+VAL_ 2565865731 BMS_LowPower 0 "无提示 " 1 "一级电量低告警" ;
+VAL_ 2565865731 BMS_BalanceErr 0 "无提示 " 1 "一级故障告警" ;
+VAL_ 2565868035 BMS_BatteryPackState 0 "单包状态" 1 "并包主包状态" 2 "并包从包状态" ;
+VAL_ 2565868035 BMS_MainChrgMosCtrlCmd 0 "断开" 1 "闭合" ;
+VAL_ 2565868035 BMS_MainDisMosCtrlCmd 0 "断开" 1 "闭合" ;
+VAL_ 2565868035 BMS_SlaveChrgMosCtrlCmd 0 "断开" 1 "闭合" ;
+VAL_ 2565868035 BMS_SlaveDisMosCtrlCmd 0 "断开" 1 "闭合" ;
+VAL_ 2565868291 BMS_ChrgMosStatus 0 "断开" 1 "闭合" ;
+VAL_ 2565868291 BMS_DisMosStatus 0 "断开" 1 "闭合" ;
+VAL_ 2565868291 BMS_PreChrgMosStatus 0 "断开" 1 "闭合" ;
+VAL_ 2565868291 BMS_HeatMosStatus 0 "断开" 1 "闭合" ;
+VAL_ 2565868291 BMS_CurrLimModuleState 0 "不使能" 1 "使能" ;
+VAL_ 2565868291 BMS_FuseStatus 0 "断开" 1 "正常连接" ;
+VAL_ 2565868291 BMS_State 0 "非充非放状态" 1 "放电状态-地面模式" 2 "满放状态" 3 "充电状态" 4 "满充状态" 5 "放电状态-飞行模式" ;
+VAL_ 2565868291 BMS_ChrgerConnectStatus 0 "断开" 1 "接入" ;
+VAL_ 2565868291 BMS_DischrgConnectStatus 0 "断开" 1 "接入" ;
+VAL_ 2565868291 BMS_BuzzerStatus 0 "不鸣" 1 "鸣响" ;
+VAL_ 2565868547 BMS_CellEqState1 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState2 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState3 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState4 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState5 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState6 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState7 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState8 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState9 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState10 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState11 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState12 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState13 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState14 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState15 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState16 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState17 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState18 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState19 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState20 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState21 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState22 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState23 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState24 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState25 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState26 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState27 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState28 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState29 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState30 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState31 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868547 BMS_CellEqState32 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565871619 BMS_CellChemistry 0 "LFP磷酸铁锂电池" 1 "NCM三元锂电池" 2 "LMO锰酸锂电池" 3 "LTO钛酸锂电池" 4 "LMFP磷酸锰铁锂电池" 6 "NMC镍钴锰三元电池" 7 "NCA镍钴铝三元电池" 15 "None" ;
+VAL_ 2565871619 BMS_CellPackageType 0 "圆柱电池" 1 "方形硬壳电池" 2 "软包电池" 15 "None" ;
+VAL_ 2565871619 BMS_CellManufacturerInfo 0 "None" 1 "待定" 2 "待定" 3 "待定" 4 "待定" 5 "待定" ;
+VAL_ 2565871619 BMS_BMSManufacturerInfo 0 "None" 1 "待定" 2 "待定" 3 "待定" 4 "待定" 5 "待定" ;
+VAL_ 2565871619 BMS_PackManufacturerInfo 0 "None" 1 "待定" 2 "待定" 3 "待定" 4 "待定" 5 "待定" ;
+VAL_ 2565871875 BMS_BluetoothState 0 "未配置" 1 "蓝牙在位" ;
+VAL_ 2565871875 BMS_FourthGenerationState 0 "未配置" 1 "4G通讯正常" ;
+VAL_ 2565871875 BMS_GPSState 0 "未配置" 1 "已配置" ;
+VAL_ 2566849027 BMS_SOCEnableFalg 0 "进入SOC模块禁止使能" 1 "进入SOC模块使能开启" ;
+VAL_ 2566849027 BMS_SOCHigCorrFlg 0 "SOCHig修正信号无效" 1 "SOCHig修正信号有效" ;
+VAL_ 2566849027 BMS_SOCLowCorrFlg 0 "SOCLow修正信号无效" 1 "SOCLow修正信号有效" ;
+VAL_ 2566849283 BMS_DischrgWakeUp 0 "无信号" 1 "放电识别唤醒" ;
+VAL_ 2566849283 BMS_ChrgWakeUp 0 "无信号" 1 "充电识别唤醒" ;
+VAL_ 2566849283 BMS_NM_Wakeup 0 "无信号" 1 "NM唤醒" ;
+VAL_ 2566849283 BMS_ChrgVltgWakeUp 0 "无信号" 1 "充电电压唤醒" ;
+VAL_ 2566849283 BMS_RTCWakeUp 0 "无信号" 1 "定时唤醒" ;
+VAL_ 2566893569 NM_VCU_RepeatMessageRequest 0 "该报文发送节点未请求其他节点进入重复报文状态" 1 "该报文发送节点请求其他节点进入重复报文状态" ;
+VAL_ 2566893569 NM_VCU_ActiveWakeup 0 "该报文发送节点未主动唤醒网络（被其它节点唤醒）" 1 "该报文发送节点主动唤醒网络" ;
+VAL_ 2566893571 NM_BMS_RepeatMessageRequest 0 "该报文发送节点未请求其他节点进入重复报文状态" 1 "该报文发送节点请求其他节点进入重复报文状态" ;
+VAL_ 2566893571 NM_BMS_ActiveWakeup 0 "该报文发送节点未主动唤醒网络（被其它节点唤醒）" 1 "该报文发送节点主动唤醒网络" ;
+VAL_ 2565915140 BMS_ChrgCtrl 0 "允许充电 " 1 "禁止充电" ;
+VAL_ 2565865476 BMS_TotalFaultGrade 0 "正常 " 1 "一级故障 " 2 "二级故障 " 3 "三级故障 " 4 "四级故障 " 5 "五级故障 （预留）" 6 "六级故障（预留） " 7 "七级故障（预留）" ;
+VAL_ 2565865732 BMS_CellOverVltgErr 0 "正常" 1 "一级故障告警 " 2 "二级故障保护" 3 "三级故障失效" ;
+VAL_ 2565865732 BMS_CellLowVltgErr 0 "正常" 1 "一级故障告警 " 2 "二级故障保护" 3 "三级故障失效" ;
+VAL_ 2565865732 BMS_PackOverVltgErr 0 "正常" 1 "一级故障告警 " 2 "二级故障保护" 3 "三级故障失效" ;
+VAL_ 2565865732 BMS_PackLowVltgErr 0 "正常无故障" 1 "一级故障告警 " 2 "二级故障保护" 3 "三级故障失效" ;
+VAL_ 2565865732 BMS_VltgDifferLargeErr 0 "正常无故障" 1 "二级故障保护" ;
+VAL_ 2565865732 BMS_ChrgCurrOverErr 0 "正常无故障" 1 "一级故障告警 " 2 "一级故障保护" 3 "二级故障保护" 4 "三级故障保护" ;
+VAL_ 2565865732 BMS_DisCurrOverErr 0 "正常无故障" 1 "一级故障告警 " 2 "一级故障保护" 3 "二级故障保护" 4 "三级故障保护" ;
+VAL_ 2565865732 BMS_RegenerateCurrOverErr 0 "正常无故障" 1 "一级故障告警 " 2 "一级故障保护" 3 "二级故障保护" 4 "三级故障保护" ;
+VAL_ 2565865732 BMS_ShortCircuitErr 0 "正常 " 1 "二级故障保护" ;
+VAL_ 2565865732 BMS_CellChrgTempLowErr 0 "正常无故障" 1 "一级故障告警 " 2 "二级故障保护" ;
+VAL_ 2565865732 BMS_CellChrgTempHigErr 0 "正常 " 1 "一级故障告警 " 2 "二级故障保护" ;
+VAL_ 2565865732 BMS_CellDisTempLowErr 0 "正常无故障" 1 "一级故障告警 " 2 "二级故障保护" ;
+VAL_ 2565865732 BMS_CellDisTempHigErr 0 "正常 " 1 "一级故障告警 " 2 "二级故障保护" ;
+VAL_ 2565865732 BMS_TempDifferLargeErr 0 "正常 " 1 "二级故障保护" ;
+VAL_ 2565865732 BMS_CellTempHigFailure 0 "正常 " 1 "三级故障失效" ;
+VAL_ 2565865732 BMS_EnvirTempLowErr 0 "正常无故障" 1 "一级故障告警 " 2 "二级故障保护" ;
+VAL_ 2565865732 BMS_EnvirTempHigErr 0 "正常 " 1 "一级故障告警 " 2 "二级故障保护" ;
+VAL_ 2565865732 BMS_MosTempHigErr 0 "正常 " 1 "一级故障告警 " 2 "二级故障保护" ;
+VAL_ 2565865732 BMS_ThermalWarningErr 0 "正常" 1 "四级故障失效" ;
+VAL_ 2565865732 BMS_NTC_Failure 0 "正常" 1 "三级故障失效" ;
+VAL_ 2565865732 BMS_DisMosFailure 0 "正常" 1 "三级故障失效" ;
+VAL_ 2565865732 BMS_ChrgMosFailure 0 "正常" 1 "三级故障失效" ;
+VAL_ 2565865732 BMS_StatusAbnormal 0 "正常" 1 "三级故障失效" ;
+VAL_ 2565865732 BMS_ReplaceBatteryTip 0 "无提示 " 1 "四级电池更换提示" ;
+VAL_ 2565865732 BMS_BatteryFault_Old 0 "正常" 1 "一级老化故障告警" ;
+VAL_ 2565865732 BMS_LowPower 0 "无提示 " 1 "一级电量低告警" ;
+VAL_ 2565865732 BMS_BalanceErr 0 "无提示 " 1 "一级故障告警" ;
+VAL_ 2565868036 BMS_BatteryPackState 0 "单包状态" 1 "并包主包状态" 2 "并包从包状态" ;
+VAL_ 2565868292 BMS_ChrgMosStatus 0 "断开" 1 "闭合" ;
+VAL_ 2565868292 BMS_DisMosStatus 0 "断开" 1 "闭合" ;
+VAL_ 2565868292 BMS_PreChrgMosStatus 0 "断开" 1 "闭合" ;
+VAL_ 2565868292 BMS_HeatMosStatus 0 "断开" 1 "闭合" ;
+VAL_ 2565868292 BMS_CurrLimModuleState 0 "不使能" 1 "使能" ;
+VAL_ 2565868292 BMS_FuseStatus 0 "断开" 1 "正常连接" ;
+VAL_ 2565868292 BMS_State 0 "非充非放状态" 1 "放电状态-地面模式" 2 "满放状态" 3 "充电状态" 4 "满充状态" 5 "放电状态-飞行模式" ;
+VAL_ 2565868292 BMS_ChrgerConnectStatus 0 "断开" 1 "接入" ;
+VAL_ 2565868292 BMS_DischrgConnectStatus 0 "断开" 1 "接入" ;
+VAL_ 2565868292 BMS_BuzzerStatus 0 "不鸣" 1 "鸣响" ;
+VAL_ 2565868548 BMS_CellEqState1 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState2 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState3 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState4 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState5 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState6 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState7 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState8 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState9 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState10 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState11 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState12 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState13 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState14 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState15 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState16 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState17 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState18 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState19 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState20 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState21 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState22 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState23 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState24 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState25 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState26 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState27 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState28 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState29 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState30 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState31 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565868548 BMS_CellEqState32 0 "均衡关闭" 1 "均衡开启" ;
+VAL_ 2565871620 BMS_CellChemistry 0 "LFP磷酸铁锂电池" 1 "NCM三元锂电池" 2 "LMO锰酸锂电池" 3 "LTO钛酸锂电池" 4 "LMFP磷酸锰铁锂电池" 6 "NMC镍钴锰三元电池" 7 "NCA镍钴铝三元电池" 15 "None" ;
+VAL_ 2565871620 BMS_CellPackageType 0 "圆柱电池" 1 "方形硬壳电池" 2 "软包电池" 15 "None" ;
+VAL_ 2565871620 BMS_CellManufacturerInfo 0 "None" 1 "待定" 2 "待定" 3 "待定" 4 "待定" 5 "待定" ;
+VAL_ 2565871620 BMS_BMSManufacturerInfo 0 "None" 1 "待定" 2 "待定" 3 "待定" 4 "待定" 5 "待定" ;
+VAL_ 2565871620 BMS_PackManufacturerInfo 0 "None" 1 "待定" 2 "待定" 3 "待定" 4 "待定" 5 "待定" ;
+VAL_ 2565871876 BMS_BluetoothState 0 "未配置" 1 "蓝牙在位" ;
+VAL_ 2565871876 BMS_FourthGenerationState 0 "未配置" 1 "4G通讯正常" ;
+VAL_ 2565871876 BMS_GPSState 0 "未配置" 1 "已配置" ;
+VAL_ 2566849028 BMS_SOCEnableFalg 0 "进入SOC模块禁止使能" 1 "进入SOC模块使能开启" ;
+VAL_ 2566849028 BMS_SOCHigCorrFlg 0 "SOCHig修正信号无效" 1 "SOCHig修正信号有效" ;
+VAL_ 2566849028 BMS_SOCLowCorrFlg 0 "SOCLow修正信号无效" 1 "SOCLow修正信号有效" ;
+VAL_ 2566849284 BMS_DischrgWakeUp 0 "无信号" 1 "放电识别唤醒" ;
+VAL_ 2566849284 BMS_ChrgWakeUp 0 "无信号" 1 "充电识别唤醒" ;
+VAL_ 2566849284 BMS_NM_Wakeup 0 "无信号" 1 "NM唤醒" ;
+VAL_ 2566849284 BMS_ChrgVltgWakeUp 0 "无信号" 1 "充电电压唤醒" ;
+VAL_ 2566849284 BMS_RTCWakeUp 0 "无信号" 1 "定时唤醒" ;
+VAL_ 2566893572 NM_BMS_RepeatMessageRequest 0 "该报文发送节点未请求其他节点进入重复报文状态" 1 "该报文发送节点请求其他节点进入重复报文状态" ;
+VAL_ 2566893572 NM_BMS_ActiveWakeup 0 "该报文发送节点未主动唤醒网络（被其它节点唤醒）" 1 "该报文发送节点主动唤醒网络" ;
+

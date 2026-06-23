@@ -2,8 +2,7 @@
 // Copyright (C) 2026 wentywenty
 
 #include "bms_driver.hpp"
-#include <fcntl.h>
-#include <termios.h>
+#include "protocol/serial/serial_port.hpp"
 #include <unistd.h>
 
 #include <cstring>
@@ -55,54 +54,19 @@ static const uint8_t aucCRCLo[] = {
 
 GfBmsProtocol::GfBmsProtocol(const std::string& port_name, int baud_rate,
                              int timeout_ms, uint8_t dev_addr)
-    : serial_fd_(-1), port_name_(port_name), baud_rate_(baud_rate),
+    : port_name_(port_name), baud_rate_(baud_rate),
       dev_addr_(dev_addr), timeout_ms_(timeout_ms) {}
 
 GfBmsProtocol::~GfBmsProtocol() { close_port(); }
 
 bool GfBmsProtocol::open() {
-    serial_fd_ = ::open(port_name_.c_str(), O_RDWR | O_NOCTTY | O_NDELAY);
-    if (serial_fd_ < 0) return false;
-
-    struct termios options;
-    if (tcgetattr(serial_fd_, &options) != 0) {
-        close_port();
-        return false;
-    }
-
-    speed_t baud = (baud_rate_ == 9600) ? B9600 : B115200;
-    cfsetispeed(&options, baud);
-    cfsetospeed(&options, baud);
-
-    options.c_cflag |= (CLOCAL | CREAD);
-    options.c_cflag &= ~(PARENB | CSTOPB | CSIZE | CRTSCTS);
-    options.c_cflag |= CS8;
-
-    options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
-    options.c_iflag &= ~(IXON | IXOFF | IXANY);
-    options.c_oflag &= ~OPOST;
-
-    options.c_cc[VMIN] = 0;
-    options.c_cc[VTIME] = 0;
-
-    if (tcsetattr(serial_fd_, TCSANOW, &options) != 0) {
-        close_port();
-        return false;
-    }
-
-    fcntl(serial_fd_, F_SETFL, FNDELAY);
-    return true;
+    return serial_.open(port_name_, baud_rate_);
 }
 
-void GfBmsProtocol::close_port() {
-    if (serial_fd_ >= 0) { ::close(serial_fd_); serial_fd_ = -1; }
-}
+void GfBmsProtocol::close_port() { serial_.close(); }
+bool GfBmsProtocol::is_open() const { return serial_.is_open(); }
 
-bool GfBmsProtocol::is_open() const { return serial_fd_ >= 0; }
-
-void GfBmsProtocol::flush() {
-    if (serial_fd_ >= 0) tcflush(serial_fd_, TCIOFLUSH);
-}
+void GfBmsProtocol::flush() { serial_.flush(); }
 
 uint16_t GfBmsProtocol::calculate_crc(const uint8_t* data, size_t len) {
     uint8_t ucCRCHi = 0xFF, ucCRCLo = 0xFF;
@@ -124,22 +88,22 @@ void GfBmsProtocol::send_read_request(uint16_t start_addr, uint16_t num_regs) {
     uint16_t crc = calculate_crc(frame, 6);
     frame[6] = crc & 0xFF;
     frame[7] = crc >> 8;
-    ssize_t _ = write(serial_fd_, frame, 8);
+    ssize_t _ = serial_.write_raw( frame, 8);
     (void)_;
 }
 
 bool GfBmsProtocol::read_response(std::vector<uint8_t>& buffer,
                                    int expected_bytes) {
-    if (serial_fd_ < 0) return false;
+    if (!serial_.is_open()) return false;
 
     buffer.assign(expected_bytes, 0);
     int total_read = 0;
-    struct pollfd pfd = {serial_fd_, POLLIN, 0};
+    struct pollfd pfd = {serial_.fd(), POLLIN, 0};
 
     while (total_read < expected_bytes) {
         int ret = poll(&pfd, 1, timeout_ms_);
         if (ret > 0) {
-            int n = read(serial_fd_, buffer.data() + total_read,
+            int n = read(serial_.fd(), buffer.data() + total_read,
                          expected_bytes - total_read);
             if (n > 0) {
                 total_read += n;
@@ -220,7 +184,7 @@ bool GfBmsProtocol::write_multiple_registers(
     frame[frame_size - 2] = crc & 0xFF;
     frame[frame_size - 1] = crc >> 8;
 
-    ssize_t _ = write(serial_fd_, frame.data(), frame_size);
+    ssize_t _ = serial_.write_raw( frame.data(), frame_size);
     (void)_;
 
     std::vector<uint8_t> resp;
@@ -281,6 +245,7 @@ bool GfBmsProtocol::read_capacity_info(bms::BatteryStatus& status) {
     status.soh = get_u16_be(buf, 5);
     status.charge = get_u16_be(buf, 23) / 100.0;
     status.capacity = get_u16_be(buf, 27) / 100.0;
+    status.design_capacity = get_u16_be(buf, 25) / 100.0;
     return true;
 }
 

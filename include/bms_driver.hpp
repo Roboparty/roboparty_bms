@@ -19,6 +19,8 @@
 #include <string>
 #include <vector>
 
+#include "protocol/serial/serial_port.hpp"
+
 namespace bms {
 
 #pragma pack(push, 1)
@@ -98,7 +100,7 @@ public:
     bool set_discharge_output(bool enable);
 
 private:
-    int serial_fd_;
+    bms::SerialPort serial_;
     std::string port_name_;
     int baud_rate_;
     uint8_t dev_addr_;
@@ -137,7 +139,7 @@ public:
     bool set_discharge_output(bool enable);
 
 private:
-    int serial_fd_;
+    bms::SerialPort serial_;
     std::string port_name_;
     int baud_rate_;
     uint8_t dev_addr_;

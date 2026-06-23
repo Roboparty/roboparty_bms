@@ -29,14 +29,15 @@ find_package(pybind11 REQUIRED)
 set(PUBLIC_DEPENDENCIES
     fmt::fmt spdlog::spdlog pthread)
 
+add_subdirectory(src/protocol)
 add_subdirectory(src/drivers)
 
 # ---- Daemon executable ----
 add_executable(bms_daemon
     src/bms_daemon.cpp
 )
-target_include_directories(bms_daemon PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_link_libraries(bms_daemon PRIVATE tws_bms_protocol gf_bms_protocol fmt::fmt spdlog::spdlog pthread)
+target_include_directories(bms_daemon PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_link_libraries(bms_daemon PRIVATE tws_bms_protocol gf485_bms_protocol gfcan_bms nrf_pmic bms_protocol fmt::fmt spdlog::spdlog pthread)
 
 # ---- Client library ----
 add_library(bms STATIC
@@ -45,9 +46,10 @@ add_library(bms STATIC
 target_include_directories(bms
     PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
     $<INSTALL_INTERFACE:include>
 )
-target_link_libraries(bms PUBLIC ${PUBLIC_DEPENDENCIES} tws_bms gf_bms)
+target_link_libraries(bms PUBLIC ${PUBLIC_DEPENDENCIES} tws_bms gf485_bms gfcan_bms nrf_pmic)
 
 # ---- Python bindings ----
 pybind11_add_module(bms_py src/pybind_module.cpp)
@@ -58,7 +60,7 @@ install(DIRECTORY include/ DESTINATION include)
 
 install(TARGETS bms_daemon DESTINATION bin)
 
-install(TARGETS bms tws_bms gf_bms
+install(TARGETS bms tws_bms gf485_bms gfcan_bms nrf_pmic bms_protocol
     EXPORT roboparty_bms-targets
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib

@@ -12,6 +12,8 @@
 #include <sys/stat.h>
 #include <cstring>
 #include "bms_driver.hpp"
+#include "gfcan_bms_driver.hpp"
+#include "nrf_pmic_driver.hpp"
 
 static bool g_running = true;
 static void signal_handler(int) { g_running = false; }
@@ -147,6 +149,46 @@ static void run_daemon(Protocol& proto, const std::string& port,
     std::cout << "[BMS Daemon] Shutdown complete." << std::endl;
 }
 
+static void run_can_daemon(const std::string& can_iface,
+                           const std::string& socket_path) {
+    auto driver = std::make_unique<bms::GfCanBmsDriver>(can_iface);
+
+    bms::BatteryStatus status{};
+    size_t stale_iters = 0;
+
+    while (g_running && stale_iters < 50) {
+        status.voltage = driver->get_voltage();
+        if (status.voltage > 0.0) {
+            stale_iters = 0;
+            status.current = driver->get_current();
+            status.temperature = driver->get_temperature();
+            status.percentage = driver->get_percentage();
+            status.charge = driver->get_charge();
+            status.capacity = driver->get_capacity();
+            status.design_capacity = driver->get_design_capacity();
+            status.protect_status = driver->get_protect_status();
+            status.work_state = driver->get_work_state();
+            status.max_cell_voltage = driver->get_max_cell_voltage();
+            status.min_cell_voltage = driver->get_min_cell_voltage();
+            status.soh = driver->get_soh();
+            status.cycles = driver->get_cycles();
+        } else {
+            stale_iters++;
+            std::cerr << "[CAN BMS Daemon] Waiting for BMS data..." << std::endl;
+            std::this_thread::sleep_for(std::chrono::seconds(2));
+            continue;
+        }
+
+        std::cout << "[CAN BMS Data] Voltage: " << status.voltage
+                  << "V | Current: " << status.current
+                  << "A | SoC: " << status.percentage << "%" << std::endl;
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+
+    std::cout << "[CAN BMS Daemon] Shutdown complete." << std::endl;
+}
+
 int main(int argc, char** argv) {
     signal(SIGINT, signal_handler);
     signal(SIGTERM, signal_handler);
@@ -166,9 +208,23 @@ int main(int argc, char** argv) {
 
     /* Get arguments or use defaults */
     std::string port = (argc > 1) ? argv[1] : "/dev/ttyUSB0";
+    std::string type = "TWS";
+    if (argc > 4) {
+        type = argv[4];
+    } else if (argc > 3) {
+        std::string arg3(argv[3]);
+        if (arg3 == "GFCAN" || arg3 == "NRF") type = arg3;
+    }
+
+    if (type == "GFCAN") {
+        std::cout << "[BMS Daemon] Type=" << type << " Port=" << port << std::endl;
+        std::string socket_path = (argc > 2) ? argv[2] : "/tmp/can_bms.sock";
+        run_can_daemon(port, socket_path);
+        return 0;
+    }
+
     int baud = (argc > 2) ? std::stoi(argv[2]) : 115200;
     int timeout = (argc > 3) ? std::stoi(argv[3]) : 300;
-    std::string type = (argc > 4) ? argv[4] : "TWS";
 
     std::cout << "[BMS Daemon] Type=" << type << " Port=" << port
               << " Baud=" << baud << " Timeout=" << timeout << std::endl;
@@ -183,6 +239,21 @@ int main(int argc, char** argv) {
                                        : 0x03;
         gf_bms::GfBmsProtocol proto(port, baud, timeout, dev_addr);
         run_daemon(proto, port, "/tmp/gf_bms.sock");
+    } else if (type == "GFCAN") {
+        std::string socket_path = (argc > 2) ? argv[2] : "/tmp/can_bms.sock";
+        run_can_daemon(port, socket_path);
+    } else if (type == "NRF") {
+        auto driver = std::make_shared<NrfPmicDriver>(port);
+        while (g_running) {
+            auto status = driver->status();
+            std::cout << "[NRF PMIC] " << status.variant.name
+                      << " | 48V=" << (status.power48 ? "ON" : "OFF")
+                      << " 5V=" << (status.power5 ? "ON" : "OFF")
+                      << " | BMS " << status.bms.voltage << "V "
+                      << status.bms.current << "A "
+                      << status.bms.soc << "%" << std::endl;
+            std::this_thread::sleep_for(std::chrono::seconds(2));
+        }
     } else {
         std::cerr << "[BMS Daemon] Unknown BMS type: " << type << std::endl;
         return 1;

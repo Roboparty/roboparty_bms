@@ -4,6 +4,7 @@
 #include "socket_can.hpp"
 
 #include <cstdio>
+#include <stdexcept>
 #include <errno.h>
 
 std::unordered_map<std::string, std::shared_ptr<SocketCAN>> SocketCAN::instances_;

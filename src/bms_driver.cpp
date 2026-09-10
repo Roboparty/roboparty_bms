@@ -15,6 +15,8 @@
 #include "nrf_pmic_driver.hpp"
 #include "tws_bms_driver.hpp"
 
+#include <stdexcept>
+
 std::shared_ptr<BmsDriver> BmsDriver::create_bms(const std::string& bms_type,
                                                   const std::string& socket_path) {
     if (bms_type == "TWS") {

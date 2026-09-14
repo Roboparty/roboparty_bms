@@ -11,12 +11,31 @@
 #include <csignal>
 #include <sys/stat.h>
 #include <cstring>
+#include <type_traits>
 #include "bms_driver.hpp"
 #include "gfcan_bms_driver.hpp"
 #include "nrf_pmic_driver.hpp"
 
 static bool g_running = true;
 static void signal_handler(int) { g_running = false; }
+
+// Protocols that can fill a complete BatteryStatus from a single bus
+// transaction publish whole snapshots: a record on the wire then vouches for
+// every field in it, and nothing is carried over from an older round.
+// Everything else keeps the per-field merge loop below. Adding a protocol to
+// this list is a deliberate switch of its broadcast semantics.
+template <typename P>
+struct publishes_snapshots : std::false_type {};
+
+template <>
+struct publishes_snapshots<scud_bms::ScudBmsProtocol> : std::true_type {};
+
+static_assert(publishes_snapshots<scud_bms::ScudBmsProtocol>::value,
+              "SCUD485 must publish snapshot records");
+static_assert(!publishes_snapshots<tws_bms::BmsProtocol>::value,
+              "TWS keeps the per-field carry-forward loop");
+static_assert(!publishes_snapshots<gf_bms::GfBmsProtocol>::value,
+              "GF keeps the per-field carry-forward loop");
 
 template <typename Protocol>
 static void run_daemon(Protocol& proto, const std::string& port,
@@ -75,40 +94,70 @@ static void run_daemon(Protocol& proto, const std::string& port,
     int failure_count = 0;
 
     while (g_running) {
-        bms::BatteryStatus raw_data;
-        bool ok_basic = proto.read_basic_info(raw_data);
-        usleep(50000);
-        bool ok_capacity = proto.read_capacity_info(raw_data);
-        bool ok_io_state = proto.read_io_state(raw_data);
+        bms::BatteryStatus raw_data{};
+        bool ok_read = false;
+        // Whether power_on in this round's broadcast is fresh: the legacy
+        // loop only knows that after a successful IO-state read, the
+        // snapshot loop always does.
+        bool show_power = false;
 
-        if (ok_basic || ok_capacity || ok_io_state) {
+        if constexpr (publishes_snapshots<Protocol>::value) {
+            // One transaction fills every field or none, so the published
+            // snapshot can never mix rounds.
+            ok_read = proto.read_all(raw_data);
+            if (ok_read) {
+                status_to_send = raw_data;
+                show_power = true;
+            }
+        } else {
+            bool ok_basic = proto.read_basic_info(raw_data);
+            usleep(50000);
+            bool ok_capacity = proto.read_capacity_info(raw_data);
+            bool ok_io_state = proto.read_io_state(raw_data);
+            ok_read = ok_basic || ok_capacity || ok_io_state;
+            show_power = ok_io_state;
+
+            if (ok_read) {
+                if (ok_basic) {
+                    status_to_send.voltage = raw_data.voltage;
+                    status_to_send.current = raw_data.current;
+                    status_to_send.temperature = raw_data.temperature;
+                    status_to_send.protect_status = raw_data.protect_status;
+                    status_to_send.work_state = raw_data.work_state;
+                    status_to_send.max_cell_voltage = raw_data.max_cell_voltage;
+                    status_to_send.min_cell_voltage = raw_data.min_cell_voltage;
+                    status_to_send.cycles = raw_data.cycles;
+                }
+                if (ok_capacity) {
+                    status_to_send.percentage = raw_data.percentage;
+                    status_to_send.charge = raw_data.charge;
+                    status_to_send.capacity = raw_data.capacity;
+                    status_to_send.design_capacity = raw_data.design_capacity;
+                    status_to_send.soh = raw_data.soh;
+                }
+                if (ok_io_state) {
+                    status_to_send.io_state = raw_data.io_state;
+                    status_to_send.power_on = raw_data.power_on;
+                    // 0x31 cell-voltage backfill: forward only when the basic
+                    // read failed, so it cannot overwrite valid 0x61 extremes
+                    if (!ok_basic && raw_data.max_cell_voltage > 0.0) {
+                        status_to_send.max_cell_voltage =
+                            raw_data.max_cell_voltage;
+                        status_to_send.min_cell_voltage =
+                            raw_data.min_cell_voltage;
+                    }
+                }
+            }
+        }
+
+        if (ok_read) {
             failure_count = 0;
-
-            if (ok_basic) {
-                status_to_send.voltage = raw_data.voltage;
-                status_to_send.current = raw_data.current;
-                status_to_send.temperature = raw_data.temperature;
-                status_to_send.protect_status = raw_data.protect_status;
-                status_to_send.work_state = raw_data.work_state;
-                status_to_send.max_cell_voltage = raw_data.max_cell_voltage;
-                status_to_send.min_cell_voltage = raw_data.min_cell_voltage;
-            }
-            if (ok_capacity) {
-                status_to_send.percentage = raw_data.percentage;
-                status_to_send.charge = raw_data.charge;
-                status_to_send.capacity = raw_data.capacity;
-                status_to_send.soh = raw_data.soh;
-            }
-            if (ok_io_state) {
-                status_to_send.io_state = raw_data.io_state;
-                status_to_send.power_on = raw_data.power_on;
-            }
 
             std::cout << "[BMS Data] Voltage: " << status_to_send.voltage
                       << "V | Current: " << status_to_send.current
                       << "A | SoC: " << status_to_send.percentage * 100.0
                       << "%";
-            if (ok_io_state) {
+            if (show_power) {
                 std::cout << " | Power: "
                           << (status_to_send.power_on ? "ON" : "OFF");
             }
@@ -236,6 +285,11 @@ int main(int argc, char** argv) {
                                        : 0x03;
         gf_bms::GfBmsProtocol proto(port, baud, timeout, dev_addr);
         run_daemon(proto, port, "/tmp/gf_bms.sock");
+    } else if (type == "SCUD485") {
+        // Point-to-point frames (no device address). The spec mandates 19200
+        // 8N1, so BAUD_RATE must be set to 19200 in /etc/default/bms_daemon.
+        scud_bms::ScudBmsProtocol proto(port, baud, timeout);
+        run_daemon(proto, port, "/tmp/bms.sock");
     } else if (type == "GFCAN") {
         std::string socket_path = (argc > 2) ? argv[2] : "/tmp/can_bms.sock";
         run_can_daemon(port, socket_path);

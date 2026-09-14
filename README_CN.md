@@ -41,11 +41,34 @@ sudo dpkg -i bms-daemon_1.1.3_arm64.deb
 sudo nano /etc/default/bms_daemon
 ```
 
+> **`BMS_TYPE=SCUD485` 必须配 `BAUD_RATE=19200`。** 485 协议文档第 2 节固定为 19200 波特率 /
+> 8 数据位 / 无校验 / 1 停止位，而包内默认是 `115200`，因此改类型的同时必须改波特率。
+> 另外 `SerialPort::open()` 只认 9600/19200/115200，其余值会**静默回落到 9600**，写错一个数字
+> 表现出来就是"电池完全不应答"（连续 5 次读失败后重开串口），而不是配置错误。
+
 ### 4. 服务管理
 ```bash
 sudo systemctl restart bms      # 重启服务
 sudo journalctl -u bms -f       # 查看实时运行日志
 ```
+
+> **485 读取在服务启动 10 秒后才开始。** `bms.service` 里有 `ExecStartPre=/bin/sleep 10`，
+> 因为电池包上电后需要一段时间才能在总线上应答。每次启动都要等这 10 秒，`systemctl restart bms`
+> 也不例外；等待期间 `/tmp/bms.sock` 还不存在。所以开机后头 10~12 秒 `is_connected()` 返回
+> `false` 是预期行为，不是故障。
+
+## 数据新鲜度（SCUD485）
+
+SCUD485 客户端把"链路通"和"电池在应答"分开：`bms_daemon` 每秒只做一次 0x61 查询，成功就
+广播一条完整快照、失败就什么都不发——每条上线的记录都对自身全部字段（含 power_on）负责，
+绝不混入上一轮的旧值；socket 常开而总线断掉因此是可识别的。
+
+- `is_connected()` —— socket 已连接**且** 3 秒内收到过完整快照。总线断掉时返回 `false`；
+  刚重连、尚未收到记录时同样返回 `false`。使用任何数值接口前先判它。
+- `is_power_on()` —— 数据过期时返回 `false`，绝不返回最后一次的值。
+
+数值类接口（`get_voltage()`、`get_percentage()` 等）刻意继续返回最后收到的快照，避免短暂
+通信抖动被误判为"电池消失"。TWS 与 GF485 客户端未改动。
 
 ## 🔄 OTA 固件升级
 

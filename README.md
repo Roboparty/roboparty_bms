@@ -41,11 +41,39 @@ After installation, edit the config file to match your actual serial port (e.g.,
 sudo nano /etc/default/bms_daemon
 ```
 
+> **`BMS_TYPE=SCUD485` requires `BAUD_RATE=19200`.** The 485 spec (sec. 2 Serial Attributes) fixes
+> 19200 baud / 8 data bits / no parity / 1 stop bit, while the shipped default is `115200`, so the
+> type must be changed together with the baud rate. Note that `SerialPort::open()` only knows
+> 9600/19200/115200 and silently falls back to 9600 for any other value — a typo then looks like a
+> dead battery (5 read failures, port reopen) instead of a configuration error.
+
 ### 4. Service Management
 ```bash
 sudo systemctl restart bms      # Restart service
 sudo journalctl -u bms -f       # View real-time logs
 ```
+
+> **485 reads start 10 s after the service launches.** `bms.service` runs `ExecStartPre=/bin/sleep 10`
+> because the pack needs time after power-on before it answers on the bus. Every start pays the same
+> 10 s, including `systemctl restart bms`, and `/tmp/bms.sock` does not exist until the wait is over —
+> `is_connected()` reporting `false` for the first ~10–12 s of a boot is expected, not a fault.
+
+## Data Freshness (SCUD485)
+
+The SCUD485 client separates "the transport is up" from "the battery is answering".
+`bms_daemon` polls the pack with one 0x61 query per second and publishes either a complete
+fresh snapshot or nothing at all: a record on the wire always vouches for every field it
+carries (power_on included) and never mixes in values from an older round, so a socket that
+stays open while the bus is dead is detectable.
+
+- `is_connected()` — socket open **and** a complete snapshot received within 3 s. A live
+  socket with a dead bus reports `false`, and so does a socket that has just reconnected and
+  not yet seen a record. Check this before acting on any numeric getter.
+- `is_power_on()` — `false` while the data is stale, never the last known value.
+
+Numeric getters (`get_voltage()`, `get_percentage()`, ...) keep returning the last received
+snapshot on purpose, so a short bus dropout does not look like a missing battery. TWS and
+GF485 clients are unchanged.
 
 ## 🔄 OTA Firmware Update
 

@@ -13,6 +13,7 @@
 #include "gf_bms_driver.hpp"
 #include "gfcan_bms_driver.hpp"
 #include "nrf_pmic_driver.hpp"
+#include "scud_bms_driver.hpp"
 #include "tws_bms_driver.hpp"
 
 #include <stdexcept>
@@ -30,6 +31,9 @@ std::shared_ptr<BmsDriver> BmsDriver::create_bms(const std::string& bms_type,
     } else if (bms_type == "NRF") {
         return std::make_shared<NrfPmicDriver>(
             socket_path.empty() ? "/dev/ttyACM0" : socket_path);
+    } else if (bms_type == "SCUD485") {
+        return std::make_shared<ScudBmsDriver>(
+            socket_path.empty() ? "/tmp/bms.sock" : socket_path);
     } else {
         throw std::runtime_error("BMS type not supported: " + bms_type);
     }

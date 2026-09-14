@@ -1,3 +1,11 @@
+roboparty-bms (1.5.1-1) stable; urgency=medium
+
+  * Add SCUD485 private 485 frame protocol support with snapshot-based
+    data freshness on the client.
+  * Delay 485 reads by 10 s after bms.service starts.
+
+ -- changchuanyong <1984715306@qq.com>  Mon, 14 Sep 2026 17:33:40 +0800
+
 roboparty-bms (1.5.0-1) stable; urgency=medium
 
   * Build packages natively on Ubuntu 24.04 for amd64 and arm64.

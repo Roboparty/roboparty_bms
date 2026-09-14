@@ -80,6 +80,17 @@ class BmsDriver {
     virtual uint32_t get_io_state() const { return 0; }
     virtual bool is_power_on() const { return false; }
     virtual bool is_connected() const = 0;
+    // Note: for the serial socket backends this historically meant "the Unix
+    // socket to bms_daemon is open". SCUD485 tightens it to "socket open AND
+    // a complete daemon snapshot received within 3 s", because a live socket
+    // with a dead 485 bus is not a battery the robot may act on.
+
+    // Age of the freshest battery data in milliseconds, or -1.0 when the
+    // driver cannot tell. Unlike is_connected() this also grows when the
+    // transport is up but the bus behind it stopped answering, so C++ callers
+    // can tell "connected" apart from "believable". Only the SCUD485 backend
+    // tracks it today.
+    virtual double get_data_age_ms() const { return -1.0; }
 
    protected:
     std::shared_ptr<spdlog::logger> logger_;
@@ -167,3 +178,44 @@ private:
 };
 
 } // namespace gf_bms
+
+namespace scud_bms {
+
+class ScudBmsProtocol {
+public:
+    ScudBmsProtocol(const std::string& port_name, int baud_rate,
+                    int timeout_ms = 500);
+    ~ScudBmsProtocol();
+
+    bool open();
+    void close_port();
+    bool is_open() const;
+
+    // One 0x61 query fills the whole record, or nothing at all: the daemon
+    // publishes snapshots, so a fresh record vouches for every field in it.
+    bool read_all(bms::BatteryStatus& status);
+    bool read_version_info(bms::BatteryStatus& status);
+    bool read_serial_number(std::string& sn);
+    bool set_discharge_output(bool enable);
+
+private:
+    bms::SerialPort serial_;
+    std::string port_name_;
+    int baud_rate_;
+    int timeout_ms_;
+
+    void flush();
+    uint16_t crc16_ccitt(const uint8_t* data, size_t len);
+    bool send_query(uint8_t cmd);
+    bool read_frame(std::vector<uint8_t>& data, uint8_t expect_cmd,
+                    int expect_len);
+    bool query_0x61(std::vector<uint8_t>& data);
+    bool query_0x31(std::vector<uint8_t>& data);
+
+    uint16_t get_u16_be(const uint8_t* buf, int offset);
+    int16_t get_i16_be(const uint8_t* buf, int offset);
+    uint16_t get_u16_be(const std::vector<uint8_t>& buf, int offset);
+    int16_t get_i16_be(const std::vector<uint8_t>& buf, int offset);
+};
+
+} // namespace scud_bms

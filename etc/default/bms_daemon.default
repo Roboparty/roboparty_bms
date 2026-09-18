@@ -3,3 +3,14 @@ BMS_TYPE=@BMS_TYPE@
 BAUD_RATE=115200
 TIMEOUT_MS=300
 BMS_ADDR=@BMS_ADDR@
+
+# UART forwarding, inherited from robopi-addon's robopi-uart-bridge.
+# Every byte the daemon reads from the BMS bus is also written to
+# FORWARD_PORT_B, unchanged and one-way. When FORWARD_PORT_A names the BMS
+# port itself the daemon taps its own reads; it never opens the port twice,
+# because two readers on one tty steal bytes from each other.
+# Set FORWARD_ENABLE=0 to turn it off.
+FORWARD_ENABLE=1
+FORWARD_PORT_A=/dev/ttyS3
+FORWARD_PORT_B=/dev/ttyS7
+FORWARD_BAUD=115200

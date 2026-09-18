@@ -103,8 +103,8 @@ bool GfBmsProtocol::read_response(std::vector<uint8_t>& buffer,
     while (total_read < expected_bytes) {
         int ret = poll(&pfd, 1, timeout_ms_);
         if (ret > 0) {
-            int n = read(serial_.fd(), buffer.data() + total_read,
-                         expected_bytes - total_read);
+            int n = serial_.read_teed(buffer.data() + total_read,
+                                      expected_bytes - total_read);
             if (n > 0) {
                 total_read += n;
             } else if (n < 0 && errno != EAGAIN) {

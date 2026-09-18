@@ -8,16 +8,228 @@
 #include <sys/un.h>
 #include <unistd.h>
 #include <vector>
+#include <atomic>
+#include <cctype>
+#include <cerrno>
 #include <csignal>
-#include <sys/stat.h>
+#include <cstdlib>
 #include <cstring>
+#include <functional>
+#include <memory>
+#include <pthread.h>
+#include <stdexcept>
+#include <sys/stat.h>
 #include <type_traits>
 #include "bms_driver.hpp"
 #include "gfcan_bms_driver.hpp"
 #include "nrf_pmic_driver.hpp"
 
-static bool g_running = true;
+// Written by the signal handler, read by the main loop and the forward pump
+// thread, so it has to be atomic rather than a plain bool.
+static std::atomic<bool> g_running{true};
 static void signal_handler(int) { g_running = false; }
+
+// ---------------------------------------------------------------------------
+// UART forwarding
+//
+// bms_daemon owns the BMS serial port, so it is the only process that may read
+// it. When forwarding is on it also fans every byte it reads out to a second
+// UART. This replaces robopi-addon's robopi-uart-bridge, which ran as a
+// separate process reading the same tty: two readers on one tty steal bytes
+// from each other, so the daemon saw intermittent Modbus read failures and the
+// bridge only ever saw a partial stream. One reader tapping its own feed gives
+// the downstream port the complete stream at no cost to the BMS.
+//
+// When the configured source is the BMS port itself the tap hangs off the
+// protocol's SerialPort. Otherwise (BMS on CAN, or on a different UART) the
+// source is opened here and pumped by a thread -- same tap, other driver.
+// ---------------------------------------------------------------------------
+
+struct ForwardConfig {
+    bool enabled = true;
+    std::string port_a = "/dev/ttyS3";
+    std::string port_b = "/dev/ttyS7";
+    int baud = 115200;
+};
+
+static std::string env_or(const char* name, const std::string& fallback) {
+    const char* value = std::getenv(name);
+    if (value == nullptr || *value == '\0') return fallback;
+    return std::string(value);
+}
+
+static int env_int(const char* name, int fallback) {
+    const char* value = std::getenv(name);
+    if (value == nullptr || *value == '\0') return fallback;
+    try {
+        return std::stoi(value, nullptr, 0);
+    } catch (const std::exception&) {
+        std::cerr << "[BMS Daemon] " << name << "=" << value
+                  << " is not a number; using " << fallback << std::endl;
+        return fallback;
+    }
+}
+
+static bool env_flag(const char* name, bool fallback) {
+    const char* value = std::getenv(name);
+    if (value == nullptr || *value == '\0') return fallback;
+    std::string text(value);
+    for (char& c : text) c = static_cast<char>(std::tolower(c));
+    if (text == "0" || text == "false" || text == "no" || text == "off") return false;
+    if (text == "1" || text == "true" || text == "yes" || text == "on") return true;
+    std::cerr << "[BMS Daemon] " << name << "=" << value
+              << " is not a recognized boolean; using "
+              << (fallback ? "enabled" : "disabled") << std::endl;
+    return fallback;
+}
+
+// SerialPort falls back to 9600 for anything it does not recognize, so a typo
+// here would silently forward at the wrong speed.
+static bool baud_supported(int baud) {
+    switch (baud) {
+    case 9600: case 19200: case 38400: case 57600:
+    case 115200: case 230400: case 460800: case 921600:
+        return true;
+    default:
+        return false;
+    }
+}
+
+// True when two paths name the same character device. This decides whether
+// the forwarder taps the protocol's own port or opens a second one, so it has
+// to see through symlinks such as /dev/serial/by-id/... -- a plain string
+// compare would miss those and quietly reintroduce a second reader on the bus.
+static bool same_device(const std::string& a, const std::string& b) {
+    if (a.empty() || b.empty()) return false;
+    if (a == b) return true;
+    struct stat sa {};
+    struct stat sb {};
+    if (stat(a.c_str(), &sa) == 0 && stat(b.c_str(), &sb) == 0) {
+        return S_ISCHR(sa.st_mode) && S_ISCHR(sb.st_mode) &&
+               sa.st_rdev == sb.st_rdev;
+    }
+    return false;
+}
+
+class UartForwarder {
+   public:
+    UartForwarder(const ForwardConfig& cfg, bool standalone)
+        : cfg_(cfg), standalone_(standalone) {}
+
+    ~UartForwarder() { stop(); }
+
+    UartForwarder(const UartForwarder&) = delete;
+    UartForwarder& operator=(const UartForwarder&) = delete;
+
+    // Where the tapped bytes go, for the case where the source is the BMS
+    // port the protocol already reads. Must be set before the first poll.
+    void set_tap(std::function<void(int)> tap) { tap_ = std::move(tap); }
+
+    void start() {
+        if (!standalone_) return;
+        running_ = true;
+        thread_ = std::thread(&UartForwarder::pump_loop, this);
+    }
+
+    void stop() {
+        running_ = false;
+        if (thread_.joinable()) thread_.join();
+        detach_tap();
+        source_.close();
+        sink_.close();
+    }
+
+    // Opens the destination when it appears and (re)attaches the tap exactly
+    // once per open. Must be called periodically by the owner in tap mode; in
+    // standalone mode the pump thread drives it.
+    void poll_sink() {
+        if (!sink_.is_open()) {
+            detach_tap();
+            if (cfg_.port_b.empty()) return;
+            if (!sink_.open(cfg_.port_b, cfg_.baud)) {
+                if (!sink_warned_) {
+                    std::cerr << "[BMS Daemon] Forward destination "
+                              << cfg_.port_b << " unavailable; retrying"
+                              << std::endl;
+                    sink_warned_ = true;
+                }
+                return;
+            }
+            sink_warned_ = false;
+            std::cout << "[BMS Daemon] Forwarding "
+                      << (standalone_ ? cfg_.port_a : std::string("BMS bus"))
+                      << " -> " << cfg_.port_b << " at " << cfg_.baud
+                      << std::endl;
+        }
+        if (attached_ != sink_.fd()) {
+            if (tap_) {
+                tap_(sink_.fd());
+            } else {
+                source_.set_forward_fd(sink_.fd());
+            }
+            attached_ = sink_.fd();
+        }
+    }
+
+   private:
+    // Hands the tap back with -1 so a stale descriptor is never written to
+    // after the destination is closed or reopened.
+    void detach_tap() {
+        if (attached_ == -1) return;
+        if (tap_) {
+            tap_(-1);
+        } else {
+            source_.set_forward_fd(-1);
+        }
+        attached_ = -1;
+    }
+
+    void pump_loop() {
+        pthread_setname_np(pthread_self(), "bms_forward");
+        uint8_t buf[4096];
+        while (running_) {
+            poll_sink();
+            if (!source_.is_open()) {
+                if (!source_.open(cfg_.port_a, cfg_.baud)) {
+                    if (!source_warned_) {
+                        std::cerr << "[BMS Daemon] Forward source "
+                                  << cfg_.port_a << " unavailable; retrying"
+                                  << std::endl;
+                        source_warned_ = true;
+                    }
+                    std::this_thread::sleep_for(std::chrono::seconds(2));
+                    continue;
+                }
+                source_warned_ = false;
+                // Re-attach: the descriptor below may be a fresh one.
+                attached_ = -1;
+                std::cout << "[BMS Daemon] Forward source " << cfg_.port_a
+                          << " opened" << std::endl;
+            }
+
+            // read_raw() polls and taps internally; the bytes read here are
+            // consumed only to keep the tap running.
+            ssize_t n = source_.read_raw(buf, sizeof(buf), 200);
+            if (n < 0 && errno != EAGAIN && errno != EINTR) {
+                source_.close();
+            }
+        }
+    }
+
+    ForwardConfig cfg_;
+    bool standalone_ = false;
+    std::function<void(int)> tap_;
+
+    bms::SerialPort source_;
+    bms::SerialPort sink_;
+
+    std::atomic<bool> running_{false};
+    std::thread thread_;
+
+    int attached_ = -1;
+    bool sink_warned_ = false;
+    bool source_warned_ = false;
+};
 
 // Protocols that can fill a complete BatteryStatus from a single bus
 // transaction publish whole snapshots: a record on the wire then vouches for
@@ -39,13 +251,19 @@ static_assert(!publishes_snapshots<gf_bms::GfBmsProtocol>::value,
 
 template <typename Protocol>
 static void run_daemon(Protocol& proto, const std::string& port,
-                       const std::string& socket_path) {
+                       const std::string& socket_path,
+                       UartForwarder* forwarder = nullptr) {
     while (g_running && !proto.open()) {
         std::cerr << "[BMS Daemon] Waiting for serial port " << port << "..."
                   << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(2));
     }
     if (!g_running) return;
+
+    // Attach the forwarding tap before the first read so no bus traffic is
+    // missed. A destination that is not up yet is fine: poll_sink() retries
+    // from the main loop and the tap simply stays detached until then.
+    if (forwarder) forwarder->poll_sink();
 
     /* Print Static Info at Startup */
     bms::BatteryStatus static_info;
@@ -94,6 +312,10 @@ static void run_daemon(Protocol& proto, const std::string& port,
     int failure_count = 0;
 
     while (g_running) {
+        // Re-checks the destination each round: it may have appeared late, or
+        // been reopened, in which case the tap is re-pointed at the new fd.
+        if (forwarder) forwarder->poll_sink();
+
         bms::BatteryStatus raw_data{};
         bool ok_read = false;
         // Whether power_on in this round's broadcast is fresh: the legacy
@@ -248,6 +470,32 @@ static void run_can_daemon(const std::string& can_iface,
     std::cout << "[CAN BMS Daemon] Shutdown complete." << std::endl;
 }
 
+// Builds the forwarder for a serial protocol. When the configured source is
+// the port the protocol already reads, the tap hangs off that very port, so
+// the bus is still opened exactly once. Otherwise the source is opened and
+// pumped on its own thread.
+template <typename Protocol>
+static std::unique_ptr<UartForwarder> make_protocol_forwarder(
+        const ForwardConfig& cfg, Protocol& proto, const std::string& bms_port) {
+    const bool same_port = same_device(cfg.port_a, bms_port);
+    auto forwarder = std::make_unique<UartForwarder>(cfg, !same_port);
+    if (same_port) {
+        forwarder->set_tap([&proto](int fd) { proto.set_forward_fd(fd); });
+    } else {
+        forwarder->start();
+    }
+    return forwarder;
+}
+
+// For BMS types that own no serial port at all (GFCAN, NRF): the forward
+// source is always a port of its own.
+static std::unique_ptr<UartForwarder> make_standalone_forwarder(
+        const ForwardConfig& cfg) {
+    auto forwarder = std::make_unique<UartForwarder>(cfg, true);
+    forwarder->start();
+    return forwarder;
+}
+
 int main(int argc, char** argv) {
     signal(SIGINT, signal_handler);
     signal(SIGTERM, signal_handler);
@@ -262,9 +510,27 @@ int main(int argc, char** argv) {
         if (arg3 == "GFCAN" || arg3 == "NRF") type = arg3;
     }
 
+    /* UART forwarding, inherited from robopi-addon's robopi-uart-bridge.
+       Absent keys keep the previous behaviour: forwarding on, ttyS3 -> ttyS7.
+       The old bridge was enabled on every host, so defaulting to off here
+       would silently stop forwarding on machines that rely on it. */
+    ForwardConfig forward;
+    forward.enabled = env_flag("FORWARD_ENABLE", true);
+    forward.port_a = env_or("FORWARD_PORT_A", "/dev/ttyS3");
+    forward.port_b = env_or("FORWARD_PORT_B", "/dev/ttyS7");
+    forward.baud = env_int("FORWARD_BAUD", 115200);
+    if (forward.enabled && !baud_supported(forward.baud)) {
+        std::cerr << "[BMS Daemon] FORWARD_BAUD=" << forward.baud
+                  << " is unsupported; the serial layer falls back to 9600"
+                  << std::endl;
+    }
+
     if (type == "GFCAN") {
         std::cout << "[BMS Daemon] Type=" << type << " Port=" << port << std::endl;
         std::string socket_path = (argc > 2) ? argv[2] : "/tmp/can_bms.sock";
+        // CAN owns no serial port, so the forward source is always its own.
+        auto forwarder =
+            forward.enabled ? make_standalone_forwarder(forward) : nullptr;
         run_can_daemon(port, socket_path);
         return 0;
     }
@@ -275,26 +541,52 @@ int main(int argc, char** argv) {
     std::cout << "[BMS Daemon] Type=" << type << " Port=" << port
               << " Baud=" << baud << " Timeout=" << timeout << std::endl;
 
+    // The source is read at BAUD_RATE while the sink runs at FORWARD_BAUD.
+    // Both default to 115200, but a host whose bus runs at another rate (the
+    // SCUD485 spec mandates 19200) would forward into a UART transmitting at
+    // the wrong speed and produce a plausible-looking but garbled stream.
+    if (forward.enabled && forward.baud != baud &&
+        same_device(forward.port_a, port)) {
+        std::cerr << "[BMS Daemon] FORWARD_BAUD=" << forward.baud
+                  << " differs from BAUD_RATE=" << baud
+                  << "; the forwarded stream is only valid if the downstream "
+                     "port expects " << forward.baud << std::endl;
+    }
+
     if (type == "TWS") {
         uint8_t dev_addr = (argc > 5) ? static_cast<uint8_t>(std::stoi(argv[5], nullptr, 0))
                                        : 0x01;
         tws_bms::BmsProtocol proto(port, baud, timeout, dev_addr);
-        run_daemon(proto, port, "/tmp/bms.sock");
+        // Declared after proto so the tap outlives nothing it points at.
+        auto forwarder = forward.enabled
+                             ? make_protocol_forwarder(forward, proto, port)
+                             : nullptr;
+        run_daemon(proto, port, "/tmp/bms.sock", forwarder.get());
     } else if (type == "GF") {
         uint8_t dev_addr = (argc > 5) ? static_cast<uint8_t>(std::stoi(argv[5], nullptr, 0))
                                        : 0x03;
         gf_bms::GfBmsProtocol proto(port, baud, timeout, dev_addr);
-        run_daemon(proto, port, "/tmp/gf_bms.sock");
+        auto forwarder = forward.enabled
+                             ? make_protocol_forwarder(forward, proto, port)
+                             : nullptr;
+        run_daemon(proto, port, "/tmp/gf_bms.sock", forwarder.get());
     } else if (type == "SCUD485") {
         // Point-to-point frames (no device address). The spec mandates 19200
         // 8N1, so BAUD_RATE must be set to 19200 in /etc/default/bms_daemon.
         scud_bms::ScudBmsProtocol proto(port, baud, timeout);
-        run_daemon(proto, port, "/tmp/bms.sock");
+        auto forwarder = forward.enabled
+                             ? make_protocol_forwarder(forward, proto, port)
+                             : nullptr;
+        run_daemon(proto, port, "/tmp/bms.sock", forwarder.get());
     } else if (type == "GFCAN") {
         std::string socket_path = (argc > 2) ? argv[2] : "/tmp/can_bms.sock";
+        auto forwarder =
+            forward.enabled ? make_standalone_forwarder(forward) : nullptr;
         run_can_daemon(port, socket_path);
     } else if (type == "NRF") {
         auto driver = std::make_shared<NrfPmicDriver>(port);
+        auto forwarder =
+            forward.enabled ? make_standalone_forwarder(forward) : nullptr;
         while (g_running) {
             auto status = driver->status();
             std::cout << "[NRF PMIC] " << status.variant.name

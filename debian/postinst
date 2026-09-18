@@ -28,6 +28,43 @@ case "$HOSTNAME" in
         ;;
 esac
 
+# The FORWARD_* keys arrive with 1.6.0. /etc/default/bms_daemon is a conffile
+# that this script has always rewritten, so dpkg already treats it as locally
+# modified and will not deliver the new keys on upgrade. Append only what is
+# missing: an operator's own values are never overwritten.
+ensure_default() {
+    key="$1"
+    value="$2"
+    if ! grep -q "^${key}=" /etc/default/bms_daemon 2>/dev/null; then
+        printf '%s=%s\n' "$key" "$value" >> /etc/default/bms_daemon
+    fi
+}
+
+# robopi-uart-bridge (robopi-addon < 1.8.3) read the same /dev/ttyS3 as this
+# daemon and stole its Modbus responses. Forwarding now lives here, so make
+# sure a bridge left over from an older addon cannot keep competing for the
+# port. The addon's own postinst does this too, but the two packages upgrade
+# independently and this is the component that needs the port to itself.
+# No-op where the addon was never installed.
+systemctl stop robopi-uart-bridge.service 2>/dev/null || true
+systemctl disable robopi-uart-bridge.service 2>/dev/null || true
+# disable needs the unit to still exist, which it does not once dpkg has
+# unpacked the addon that no longer ships it; removing the untracked enable
+# symlink and matching the process is what actually retires it.
+rm -f /etc/systemd/system/*.wants/robopi-uart-bridge.service
+pkill -f '[r]obopi-uart-bridge' 2>/dev/null || true
+
+ensure_default FORWARD_ENABLE 1
+ensure_default FORWARD_PORT_A /dev/ttyS3
+ensure_default FORWARD_PORT_B /dev/ttyS7
+ensure_default FORWARD_BAUD 115200
+
 systemctl daemon-reload
 systemctl enable bms.service
-systemctl start bms.service || true
+# A plain 'start' is a no-op on an already-running unit, which would leave the
+# previous binary and environment in place after an upgrade.
+if systemctl is-active --quiet bms.service; then
+    systemctl restart bms.service || true
+else
+    systemctl start bms.service || true
+fi

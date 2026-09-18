@@ -108,6 +108,11 @@ public:
     void close_port();
     bool is_open() const;
 
+    // Also hand every byte this protocol reads to `fd` (bms_daemon's UART
+    // forwarding). -1 detaches. The bus is never opened twice, so the tap
+    // cannot steal bytes from the protocol's own reads.
+    void set_forward_fd(int fd) { serial_.set_forward_fd(fd); }
+
     bool read_basic_info(bms::BatteryStatus& status);
     bool read_version_info(bms::BatteryStatus& status);
     bool read_capacity_info(bms::BatteryStatus& status);
@@ -147,6 +152,11 @@ public:
     bool open();
     void close_port();
     bool is_open() const;
+
+    // Also hand every byte this protocol reads to `fd` (bms_daemon's UART
+    // forwarding). -1 detaches. The bus is never opened twice, so the tap
+    // cannot steal bytes from the protocol's own reads.
+    void set_forward_fd(int fd) { serial_.set_forward_fd(fd); }
 
     bool read_basic_info(bms::BatteryStatus& status);
     bool read_version_info(bms::BatteryStatus& status);
@@ -190,6 +200,11 @@ public:
     bool open();
     void close_port();
     bool is_open() const;
+
+    // Also hand every byte this protocol reads to `fd` (bms_daemon's UART
+    // forwarding). -1 detaches. The bus is never opened twice, so the tap
+    // cannot steal bytes from the protocol's own reads.
+    void set_forward_fd(int fd) { serial_.set_forward_fd(fd); }
 
     // One 0x61 query fills the whole record, or nothing at all: the daemon
     // publishes snapshots, so a fresh record vouches for every field in it.

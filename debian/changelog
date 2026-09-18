@@ -1,3 +1,23 @@
+roboparty-bms (1.6.0-1) stable; urgency=medium
+
+  * Move UART forwarding into bms_daemon, replacing robopi-addon's
+    robopi-uart-bridge. The daemon now taps the bytes it already reads
+    instead of letting a second process read the same tty: two readers on
+    one tty steal bytes from each other, which made the daemon log
+    intermittent BMS read failures on /dev/ttyS3 and left the downstream
+    port with a partial stream.
+  * Configure it with FORWARD_ENABLE / FORWARD_PORT_A / FORWARD_PORT_B /
+    FORWARD_BAUD in /etc/default/bms_daemon. Forwarding stays on by default
+    to match the bridge it replaces; either port may name the BMS port, in
+    which case the daemon taps its own reads and never opens it twice.
+  * postinst appends the new keys when they are missing, because this
+    conffile is rewritten at install time and dpkg therefore treats it as
+    locally modified and will not deliver them on upgrade.
+  * postinst restarts a running bms.service, and retires any leftover
+    robopi-uart-bridge, which would otherwise keep competing for the port.
+
+ -- changchuanyong <1984715306@qq.com>  Thu, 18 Sep 2026 12:00:00 +0800
+
 roboparty-bms (1.5.1-1) stable; urgency=medium
 
   * Add SCUD485 private 485 frame protocol support with snapshot-based

@@ -102,6 +102,14 @@ class BmsDriver {
         return std::numeric_limits<double>::quiet_NaN();
     }
 
+    // Static identity of the battery: firmware/hardware version and serial
+    // number, captured once from the bus and carried in every daemon
+    // broadcast. Only the TWS backend fills these today; other backends
+    // return 0 / empty string.
+    virtual uint16_t get_sw_version() const { return 0; }
+    virtual uint16_t get_hw_version() const { return 0; }
+    virtual std::string get_serial_number() const { return {}; }
+
    protected:
     std::shared_ptr<spdlog::logger> logger_;
 };

@@ -168,3 +168,19 @@ bool TwsBmsDriver::is_power_on() const {
 bool TwsBmsDriver::is_connected() const {
     return connected_.load();
 }
+
+uint16_t TwsBmsDriver::get_sw_version() const {
+    std::shared_lock lock(data_mutex_);
+    return cached_.sw_version;
+}
+
+uint16_t TwsBmsDriver::get_hw_version() const {
+    std::shared_lock lock(data_mutex_);
+    return cached_.hw_version;
+}
+
+std::string TwsBmsDriver::get_serial_number() const {
+    std::shared_lock lock(data_mutex_);
+    // NUL-terminated: the daemon zeroes the record and uses bounded strncpy.
+    return cached_.serial_number;
+}

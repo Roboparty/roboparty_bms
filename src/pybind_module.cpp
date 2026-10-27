@@ -41,7 +41,12 @@ PYBIND11_MODULE(bms_py, m) {
         .def("is_connected", &BmsDriver::is_connected)
         // By-name field lookup (SCUD485); returns float('nan') when the name
         // is unknown to the backend. Check with math.isnan().
-        .def("get_field", &BmsDriver::get_field, py::arg("name"));
+        .def("get_field", &BmsDriver::get_field, py::arg("name"))
+        // Battery identity; only the TWS backend fills these today, other
+        // backends return 0 / empty string.
+        .def("get_sw_version", &BmsDriver::get_sw_version)
+        .def("get_hw_version", &BmsDriver::get_hw_version)
+        .def("get_serial_number", &BmsDriver::get_serial_number);
 
     py::class_<NrfPmicDriver, BmsDriver, std::shared_ptr<NrfPmicDriver>>(m, "NrfPmicDriver")
         .def(py::init<const std::string&, int>(),

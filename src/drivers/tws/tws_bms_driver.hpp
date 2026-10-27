@@ -39,6 +39,9 @@ class TwsBmsDriver : public BmsDriver {
     uint32_t get_io_state() const override;
     bool is_power_on() const override;
     bool is_connected() const override;
+    uint16_t get_sw_version() const override;
+    uint16_t get_hw_version() const override;
+    std::string get_serial_number() const override;
 
    private:
     void reader_loop();

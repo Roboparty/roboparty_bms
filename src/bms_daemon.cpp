@@ -250,6 +250,19 @@ static_assert(!publishes_snapshots<tws_bms::BmsProtocol>::value,
 static_assert(!publishes_snapshots<gf_bms::GfBmsProtocol>::value,
               "GF keeps the per-field carry-forward loop");
 
+// Protocols whose broadcast BatteryStatus also carries the battery's static
+// identity (SW/HW version, serial number), filled once by the daemon. TWS
+// only: GF/SCUD broadcasts keep their exact current content, and SCUD is
+// never forced through its 0x61+0x31 double read for identity.
+template <typename P>
+struct publishes_static_ids : std::false_type {};
+
+template <>
+struct publishes_static_ids<tws_bms::BmsProtocol> : std::true_type {};
+
+static_assert(publishes_static_ids<tws_bms::BmsProtocol>::value,
+              "TWS broadcasts must carry version and serial number");
+
 template <typename Protocol>
 static void run_daemon(Protocol& proto, const std::string& port,
                        const std::string& socket_path,
@@ -266,6 +279,14 @@ static void run_daemon(Protocol& proto, const std::string& port,
     // from the main loop and the tap simply stays detached until then.
     if (forwarder) forwarder->poll_sink();
 
+    // Broadcast record, zeroed once here and filled by the loops below. The
+    // TWS static identity fields are seeded right after the startup read.
+    bms::BatteryStatus status_to_send;
+    memset(&status_to_send, 0, sizeof(status_to_send));
+    // Identity captured from the bus (TWS only; [[maybe_unused]] because the
+    // other instantiations discard the constexpr branches below).
+    [[maybe_unused]] bool have_version = false, have_sn = false;
+
     /* Print Static Info at Startup */
     bms::BatteryStatus static_info;
     if (proto.read_version_info(static_info)) {
@@ -275,6 +296,20 @@ static void run_daemon(Protocol& proto, const std::string& port,
                   << std::endl;
         std::cout << " > Health (SOH): " << static_info.soh
                   << "% | Cycles: " << static_info.cycles << std::endl;
+        if constexpr (publishes_static_ids<Protocol>::value) {
+            status_to_send.sw_version = static_info.sw_version;
+            status_to_send.hw_version = static_info.hw_version;
+            have_version = true;
+        }
+    }
+    if constexpr (publishes_static_ids<Protocol>::value) {
+        std::string sn;
+        if (proto.read_serial_number(sn)) {
+            strncpy(status_to_send.serial_number, sn.c_str(),
+                    sizeof(status_to_send.serial_number) - 1);
+            have_sn = true;
+            std::cout << " > SN: " << sn << std::endl;
+        }
     }
 
     /* Initialize Unix Domain Socket Server */
@@ -336,8 +371,6 @@ static void run_daemon(Protocol& proto, const std::string& port,
     std::cout << "[BMS Daemon] Started. Heartbeat Active on " << port
               << std::endl;
 
-    bms::BatteryStatus status_to_send;
-    memset(&status_to_send, 0, sizeof(status_to_send));
     // Serialized FieldMap record for the fields socket (snapshot protocols).
     std::string fields_payload;
 
@@ -407,6 +440,29 @@ static void run_daemon(Protocol& proto, const std::string& port,
                         status_to_send.min_cell_voltage =
                             raw_data.min_cell_voltage;
                     }
+                }
+            }
+        }
+
+        // TWS-only: seed the broadcast record with the battery's static
+        // identity, retrying each independently until first success (the
+        // battery may answer later than daemon start). Once captured neither
+        // is re-read, so the steady-state bus cost is zero.
+        if constexpr (publishes_static_ids<Protocol>::value) {
+            if (!have_version) {
+                bms::BatteryStatus v{};
+                if (proto.read_version_info(v)) {
+                    status_to_send.sw_version = v.sw_version;
+                    status_to_send.hw_version = v.hw_version;
+                    have_version = true;
+                }
+            }
+            if (!have_sn) {
+                std::string sn;
+                if (proto.read_serial_number(sn)) {
+                    strncpy(status_to_send.serial_number, sn.c_str(),
+                            sizeof(status_to_send.serial_number) - 1);
+                    have_sn = true;
                 }
             }
         }

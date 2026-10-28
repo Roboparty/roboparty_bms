@@ -46,7 +46,8 @@ PYBIND11_MODULE(bms_py, m) {
         // backends return 0 / empty string.
         .def("get_sw_version", &BmsDriver::get_sw_version)
         .def("get_hw_version", &BmsDriver::get_hw_version)
-        .def("get_serial_number", &BmsDriver::get_serial_number);
+        .def("get_serial_number", &BmsDriver::get_serial_number)
+        .def("get_app_version", &BmsDriver::get_app_version);
 
     py::class_<NrfPmicDriver, BmsDriver, std::shared_ptr<NrfPmicDriver>>(m, "NrfPmicDriver")
         .def(py::init<const std::string&, int>(),

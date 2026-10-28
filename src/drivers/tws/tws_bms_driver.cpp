@@ -62,7 +62,31 @@ void TwsBmsDriver::disconnect() {
         close(sock_fd_);
         sock_fd_ = -1;
     }
+    if (info_sock_fd_ >= 0) {
+        close(info_sock_fd_);
+        info_sock_fd_ = -1;
+    }
     connected_ = false;
+}
+
+bool TwsBmsDriver::try_connect_info() {
+    if (info_sock_fd_ >= 0) return true;
+
+    std::string path = socket_path_ + ".info";
+    info_sock_fd_ = socket(AF_UNIX, SOCK_STREAM, 0);
+    if (info_sock_fd_ < 0) return false;
+
+    struct sockaddr_un addr {};
+    addr.sun_family = AF_UNIX;
+    strncpy(addr.sun_path, path.c_str(), sizeof(addr.sun_path) - 1);
+
+    if (connect(info_sock_fd_, reinterpret_cast<struct sockaddr*>(&addr),
+                sizeof(addr)) < 0) {
+        close(info_sock_fd_);
+        info_sock_fd_ = -1;
+        return false;
+    }
+    return true;
 }
 
 void TwsBmsDriver::reader_loop() {
@@ -73,19 +97,39 @@ void TwsBmsDriver::reader_loop() {
             std::this_thread::sleep_for(std::chrono::seconds(2));
             continue;
         }
+        // Best effort: an older daemon may serve no info socket; it is
+        // retried every round until it appears.
+        try_connect_info();
 
-        struct pollfd pfd {sock_fd_, POLLIN, 0};
-        int ret = poll(&pfd, 1, 500);
+        struct pollfd pfds[2] = {{sock_fd_, POLLIN, 0},
+                                 {info_sock_fd_, POLLIN, 0}};
+        int nfds = info_sock_fd_ >= 0 ? 2 : 1;
+        int ret = poll(pfds, nfds, 500);
         if (ret <= 0) continue;
 
-        bms::BatteryStatus wire;
-        ssize_t n = read(sock_fd_, &wire, sizeof(wire));
-        if (n == static_cast<ssize_t>(sizeof(wire))) {
-            std::unique_lock lock(data_mutex_);
-            cached_ = wire;
-        } else {
-            logger_->warn("BMS daemon disconnected, reconnecting...");
-            disconnect();
+        if (pfds[0].revents & POLLIN) {
+            bms::BatteryStatus wire;
+            ssize_t n = read(sock_fd_, &wire, sizeof(wire));
+            if (n == static_cast<ssize_t>(sizeof(wire))) {
+                std::unique_lock lock(data_mutex_);
+                cached_ = wire;
+            } else {
+                logger_->warn("BMS daemon disconnected, reconnecting...");
+                disconnect();
+                continue;
+            }
+        }
+        if (nfds == 2 && (pfds[1].revents & (POLLIN | POLLERR | POLLHUP))) {
+            bms::IdentityRecord id;
+            ssize_t n = read(info_sock_fd_, &id, sizeof(id));
+            if (n == static_cast<ssize_t>(sizeof(id))) {
+                std::unique_lock lock(data_mutex_);
+                ident_ = id;
+            } else {
+                // Identity socket dropped; re-attach next round.
+                close(info_sock_fd_);
+                info_sock_fd_ = -1;
+            }
         }
     }
 }
@@ -183,4 +227,9 @@ std::string TwsBmsDriver::get_serial_number() const {
     std::shared_lock lock(data_mutex_);
     // NUL-terminated: the daemon zeroes the record and uses bounded strncpy.
     return cached_.serial_number;
+}
+
+std::string TwsBmsDriver::get_app_version() const {
+    std::shared_lock lock(data_mutex_);
+    return ident_.app_version;
 }

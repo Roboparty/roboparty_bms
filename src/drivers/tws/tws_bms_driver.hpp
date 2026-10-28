@@ -42,17 +42,21 @@ class TwsBmsDriver : public BmsDriver {
     uint16_t get_sw_version() const override;
     uint16_t get_hw_version() const override;
     std::string get_serial_number() const override;
+    std::string get_app_version() const override;
 
    private:
     void reader_loop();
     bool try_connect();
+    bool try_connect_info();
     void disconnect();
 
     std::string socket_path_;
     int sock_fd_ = -1;
+    int info_sock_fd_ = -1;
     std::atomic<bool> running_{false};
     std::atomic<bool> connected_{false};
     std::thread reader_thread_;
     mutable std::shared_mutex data_mutex_;
     bms::BatteryStatus cached_{};
+    bms::IdentityRecord ident_{};
 };

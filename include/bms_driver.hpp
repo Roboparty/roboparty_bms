@@ -48,6 +48,20 @@ struct BatteryStatus {
 };
 #pragma pack(pop)
 
+#pragma pack(push, 1)
+// Identity record for the secondary ".info" socket (TWS): the battery's
+// static identity including the vendor display version string (e.g.
+// "v007 20260709-00"), which has no room in the fixed BatteryStatus wire.
+// One record per change; late joiners get the current record on connect.
+// This is its own wire protocol -- the main socket stays untouched.
+struct IdentityRecord {
+    uint16_t sw_version;
+    uint16_t hw_version;
+    char serial_number[33];
+    char app_version[17];
+};
+#pragma pack(pop)
+
 } // namespace bms
 
 class BmsDriver {
@@ -109,6 +123,10 @@ class BmsDriver {
     virtual uint16_t get_sw_version() const { return 0; }
     virtual uint16_t get_hw_version() const { return 0; }
     virtual std::string get_serial_number() const { return {}; }
+    // Vendor display version string, e.g. "v007 20260709-00" (TWS reads it
+    // from register 0xB007; it is NOT derivable from get_sw_version()).
+    // Empty for backends that don't carry it.
+    virtual std::string get_app_version() const { return {}; }
 
    protected:
     std::shared_ptr<spdlog::logger> logger_;
@@ -136,6 +154,7 @@ public:
     bool read_capacity_info(bms::BatteryStatus& status);
     bool read_io_state(bms::BatteryStatus& status);
     bool read_serial_number(std::string& sn);
+    bool read_app_version_string(std::string& out);
     bool set_discharge_output(bool enable);
 
 private:

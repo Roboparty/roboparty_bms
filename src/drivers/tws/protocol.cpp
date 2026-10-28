@@ -211,6 +211,22 @@ bool BmsProtocol::read_serial_number(std::string& sn) {
     return false;
 }
 
+// Vendor display version string at 0xB007, e.g. "v007 20260709-00" (8 regs =
+// 16 ASCII chars, NUL/space padded). Distinct from the 0x9026 SW/HW words:
+// those are internal version numbers, this is what the vendor tool shows.
+bool BmsProtocol::read_app_version_string(std::string& out) {
+    serial_.flush();
+    send_read_request(0xB007, 8);
+    std::vector<uint8_t> buf;
+    if (read_response(buf, 21)) {
+        std::string s(reinterpret_cast<const char*>(buf.data() + 3), 16);
+        while (!s.empty() && (s.back() == '\0' || s.back() == ' ')) s.pop_back();
+        out = s;
+        return true;
+    }
+    return false;
+}
+
 bool BmsProtocol::set_discharge_output(bool enable) {
     uint16_t val = enable ? 0x0003 : 0x0001;
     serial_.flush();

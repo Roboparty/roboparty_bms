@@ -17,7 +17,7 @@ if(NOT TARGET roboparty_bms::roboparty_bms)
         roboparty_bms::gf485_bms
         roboparty_bms::scud485_bms
         roboparty_bms::gfcan_bms
-        roboparty_bms::nrf_pmic
+        roboparty_bms::gd_pmic
     )
 endif()
 

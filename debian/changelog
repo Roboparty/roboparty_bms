@@ -1,3 +1,16 @@
+roboparty-bms (1.6.3-1) stable; urgency=medium
+
+  * Replace the nRF PMIC driver with a GD PMIC driver under pmicgd. It ships
+    as a pre-research skeleton: the target, header and factory/daemon hooks
+    are wired up, but every accessor is an empty stub until the hardware
+    protocol is defined.
+  * Rename the BMS type from NRF to GD and stop exporting the PMIC-specific
+    class from the Python module; BmsDriver remains available as before.
+  * Ship the SCUD Roboparty 13S2P firmware image next to the existing TWS
+    image so the OTA payloads travel with the package.
+
+ -- RoboParty <2321901849@qq.com>  Wed, 28 Oct 2026 12:00:00 +0800
+
 roboparty-bms (1.6.2-1) stable; urgency=medium
 
   * Install the OTA helper (bms_ota.py) and bundled firmware, which were

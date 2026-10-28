@@ -22,7 +22,7 @@
 #include <type_traits>
 #include "bms_driver.hpp"
 #include "gfcan_bms_driver.hpp"
-#include "nrf_pmic_driver.hpp"
+#include "gd_pmic_driver.hpp"
 #include "scud_fields.hpp"
 
 // Written by the signal handler, read by the main loop and the forward pump
@@ -561,7 +561,7 @@ static std::unique_ptr<UartForwarder> make_protocol_forwarder(
     return forwarder;
 }
 
-// For BMS types that own no serial port at all (GFCAN, NRF): the forward
+// For BMS types that own no serial port at all (GFCAN, GD): the forward
 // source is always a port of its own.
 static std::unique_ptr<UartForwarder> make_standalone_forwarder(
         const ForwardConfig& cfg) {
@@ -581,7 +581,7 @@ int main(int argc, char** argv) {
         type = argv[4];
     } else if (argc > 3) {
         std::string arg3(argv[3]);
-        if (arg3 == "GFCAN" || arg3 == "NRF") type = arg3;
+        if (arg3 == "GFCAN" || arg3 == "GD") type = arg3;
     }
 
     /* UART forwarding, inherited from robopi-addon's robopi-uart-bridge.
@@ -656,13 +656,13 @@ int main(int argc, char** argv) {
         auto forwarder =
             forward.enabled ? make_standalone_forwarder(forward) : nullptr;
         run_can_daemon(port, socket_path);
-    } else if (type == "NRF") {
-        auto driver = std::make_shared<NrfPmicDriver>(port);
+    } else if (type == "GD") {
+        auto driver = std::make_shared<GdPmicDriver>(port);
         auto forwarder =
             forward.enabled ? make_standalone_forwarder(forward) : nullptr;
         while (g_running) {
             auto status = driver->status();
-            std::cout << "[NRF PMIC] " << status.variant.name
+            std::cout << "[GD PMIC] " << status.variant.name
                       << " | 48V=" << (status.power48 ? "ON" : "OFF")
                       << " 5V=" << (status.power5 ? "ON" : "OFF")
                       << " | BMS " << status.bms.voltage << "V "

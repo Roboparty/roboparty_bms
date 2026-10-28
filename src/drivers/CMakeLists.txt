@@ -3,5 +3,5 @@
 add_subdirectory(tws)
 add_subdirectory(gf485)
 add_subdirectory(gfcan)
-add_subdirectory(nrf)
+add_subdirectory(pmicgd)
 add_subdirectory(scud485)

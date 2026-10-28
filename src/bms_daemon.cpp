@@ -495,7 +495,9 @@ static void run_daemon(Protocol& proto, const std::string& port,
         // TWS-only: seed the broadcast record with the battery's static
         // identity, retrying each independently until first success (the
         // battery may answer later than daemon start). Once captured neither
-        // is re-read, so the steady-state bus cost is zero.
+        // is re-read, so the steady-state bus cost is zero. Late captures are
+        // printed like the startup ones so the journal always shows what was
+        // actually read.
         if constexpr (publishes_static_ids<Protocol>::value) {
             if (!have_version) {
                 bms::BatteryStatus v{};
@@ -506,6 +508,9 @@ static void run_daemon(Protocol& proto, const std::string& port,
                     identity.hw_version = v.hw_version;
                     have_version = true;
                     info_dirty = true;
+                    std::cout << " > FW Version: 0x" << std::hex << v.sw_version
+                              << " | HW Version: 0x" << v.hw_version << std::dec
+                              << std::endl;
                 }
             }
             if (!have_sn) {
@@ -517,6 +522,7 @@ static void run_daemon(Protocol& proto, const std::string& port,
                             sizeof(identity.serial_number) - 1);
                     have_sn = true;
                     info_dirty = true;
+                    std::cout << " > SN: " << sn << std::endl;
                 }
             }
             if (!have_app) {
@@ -526,6 +532,7 @@ static void run_daemon(Protocol& proto, const std::string& port,
                             sizeof(identity.app_version) - 1);
                     have_app = true;
                     info_dirty = true;
+                    std::cout << " > App Version: " << app << std::endl;
                 }
             }
         }

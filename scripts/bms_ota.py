@@ -134,11 +134,48 @@ class BmsOta:
         if received_crc != modbus_crc16(response[:-2]):
             return None
         return (
-            int.from_bytes(response[3:5], "big"),
-            int.from_bytes(response[5:7], "big"),
+            int.from_bytes(response[3:5], "little"),
+            int.from_bytes(response[5:7], "little"),
         )
 
-    def verify_completion(self, version_before):
+    def read_app_version_string(self, timeout=2.0):
+        """Vendor display version from 0xB007, e.g. 'v008 20260804-00'.
+
+        This is the field that actually changes across APP upgrades; the
+        0x9026 words can stay identical between APP versions (v007 and v008
+        both report 0x0008 on LB-13S2P), so they cannot tell success from
+        a no-op transfer."""
+        body = bytes.fromhex("01 03 B0 07 00 08")
+        frame = body + struct.pack("<H", modbus_crc16(body))
+        self.ser.reset_input_buffer()
+        self.rx_buffer.clear()
+        self.ser.write(frame)
+        self.ser.flush()
+
+        deadline = time.monotonic() + timeout
+        original_timeout = self.ser.timeout
+        response = bytearray()
+        try:
+            while len(response) < 21:
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    return None
+                self.ser.timeout = remaining
+                chunk = self.ser.read(21 - len(response))
+                if not chunk:
+                    return None
+                response.extend(chunk)
+        finally:
+            self.ser.timeout = original_timeout
+
+        if response[:3] != bytes.fromhex("01 03 10"):
+            return None
+        received_crc = struct.unpack("<H", response[-2:])[0]
+        if received_crc != modbus_crc16(response[:-2]):
+            return None
+        return response[3:19].split(b"\x00")[0].decode("ascii", "replace") or None
+
+    def verify_completion(self, version_before, app_before=None):
         self.log("Step 5: Verifying final status and APP recovery...")
         for elapsed in range(1, 9):
             time.sleep(1.0)
@@ -147,7 +184,8 @@ class BmsOta:
         for attempt in range(1, 11):
             version_after = self.read_app_version(timeout=1.0)
             if version_after:
-                return self.report_app_version(version_before, version_after)
+                return self.report_app_version(version_before, version_after,
+                                              app_before)
             self.log(f"APP recovery check ({attempt}/10)", "\033[1;33m")
             if attempt < 10:
                 time.sleep(1.0)
@@ -155,12 +193,23 @@ class BmsOta:
         self.log("Transfer completed, but APP did not recover", "\033[1;31m")
         return False
 
-    def report_app_version(self, version_before, version_after):
+    def report_app_version(self, version_before, version_after, app_before=None):
         sw_version, hw_version = version_after
         self.log(
             f"APP recovered: SW=0x{sw_version:04X}, HW=0x{hw_version:04X}",
             "\033[1;32m",
         )
+        app_after = self.read_app_version_string(timeout=1.0)
+        if app_before and app_after:
+            self.log(f"APP display version: {app_before} -> {app_after}",
+                     "\033[1;32m")
+            if app_after == app_before:
+                self.log("APP version did not change after transfer", "\033[1;31m")
+                return False
+            return True
+        # Fallback for packs without 0xB007: compare the 0x9026 words (these
+        # may not change across APP upgrades; the display string above is the
+        # authoritative check when available).
         if version_before and version_after == version_before:
             self.log("APP version did not change after transfer", "\033[1;31m")
             return False
@@ -283,6 +332,9 @@ class BmsOta:
                     f"Current APP version: SW=0x{version_before[0]:04X}, "
                     f"HW=0x{version_before[1]:04X}"
                 )
+            app_before = self.read_app_version_string()
+            if app_before:
+                self.log(f"Current APP display version: {app_before}")
 
             self.enter_bootloader()
 
@@ -500,7 +552,7 @@ class BmsOta:
                 f"All {total_blocks} firmware blocks acknowledged by the bootloader",
                 "\033[1;32m",
             )
-            return self.verify_completion(version_before)
+            return self.verify_completion(version_before, app_before)
 
         except (OSError, serial.SerialException) as exc:
             self.log(f"OTA I/O error: {exc}", "\033[1;31m")

@@ -1,3 +1,26 @@
+roboparty-bms (1.6.3-1) stable; urgency=medium
+
+  * Expose the TWS pack's SW/HW version and serial number through the SDK
+    and bms_py: the daemon previously kept the version in its startup log
+    only and never queried the serial number, leaving the BatteryStatus
+    fields zero on the wire with no client API. The wire format is
+    unchanged.
+  * Deliver the vendor display version string ("v007 20260709-00",
+    register 0xB007) over a new secondary /tmp/bms.sock.info socket,
+    since it does not fit in the fixed BatteryStatus struct shared with
+    statically linked clients; TwsBmsDriver polls it and serves
+    get_app_version().
+  * Log TWS identity captured late by the poll-loop retry the same way as
+    at startup, so the journal no longer misses values clients can
+    already see.
+  * Verify OTA success on TWS packs by the 0xB007 display version string
+    instead of the 0x9026 SW/HW words, which stay identical across APP
+    upgrades (v007 and v008 both report 0x0008) and made a successful
+    upgrade report "APP version did not change after transfer"; confirmed
+    on real hardware.
+
+ -- cenliey <cenliey@qq.com>  Mon, 02 Nov 2026 12:00:00 +0800
+
 roboparty-bms (1.6.2-1) stable; urgency=medium
 
   * Install the OTA helper (bms_ota.py) and bundled firmware, which were

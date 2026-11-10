@@ -1,0 +1,15 @@
+[Unit]
+Description=SCUD BMS Firmware OTA Update Task
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/systemctl stop bms.service
+# Default SCUD OTA firmware package path
+ExecStart=/usr/bin/python3 /usr/bin/scud_ota.py /etc/default/bms_daemon /opt/roboparty/lib/firmware/SCUD_Roboparty13S2P_V01.0.bin
+ExecStopPost=/bin/systemctl start bms.service
+RemainAfterExit=no
+User=root
+
+[Install]
+WantedBy=multi-user.target

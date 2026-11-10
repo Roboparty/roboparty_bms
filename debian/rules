@@ -21,6 +21,7 @@ override_dh_install:
 
 	install -d debian/roboparty-bms/opt/roboparty/bin
 	install -m 755 scripts/bms_ota.py debian/roboparty-bms/opt/roboparty/bin/
+	install -m 755 scripts/scud_ota.py debian/roboparty-bms/opt/roboparty/bin/
 
 	install -d debian/roboparty-bms/opt/roboparty/lib/firmware
 	install -m 644 firmware/*.bin debian/roboparty-bms/opt/roboparty/lib/firmware/

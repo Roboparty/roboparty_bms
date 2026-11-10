@@ -147,6 +147,8 @@ if (std::isnan(bms->get_field("nope"))) { /* 字段不存在或暂无数据 */ }
 
 ## 🔄 OTA 固件升级
 
+### TWS 电池（bms_ota）
+
 1. 将新固件放到随包服务的默认路径
    `/opt/roboparty/lib/firmware/TWS_LB-13S2P_APP_v008_20260804-00.bin`；
    也可以直接用脚本指定任意固件文件：
@@ -158,3 +160,17 @@ if (std::isnan(bms->get_field("nope"))) { /* 字段不存在或暂无数据 */ }
    sudo systemctl start bms_ota
    ```
 3. 通过 `journalctl -u bms_ota -f` 监控升级进度。升级完成后 BMS 会自动复位。
+
+### SCUD485 电池（scud_ota）
+
+1. 将新固件放到随包服务的默认路径
+   `/opt/roboparty/lib/firmware/SCUD_Roboparty13S2P_V01.0.bin`；
+   也可以直接用脚本指定任意固件文件：
+   ```bash
+   sudo /opt/roboparty/bin/scud_ota.py /etc/default/bms_daemon /path/to/firmware.bin
+   ```
+2. 执行升级指令：
+   ```bash
+   sudo systemctl start scud_ota
+   ```
+3. 通过 `journalctl -u scud_ota -f` 监控升级进度。升级完成后 BMS 会自动复位。

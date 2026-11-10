@@ -5,7 +5,7 @@
  * @file scud_bms_driver.cpp
  * @brief SCUD 485 protocol (daemon side) and Unix socket client driver.
  * @details Frame: 0xFE 0xFE | CMD | LEN | data | CRC_H CRC_L | 0xBB, with
- *          CRC16-CCITT (poly 0x1201, init 0); multi-byte fields big-endian.
+ *          CRC16-CCITT (poly 0x1021, init 0); multi-byte fields big-endian.
  */
 
 #include "scud_bms_driver.hpp"
@@ -54,7 +54,7 @@ bool ScudBmsProtocol::is_open() const { return serial_.is_open(); }
 void ScudBmsProtocol::flush() { serial_.flush(); }
 
 // Reference algorithm from the protocol spec section 3.2.2: CRC16-CCITT,
-// polynomial 0x1201, init 0. Byte-equivalent to CRC-16/XMODEM.
+// polynomial 0x1021, init 0. Byte-equivalent to CRC-16/XMODEM.
 uint16_t ScudBmsProtocol::crc16_ccitt(const uint8_t* data, size_t len) {
     uint16_t crc = 0;
     for (size_t i = 0; i < len; i++) {

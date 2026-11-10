@@ -148,10 +148,10 @@ if (std::isnan(bms->get_field("nope"))) { /* 字段不存在或暂无数据 */ }
 ## 🔄 OTA 固件升级
 
 1. 将新固件放到随包服务的默认路径
-   `/opt/roboparty/lib/firmware/TWS_LB-13S2P_APP_v008_20260804-00.bin`；
+   `${ROBOOS_PREFIX:-/opt/roboparty}/lib/firmware/TWS_LB-13S2P_APP_v008_20260804-00.bin`；
    也可以直接用脚本指定任意固件文件：
    ```bash
-   sudo /opt/roboparty/bin/bms_ota.py /etc/default/bms_daemon /path/to/firmware.bin
+   sudo ${ROBOOS_PREFIX:-/opt/roboparty}/bin/bms_ota.py /etc/default/bms_daemon /path/to/firmware.bin
    ```
 2. 执行升级指令：
    ```bash

@@ -8,6 +8,12 @@ import time
 import serial
 import struct
 import subprocess
+from pathlib import Path
+
+ROBOOS_PREFIX = Path(os.environ.get("ROBOOS_PREFIX", Path(__file__).resolve().parent.parent))
+DEFAULT_FIRMWARE = str(
+    ROBOOS_PREFIX / "lib/firmware/TWS_LB-13S2P_APP_v008_20260804-00.bin"
+)
 
 RESPONSE_PAYLOAD_LENGTHS = {
     0x11: {2},
@@ -517,6 +523,6 @@ if __name__ == "__main__":
                     port_arg = line.split("=")[1].strip()
                     break
 
-    bin_file = sys.argv[2] if len(sys.argv) > 2 else "/opt/roboparty/lib/firmware/TWS_LB-13S2P_APP_v008_20260804-00.bin"
+    bin_file = sys.argv[2] if len(sys.argv) > 2 else DEFAULT_FIRMWARE
     ota = BmsOta(port_arg, bin_file)
     sys.exit(0 if ota.run() else 1)

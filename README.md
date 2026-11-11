@@ -66,10 +66,13 @@ Configured in `/etc/default/bms_daemon`:
 
 | Key | Default | Meaning |
 |---|---|---|
-| `FORWARD_ENABLE` | `1` | Master switch |
+| `FORWARD_ENABLE` | `0` | Master switch (off on the RP1 PMIC image) |
 | `FORWARD_PORT_A` | `/dev/ttyS3` | Source, read only |
 | `FORWARD_PORT_B` | `/dev/ttyS7` | Destination, written only |
 | `FORWARD_BAUD` | `115200` | Destination line speed |
+
+On the RP1 PMIC image, `/dev/ttyS7` is the STM32 USART1 control link. Forwarding
+therefore defaults to off; enable it only when that port is not used by the PMIC.
 
 - When `FORWARD_PORT_A` is the BMS port itself, the daemon taps its own reads; it never opens the
   port a second time. When it names a different port (BMS on CAN, or on another UART) the daemon

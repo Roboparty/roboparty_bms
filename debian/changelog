@@ -1,3 +1,10 @@
+roboparty-bms (1.6.5-1) stable; urgency=medium
+
+  * Disable UART forwarding by default. On the RP1 PMIC image,
+    /dev/ttyS7 carries the STM32 USART1 control link.
+
+ -- RoboParty <2321901849@qq.com>  Wed, 11 Nov 2026 21:14:37 +0800
+
 roboparty-bms (1.6.4-1) stable; urgency=medium
 
   * Rebuild and republish the package, including the arm64 artifact.

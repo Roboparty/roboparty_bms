@@ -65,10 +65,13 @@ tty 会互相抢走字节**，结果是 daemon 反复记录 Modbus 读失败，�
 
 | 配置项 | 默认值 | 含义 |
 |---|---|---|
-| `FORWARD_ENABLE` | `1` | 总开关 |
+| `FORWARD_ENABLE` | `0` | 总开关（RP1 PMIC 镜像默认关闭） |
 | `FORWARD_PORT_A` | `/dev/ttyS3` | 源端口，只读 |
 | `FORWARD_PORT_B` | `/dev/ttyS7` | 目的端口，只写 |
 | `FORWARD_BAUD` | `115200` | 目的端口速率 |
+
+RP1 PMIC 镜像中 `/dev/ttyS7` 是 STM32 USART1 控制口，因此转发默认关闭；
+只有该端口不用于 PMIC 时才把 `FORWARD_ENABLE` 设回 1。
 
 - 当 `FORWARD_PORT_A` 就是 BMS 自己的端口时，daemon 直接分流自己读到的数据，**绝不会把该端口
   打开第二次**。当它指向别的端口时（BMS 走 CAN，或走另一个 UART），daemon 会单独打开该端口并用

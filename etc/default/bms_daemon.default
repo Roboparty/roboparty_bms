@@ -9,8 +9,9 @@ BMS_ADDR=@BMS_ADDR@
 # FORWARD_PORT_B, unchanged and one-way. When FORWARD_PORT_A names the BMS
 # port itself the daemon taps its own reads; it never opens the port twice,
 # because two readers on one tty steal bytes from each other.
-# Set FORWARD_ENABLE=0 to turn it off.
-FORWARD_ENABLE=1
+# On the RP1 PMIC build, /dev/ttyS7 carries the STM32 USART1 control link,
+# so forwarding stays off by default. Set FORWARD_ENABLE=1 to turn it on.
+FORWARD_ENABLE=0
 FORWARD_PORT_A=/dev/ttyS3
 FORWARD_PORT_B=/dev/ttyS7
 FORWARD_BAUD=115200

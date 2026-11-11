@@ -54,7 +54,7 @@ systemctl disable robopi-uart-bridge.service 2>/dev/null || true
 rm -f /etc/systemd/system/*.wants/robopi-uart-bridge.service
 pkill -f '[r]obopi-uart-bridge' 2>/dev/null || true
 
-ensure_default FORWARD_ENABLE 1
+ensure_default FORWARD_ENABLE 0
 ensure_default FORWARD_PORT_A /dev/ttyS3
 ensure_default FORWARD_PORT_B /dev/ttyS7
 ensure_default FORWARD_BAUD 115200

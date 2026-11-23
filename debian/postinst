@@ -2,9 +2,9 @@
 set -e
 
 # Create symlink for bms_daemon in /usr/bin
-ln -sf /opt/roboparty/bin/bms_daemon /usr/bin/bms_daemon
-ln -sf /opt/roboparty/bin/bms_ota.py /usr/bin/bms_ota.py
-ln -sf /opt/roboparty/bin/scud_ota.py /usr/bin/scud_ota.py
+ln -sf @INSTALL_PREFIX@/bin/bms_daemon /usr/bin/bms_daemon
+ln -sf @INSTALL_PREFIX@/bin/bms_ota.py /usr/bin/bms_ota.py
+ln -sf @INSTALL_PREFIX@/bin/scud_ota.py /usr/bin/scud_ota.py
 
 HOSTNAME=$(cat /etc/hostname 2>/dev/null)
 
@@ -55,7 +55,7 @@ systemctl disable robopi-uart-bridge.service 2>/dev/null || true
 rm -f /etc/systemd/system/*.wants/robopi-uart-bridge.service
 pkill -f '[r]obopi-uart-bridge' 2>/dev/null || true
 
-ensure_default FORWARD_ENABLE 1
+ensure_default FORWARD_ENABLE 0
 ensure_default FORWARD_PORT_A /dev/ttyS3
 ensure_default FORWARD_PORT_B /dev/ttyS7
 ensure_default FORWARD_BAUD 115200

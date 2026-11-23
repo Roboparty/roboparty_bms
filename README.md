@@ -144,7 +144,12 @@ build mistakenly used Bit0). Full key list in the Chinese README section above.
 
 ## 🔄 OTA Firmware Update
 
-### TWS battery (bms_ota)
+The upgrade service is a single **`bms_ota`** unit that dispatches to the
+matching tool by `BMS_TYPE` from `/etc/default/bms_daemon` (TWS →
+`bms_ota.py`, SCUD485 → `scud_ota.py`; GF/GFCAN/GD have no OTA), so the
+upgrade command is the same for every pack.
+
+### TWS battery
 
 1. Place the new firmware package at
    `${ROBOOS_PREFIX:-/opt/roboparty}/lib/firmware/TWS_LB-13S2P_APP_v008_20260804-00.bin`
@@ -159,7 +164,7 @@ build mistakenly used Bit0). Full key list in the Chinese README section above.
    ```
 3. Monitor progress via `journalctl -u bms_ota -f`. The BMS will reset automatically after the update.
 
-### SCUD485 battery (scud_ota)
+### SCUD485 battery
 
 1. Place the new firmware at
    `/opt/roboparty/lib/firmware/SCUD_Roboparty13S2P_V01.0.bin`, or run the
@@ -169,6 +174,6 @@ build mistakenly used Bit0). Full key list in the Chinese README section above.
    ```
 2. Execute the update command:
    ```bash
-   sudo systemctl start scud_ota
+   sudo systemctl start bms_ota
    ```
-3. Monitor progress via `journalctl -u scud_ota -f`. The BMS will reset automatically after the update.
+3. Monitor progress via `journalctl -u bms_ota -f`. The BMS will reset automatically after the update.

@@ -21,4 +21,5 @@ systemctl disable bms.service || true
 # Remove symlink
 rm -f /usr/bin/bms_daemon
 rm -f /usr/bin/bms_ota.py
+rm -f /usr/bin/bms_ota_dispatch
 rm -f /usr/bin/scud_ota.py

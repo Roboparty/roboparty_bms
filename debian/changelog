@@ -1,3 +1,13 @@
+roboparty-bms (1.6.7-1) stable; urgency=medium
+
+  * Add SCUD485 firmware OTA (scud_ota.py, vendor 0xC0~0xC5 protocol).
+  * Add 0xC0 control words 01/02/03/05 55 and one-shot CLI flags.
+  * Decode the 61-byte 0x31 frame: SOH, serial number and BCD versions;
+    add the 0x27 serial-number write command.
+  * Merge scud_ota.service into bms_ota.service (dispatch by BMS_TYPE).
+
+ -- cenliey <cenliey@qq.com>  Mon, 23 Nov 2026 15:30:00 +0800
+
 roboparty-bms (1.6.6-1) stable; urgency=medium
 
   * Expose the TWS pack's SW/HW version and serial number through the SDK

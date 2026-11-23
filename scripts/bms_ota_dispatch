@@ -1,0 +1,22 @@
+#!/bin/bash
+# Dispatch firmware OTA to the protocol tool matching the pack in use.
+# Usage: bms_ota_dispatch [BMS_TYPE] [firmware.bin]
+# BMS_TYPE defaults to $BMS_TYPE (bms_ota.service loads it from
+# /etc/default/bms_daemon). firmware.bin is optional and forwarded as-is;
+# each tool falls back to its own default image. bms.service must be stopped
+# around the upgrade (the service unit does it).
+set -e
+TYPE="${1:-$BMS_TYPE}"
+
+case "$TYPE" in
+    TWS)
+        exec /usr/bin/python3 /usr/bin/bms_ota.py /etc/default/bms_daemon ${2:+"$2"}
+        ;;
+    SCUD485)
+        exec /usr/bin/python3 /usr/bin/scud_ota.py /etc/default/bms_daemon ${2:+"$2"}
+        ;;
+    *)
+        echo "bms_ota_dispatch: no OTA tool for BMS type '${TYPE}'" >&2
+        exit 1
+        ;;
+esac

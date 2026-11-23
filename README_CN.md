@@ -146,15 +146,42 @@ if (std::isnan(bms->get_field("nope"))) { /* 字段不存在或暂无数据 */ }
   `cell_mv_max`、`cell_idx_max`、`cell_mv_min`、`cell_idx_min`、`cap_mah`、`remain_mah`、
   `soc_pct`、`cycles`、`vdif_mv`；0x31——`cell1_mv`..`cell13_mv`、`mos_temp`、`cell_temp1`、
   `cell_temp2`、`heater_temp1`、`heater_temp2`、`tdiff`、`sw_version`、`hw_version`、
-  `alarm`、`protect2`（及上文全部位字段）。
+  `alarm`、`protect2`、`soh`（及上文全部位字段）；
+- **版本号**：`sw_version`/`hw_version` 按 **BCD** 解读——4 个十六进制位即十进制数值
+  （`0x0075` → 75、`0x0100` → 100）；
+- **SOH / 产品序列号**（固件 v75 起，0x31 载荷自 39 扩为 61 字节）：`soh` 为 SOH %；
+  序列号为 **21 字节 ASCII**（BYTE40..60，**空格计入内容**，格式示例
+  `ROBO-RP1 261332 99999`，未烧录的包为空格），是字符串所以不进 FieldMap，经
+  `read_serial_number()` 交付；用 **0x27 命令写入**
+  （`write_serial_number(sn)`：LEN=21，不足 21 字节右侧补空格，超长拒绝；应答 1 字节
+  状态 0x00=成功，写后用 `read_serial_number()` 校验）。
 
 ## 🔄 OTA 固件升级
+
+升级服务统一为 **`bms_ota`**：按 `/etc/default/bms_daemon` 里的 `BMS_TYPE` 自动分派到对应工具
+（TWS → `bms_ota.py`，SCUD485 → `scud_ota.py`；GF/GFCAN/GD 无 OTA），所有电池的升级命令相同。
+
+### TWS 电池
 
 1. 将新固件放到随包服务的默认路径
    `${ROBOOS_PREFIX:-/opt/roboparty}/lib/firmware/TWS_LB-13S2P_APP_v008_20260804-00.bin`；
    也可以直接用脚本指定任意固件文件：
    ```bash
    sudo ${ROBOOS_PREFIX:-/opt/roboparty}/bin/bms_ota.py /etc/default/bms_daemon /path/to/firmware.bin
+   ```
+2. 执行升级指令：
+   ```bash
+   sudo systemctl start bms_ota
+   ```
+3. 通过 `journalctl -u bms_ota -f` 监控升级进度。升级完成后 BMS 会自动复位。
+
+### SCUD485 电池
+
+1. 将新固件放到随包服务的默认路径
+   `/opt/roboparty/lib/firmware/SCUD_Roboparty13S2P_V01.0.bin`；
+   也可以直接用脚本指定任意固件文件：
+   ```bash
+   sudo /opt/roboparty/bin/scud_ota.py /etc/default/bms_daemon /path/to/firmware.bin
    ```
 2. 执行升级指令：
    ```bash

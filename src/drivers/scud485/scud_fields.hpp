@@ -21,7 +21,7 @@
 
 namespace scud_bms {
 
-enum class RawKind : uint8_t { U8, I8, U16, I16 };
+enum class RawKind : uint8_t { U8, I8, U16, I16, BCD16 };
 
 struct FieldSpec {
     const char* name;    // 查询键，如 "pplus_mv"
@@ -53,7 +53,8 @@ inline constexpr FieldSpec kUserInfoFields[] = {
     {"vdif_mv",      28, RawKind::U16, 1.0, 0.0}, // 压差 mV
 };
 
-// ---- 0x31 电池信息汇总，载荷 39 字节（BYTE0..BYTE38） ----
+// ---- 0x31 电池信息汇总，载荷 61 字节（BYTE0..BYTE60） ----
+// BYTE39 SOH 与 BYTE40..60 产品序列号（21 字节 ASCII，见 parse_sn）为固件 v75 新增。
 // TODO(精度/offset): 同上，待规格数值提供后仅改本表常量
 inline constexpr FieldSpec kSummaryFields[] = {
     {"cell1_mv",      0, RawKind::U16, 1.0, 0.0}, // 第 1 节电池电压 mV
@@ -75,16 +76,30 @@ inline constexpr FieldSpec kSummaryFields[] = {
     {"heater_temp1", 29, RawKind::I8,  1.0, 0.0}, // 加热膜 1 温度 ℃（补码）
     {"heater_temp2", 30, RawKind::I8,  1.0, 0.0}, // 加热膜 2 温度 ℃（补码）
     {"tdiff",        31, RawKind::I8,  1.0, 0.0}, // 温差 ℃（补码，按温度类）
-    {"sw_version",   32, RawKind::U16, 1.0, 0.0}, // 软件版本号
-    {"hw_version",   34, RawKind::U16, 1.0, 0.0}, // 硬件版本号
+    {"sw_version",   32, RawKind::BCD16, 1.0, 0.0}, // 软件版本号（BCD：0x0075 → 75）
+    {"hw_version",   34, RawKind::BCD16, 1.0, 0.0}, // 硬件版本号（BCD：0x0100 → 100）
     {"alarm",        36, RawKind::U16, 1.0, 0.0}, // 告警
     {"protect2",     38, RawKind::U8,  1.0, 0.0}, // 2 级保护状态（1 字节）
+    {"soh",          39, RawKind::U8,  1.0, 0.0}, // SOH %（固件 v75 起新增）
 };
 
 constexpr size_t kUserInfoFieldCount =
     sizeof(kUserInfoFields) / sizeof(kUserInfoFields[0]);
 constexpr size_t kSummaryFieldCount =
     sizeof(kSummaryFields) / sizeof(kSummaryFields[0]);
+
+// ---- 0x31 产品序列号（BYTE40..BYTE60，21 字节 ASCII，空格计入内容） ----
+// 未烧录的包为空格，返回空串；由 read_serial_number() 单独交付（字符串
+// 进不了纯 double 的 FieldMap）。
+constexpr uint16_t kSnOffset = 40;
+constexpr size_t kSnLen = 21;
+
+inline std::string parse_sn(const uint8_t* payload, size_t len) {
+    if (len < static_cast<size_t>(kSnOffset) + kSnLen) return {};
+    std::string sn(reinterpret_cast<const char*>(payload + kSnOffset), kSnLen);
+    while (!sn.empty() && (sn.back() == ' ' || sn.back() == '\0')) sn.pop_back();
+    return sn;
+}
 
 // ---- 位定义表与展开 ----
 // 0x31 告警（BYTE36-37 u16）与 0x61 BAT FLAG（BYTE0-1 u16）按位展开为
@@ -185,7 +200,7 @@ inline void fill_battery_status(const FieldMap& map, bms::BatteryStatus& status)
     status.sw_version = static_cast<uint16_t>(field_or(map, "sw_version", 0.0));
     status.hw_version = static_cast<uint16_t>(field_or(map, "hw_version", 0.0));
     status.cycles = static_cast<uint32_t>(field_or(map, "cycles", 0.0));
-    status.soh = 0;     // the protocol carries no SOH
+    status.soh = static_cast<uint16_t>(field_or(map, "soh", 0.0)); // %
     status.io_state = 0; // the protocol carries no IO bitmap
 }
 
@@ -216,6 +231,14 @@ inline void parse_fields(const uint8_t* payload, size_t len,
                 (static_cast<uint16_t>(payload[f.offset]) << 8) |
                 payload[f.offset + 1]);
             break;
+        case RawKind::BCD16: {
+            // 版本字按 BCD 解读：4 个十六进制位即十进制数值（0x0075 → 75）
+            const int b0 = payload[f.offset];
+            const int b1 = payload[f.offset + 1];
+            raw = (b0 >> 4) * 1000 + (b0 & 0x0F) * 100 +
+                  (b1 >> 4) * 10 + (b1 & 0x0F);
+            break;
+        }
         }
         out[f.name] = static_cast<double>(raw) * f.scale + f.value_off;
     }

@@ -4,9 +4,10 @@ After=network.target
 
 [Service]
 Type=oneshot
+EnvironmentFile=-/etc/default/bms_daemon
 ExecStartPre=/bin/systemctl stop bms.service
-# Default OTA firmware path is derived from the install prefix by bms_ota.py.
-ExecStart=/usr/bin/python3 /usr/bin/bms_ota.py /etc/default/bms_daemon
+# BMS_TYPE picks the protocol tool: TWS -> bms_ota.py, SCUD485 -> scud_ota.py
+ExecStart=/usr/bin/bms_ota_dispatch ${BMS_TYPE}
 ExecStopPost=/bin/systemctl start bms.service
 RemainAfterExit=no
 User=root

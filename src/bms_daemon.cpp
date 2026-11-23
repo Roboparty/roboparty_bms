@@ -250,6 +250,19 @@ static_assert(!publishes_snapshots<tws_bms::BmsProtocol>::value,
 static_assert(!publishes_snapshots<gf_bms::GfBmsProtocol>::value,
               "GF keeps the per-field carry-forward loop");
 
+// Protocols whose broadcast BatteryStatus also carries the battery's static
+// identity (SW/HW version, serial number), filled once by the daemon. TWS
+// only: GF/SCUD broadcasts keep their exact current content, and SCUD is
+// never forced through its 0x61+0x31 double read for identity.
+template <typename P>
+struct publishes_static_ids : std::false_type {};
+
+template <>
+struct publishes_static_ids<tws_bms::BmsProtocol> : std::true_type {};
+
+static_assert(publishes_static_ids<tws_bms::BmsProtocol>::value,
+              "TWS broadcasts must carry version and serial number");
+
 template <typename Protocol>
 static void run_daemon(Protocol& proto, const std::string& port,
                        const std::string& socket_path,
@@ -266,6 +279,17 @@ static void run_daemon(Protocol& proto, const std::string& port,
     // from the main loop and the tap simply stays detached until then.
     if (forwarder) forwarder->poll_sink();
 
+    // Broadcast record, zeroed once here and filled by the loops below. The
+    // TWS static identity fields are seeded right after the startup read.
+    bms::BatteryStatus status_to_send;
+    memset(&status_to_send, 0, sizeof(status_to_send));
+    // Identity captured from the bus (TWS only; [[maybe_unused]] because the
+    // other instantiations discard the constexpr branches below).
+    [[maybe_unused]] bool have_version = false, have_sn = false, have_app = false;
+    // Identity record for the ".info" socket; dirty = needs (re)broadcast.
+    [[maybe_unused]] bms::IdentityRecord identity{};
+    [[maybe_unused]] bool info_dirty = false;
+
     /* Print Static Info at Startup */
     bms::BatteryStatus static_info;
     if (proto.read_version_info(static_info)) {
@@ -275,6 +299,34 @@ static void run_daemon(Protocol& proto, const std::string& port,
                   << std::endl;
         std::cout << " > Health (SOH): " << static_info.soh
                   << "% | Cycles: " << static_info.cycles << std::endl;
+        if constexpr (publishes_static_ids<Protocol>::value) {
+            status_to_send.sw_version = static_info.sw_version;
+            status_to_send.hw_version = static_info.hw_version;
+            identity.sw_version = static_info.sw_version;
+            identity.hw_version = static_info.hw_version;
+            have_version = true;
+            info_dirty = true;
+        }
+    }
+    if constexpr (publishes_static_ids<Protocol>::value) {
+        std::string sn;
+        if (proto.read_serial_number(sn)) {
+            strncpy(status_to_send.serial_number, sn.c_str(),
+                    sizeof(status_to_send.serial_number) - 1);
+            strncpy(identity.serial_number, sn.c_str(),
+                    sizeof(identity.serial_number) - 1);
+            have_sn = true;
+            info_dirty = true;
+            std::cout << " > SN: " << sn << std::endl;
+        }
+        std::string app;
+        if (proto.read_app_version_string(app)) {
+            strncpy(identity.app_version, app.c_str(),
+                    sizeof(identity.app_version) - 1);
+            have_app = true;
+            info_dirty = true;
+            std::cout << " > App Version: " << app << std::endl;
+        }
     }
 
     /* Initialize Unix Domain Socket Server */
@@ -333,16 +385,45 @@ static void run_daemon(Protocol& proto, const std::string& port,
         }
     }
 
+    /* Secondary "info" socket (identity protocols only): carries one
+       IdentityRecord with the vendor display version string, which has no
+       room in the fixed BatteryStatus wire. The main socket stays untouched. */
+    int info_server_fd = -1;
+    std::string info_socket_path;
+    if constexpr (publishes_static_ids<Protocol>::value) {
+        info_socket_path = socket_path + ".info";
+        info_server_fd = socket(AF_UNIX, SOCK_STREAM, 0);
+        if (info_server_fd >= 0) {
+            struct sockaddr_un iaddr {};
+            iaddr.sun_family = AF_UNIX;
+            strncpy(iaddr.sun_path, info_socket_path.c_str(),
+                    sizeof(iaddr.sun_path) - 1);
+            unlink(info_socket_path.c_str());
+            if (bind(info_server_fd, reinterpret_cast<struct sockaddr*>(&iaddr),
+                     sizeof(iaddr)) < 0 ||
+                listen(info_server_fd, 5) < 0) {
+                std::cerr << "[BMS Daemon] Info socket failed on "
+                          << info_socket_path
+                          << "; get_app_version() unavailable" << std::endl;
+                close(info_server_fd);
+                info_server_fd = -1;
+            } else {
+                chmod(info_socket_path.c_str(), 0666);
+                std::cout << "[BMS Daemon] Identity broadcast on "
+                          << info_socket_path << std::endl;
+            }
+        }
+    }
+
     std::cout << "[BMS Daemon] Started. Heartbeat Active on " << port
               << std::endl;
 
-    bms::BatteryStatus status_to_send;
-    memset(&status_to_send, 0, sizeof(status_to_send));
     // Serialized FieldMap record for the fields socket (snapshot protocols).
     std::string fields_payload;
 
     std::vector<int> clients;
     std::vector<int> fields_clients;
+    std::vector<int> info_clients;
     int failure_count = 0;
 
     while (g_running) {
@@ -411,6 +492,51 @@ static void run_daemon(Protocol& proto, const std::string& port,
             }
         }
 
+        // TWS-only: seed the broadcast record with the battery's static
+        // identity, retrying each independently until first success (the
+        // battery may answer later than daemon start). Once captured neither
+        // is re-read, so the steady-state bus cost is zero. Late captures are
+        // printed like the startup ones so the journal always shows what was
+        // actually read.
+        if constexpr (publishes_static_ids<Protocol>::value) {
+            if (!have_version) {
+                bms::BatteryStatus v{};
+                if (proto.read_version_info(v)) {
+                    status_to_send.sw_version = v.sw_version;
+                    status_to_send.hw_version = v.hw_version;
+                    identity.sw_version = v.sw_version;
+                    identity.hw_version = v.hw_version;
+                    have_version = true;
+                    info_dirty = true;
+                    std::cout << " > FW Version: 0x" << std::hex << v.sw_version
+                              << " | HW Version: 0x" << v.hw_version << std::dec
+                              << std::endl;
+                }
+            }
+            if (!have_sn) {
+                std::string sn;
+                if (proto.read_serial_number(sn)) {
+                    strncpy(status_to_send.serial_number, sn.c_str(),
+                            sizeof(status_to_send.serial_number) - 1);
+                    strncpy(identity.serial_number, sn.c_str(),
+                            sizeof(identity.serial_number) - 1);
+                    have_sn = true;
+                    info_dirty = true;
+                    std::cout << " > SN: " << sn << std::endl;
+                }
+            }
+            if (!have_app) {
+                std::string app;
+                if (proto.read_app_version_string(app)) {
+                    strncpy(identity.app_version, app.c_str(),
+                            sizeof(identity.app_version) - 1);
+                    have_app = true;
+                    info_dirty = true;
+                    std::cout << " > App Version: " << app << std::endl;
+                }
+            }
+        }
+
         if (ok_read) {
             failure_count = 0;
 
@@ -463,6 +589,22 @@ static void run_daemon(Protocol& proto, const std::string& port,
             }
         }
 
+        // Identity socket: push the record whenever it changes; late joiners
+        // get the current record on accept below.
+        if constexpr (publishes_static_ids<Protocol>::value) {
+            if (info_dirty && info_server_fd >= 0) {
+                for (auto it = info_clients.begin(); it != info_clients.end();) {
+                    if (write(*it, &identity, sizeof(identity)) < 0) {
+                        close(*it);
+                        it = info_clients.erase(it);
+                    } else {
+                        ++it;
+                    }
+                }
+                info_dirty = false;
+            }
+        }
+
         /* Accept new client connections (Non-blocking) */
         struct timeval tv = {0, 10000};
         fd_set rfds;
@@ -472,6 +614,10 @@ static void run_daemon(Protocol& proto, const std::string& port,
         if (fields_server_fd >= 0) {
             FD_SET(fields_server_fd, &rfds);
             if (fields_server_fd > nfds) nfds = fields_server_fd;
+        }
+        if (info_server_fd >= 0) {
+            FD_SET(info_server_fd, &rfds);
+            if (info_server_fd > nfds) nfds = info_server_fd;
         }
         if (select(nfds + 1, &rfds, nullptr, nullptr, &tv) > 0) {
             if (FD_ISSET(server_fd, &rfds)) {
@@ -490,6 +636,20 @@ static void run_daemon(Protocol& proto, const std::string& port,
                               << std::endl;
                 }
             }
+            if (info_server_fd >= 0 && FD_ISSET(info_server_fd, &rfds)) {
+                int cfd = accept(info_server_fd, nullptr, nullptr);
+                if (cfd >= 0) {
+                    // Late joiners get the current record immediately.
+                    if (write(cfd, &identity, sizeof(identity)) < 0) {
+                        close(cfd);
+                    } else {
+                        info_clients.push_back(cfd);
+                        std::cout
+                            << "[BMS Daemon] New identity client connected."
+                            << std::endl;
+                    }
+                }
+            }
         }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -497,10 +657,13 @@ static void run_daemon(Protocol& proto, const std::string& port,
 
     for (int c : clients) close(c);
     for (int c : fields_clients) close(c);
+    for (int c : info_clients) close(c);
     close(server_fd);
     if (fields_server_fd >= 0) close(fields_server_fd);
+    if (info_server_fd >= 0) close(info_server_fd);
     unlink(socket_path.c_str());
     if (!fields_socket_path.empty()) unlink(fields_socket_path.c_str());
+    if (!info_socket_path.empty()) unlink(info_socket_path.c_str());
     std::cout << "[BMS Daemon] Shutdown complete." << std::endl;
 }
 

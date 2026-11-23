@@ -9,7 +9,7 @@
 端序：0xC2 全部高字节在前；0xC3 应答两字段低字节在前。
 
 命令：
-    0xC0 [02 55|01 55]  进 Loader / 完成并跳 APP（文档的 01 00 无效）
+    0xC0 [01 55|02 55|03 55|05 55]  跳 APP / 进 BOOT / 软件复位 / 取消升级返回已有 APP
     0xC1 []             查状态 → version(2) state(1) name(8/10/16)
     0xC2 [total_len(4) total_crc32(4)] → max_frame(1) page_size(2)
     0xC3 []             查进度 → received_len(4) received_crc32(4)
@@ -47,8 +47,10 @@ START_RESP_LEN = 3              # max frame data len(1) page size(2)
 PROGRESS_RESP_LEN = 8           # received len(4) received crc32(4)
 ACK_RESP_LEN = 1
 
-CTRL_JUMP_BOOT = b"\x02\x55"
-CTRL_JUMP_APP = b"\x01\x55"         # finish-verify + jump APP（文档的 01 00 无效）
+CTRL_JUMP_APP = b"\x01\x55"         # 跳转到 APP
+CTRL_JUMP_BOOT = b"\x02\x55"        # 跳转到 BOOT
+CTRL_SW_RESET = b"\x03\x55"         # 软件复位
+CTRL_CANCEL_UPGRADE = b"\x05\x55"   # 取消升级并返回已有 APP；已进入安装阶段或 APP 无效时返回 0x06
 COMMIT_WORD = b"\x0A\x55"
 
 # ACK 返回码 <-> 值，照抄 spec §4.1.1 表，不做翻译。
@@ -291,6 +293,24 @@ class ScudOta:
             time.sleep(delay)
         return last
 
+    def send_control(self, action):
+        """单发一个 0xC0 控制字并打印 ack。返回 True=ack 0x00。"""
+        try:
+            options = {"timeout": 1}
+            if os.name == "posix":
+                options["exclusive"] = True
+            self.ser = serial.Serial(self.port, 115200, **options)
+            ack = self.control(action)
+            self.log("control " + " ".join(f"{b:02X}" for b in action) +
+                     f" -> {self.ack_name(ack)}")
+            return ack == ACK_OK
+        except (OSError, serial.SerialException) as exc:
+            self.log(f"OTA I/O error: {exc}", "\033[1;31m")
+            return False
+        finally:
+            if self.ser:
+                self.ser.close()
+
     # ---- main flow --------------------------------------------------------
 
     def run(self):
@@ -525,6 +545,17 @@ if __name__ == "__main__":
                 if "BMS_PORT=" in line:
                     port_arg = line.split("=", 1)[1].strip()
                     break
+
+    # 单发 0xC0 控制字：scud_ota.py [port] --app|--boot|--reset|--cancel
+    ctrl_words = {
+        "--app": CTRL_JUMP_APP,
+        "--boot": CTRL_JUMP_BOOT,
+        "--reset": CTRL_SW_RESET,
+        "--cancel": CTRL_CANCEL_UPGRADE,
+    }
+    if len(args) > 1 and args[1] in ctrl_words:
+        ota = ScudOta(port_arg, "")
+        sys.exit(0 if ota.send_control(ctrl_words[args[1]]) else 1)
 
     bin_file = args[1] if len(args) > 1 else \
         "/opt/roboparty/lib/firmware/SCUD_Roboparty13S2P_V01.0.bin"

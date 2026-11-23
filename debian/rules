@@ -1,4 +1,6 @@
 #!/usr/bin/make -f
+
+INSTALL_PREFIX ?= /opt/roboparty
 export DH_VERBOSE = 1
 
 %:
@@ -6,8 +8,8 @@ export DH_VERBOSE = 1
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
-		-DCMAKE_INSTALL_PREFIX=/opt/roboparty \
-		-DCMAKE_PREFIX_PATH=/opt/roboparty \
+		-DCMAKE_INSTALL_PREFIX=$(INSTALL_PREFIX) \
+		-DCMAKE_PREFIX_PATH=$(INSTALL_PREFIX) \
 		-DCMAKE_BUILD_TYPE=Release
 
 override_dh_install:
@@ -19,8 +21,13 @@ override_dh_install:
 	install -d debian/roboparty-bms/etc/systemd/system
 	install -m 644 etc/systemd/system/*.service debian/roboparty-bms/etc/systemd/system/
 
-	install -d debian/roboparty-bms/opt/roboparty/bin
-	install -m 755 scripts/bms_ota.py debian/roboparty-bms/opt/roboparty/bin/
+	install -d debian/roboparty-bms$(INSTALL_PREFIX)/bin
+	install -m 755 scripts/bms_ota.py debian/roboparty-bms$(INSTALL_PREFIX)/bin/
 
-	install -d debian/roboparty-bms/opt/roboparty/lib/firmware
-	install -m 644 firmware/*.bin debian/roboparty-bms/opt/roboparty/lib/firmware/
+	install -d debian/roboparty-bms$(INSTALL_PREFIX)/lib/firmware
+	install -m 644 firmware/*.bin debian/roboparty-bms$(INSTALL_PREFIX)/lib/firmware/
+
+override_dh_installdeb:
+	dh_installdeb
+	sed -i 's|@INSTALL_PREFIX@|$(INSTALL_PREFIX)|g' \
+		debian/roboparty-bms/DEBIAN/postinst

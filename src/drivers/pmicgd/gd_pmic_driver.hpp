@@ -3,14 +3,8 @@
 
 #pragma once
 
-#include <atomic>
 #include <cstdint>
-#include <memory>
-#include <mutex>
-#include <shared_mutex>
 #include <string>
-#include <thread>
-#include <vector>
 
 #include "bms_driver.hpp"
 
@@ -51,10 +45,10 @@ struct SystemStatus {
     std::string fw_version;
 };
 
-class NrfPmicDriver : public BmsDriver {
+class GdPmicDriver : public BmsDriver {
 public:
-    explicit NrfPmicDriver(const std::string& serial_port, int baud_rate = 115200);
-    ~NrfPmicDriver() override;
+    explicit GdPmicDriver(const std::string& serial_port, int baud_rate = 115200);
+    ~GdPmicDriver() override;
 
     double get_voltage() const override;
     double get_current() const override;
@@ -70,6 +64,7 @@ public:
     uint16_t get_soh() const override;
     uint32_t get_cycles() const override;
     bool is_connected() const override;
+    double get_data_age_ms() const override;
 
     bool set_power48(bool on);
     bool set_power5(bool on);
@@ -93,25 +88,5 @@ public:
     bool refresh_adc(int channel = -1);
     bool refresh_version();
 
-    const SystemStatus& status() const { return status_; }
-
-private:
-    bool open_serial();
-    void close_serial();
-    bool send_cmd(const std::string& cmd);
-    bool read_line(std::string& line, int timeout_ms);
-    bool send_and_read(const std::string& cmd, std::string& response, int timeout_ms = 500);
-    void parse_response(const std::string& line);
-    void poll_loop();
-
-    std::string port_;
-    int baud_rate_;
-    int fd_ = -1;
-
-    std::atomic<bool> running_{false};
-    std::thread poll_thread_;
-    mutable std::shared_mutex mutex_;
-
-    SystemStatus status_;
-    bms::BatteryStatus cached_{};
+    SystemStatus status() const { return {}; }
 };

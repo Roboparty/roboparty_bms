@@ -12,7 +12,6 @@
 #include <pybind11/stl.h>
 
 #include "bms_driver.hpp"
-#include "nrf_pmic_driver.hpp"
 
 namespace py = pybind11;
 
@@ -71,4 +70,5 @@ PYBIND11_MODULE(bms_py, m) {
         .def("refresh_adc",    &NrfPmicDriver::refresh_adc,
              py::arg("channel") = -1)
         .def("refresh_version",&NrfPmicDriver::refresh_version);
+        .def("get_field", &BmsDriver::get_field, py::arg("name"));
 }

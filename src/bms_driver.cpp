@@ -12,7 +12,7 @@
 
 #include "gf_bms_driver.hpp"
 #include "gfcan_bms_driver.hpp"
-#include "nrf_pmic_driver.hpp"
+#include "gd_pmic_driver.hpp"
 #include "scud_bms_driver.hpp"
 #include "tws_bms_driver.hpp"
 
@@ -28,8 +28,8 @@ std::shared_ptr<BmsDriver> BmsDriver::create_bms(const std::string& bms_type,
     } else if (bms_type == "GFCAN") {
         return std::make_shared<bms::GfCanBmsDriver>(
             socket_path.empty() ? "can0" : socket_path);
-    } else if (bms_type == "NRF") {
-        return std::make_shared<NrfPmicDriver>(
+    } else if (bms_type == "GD") {
+        return std::make_shared<GdPmicDriver>(
             socket_path.empty() ? "/dev/ttyACM0" : socket_path);
     } else if (bms_type == "SCUD485") {
         return std::make_shared<ScudBmsDriver>(

@@ -47,28 +47,4 @@ PYBIND11_MODULE(bms_py, m) {
         .def("get_hw_version", &BmsDriver::get_hw_version)
         .def("get_serial_number", &BmsDriver::get_serial_number)
         .def("get_app_version", &BmsDriver::get_app_version);
-
-    py::class_<NrfPmicDriver, BmsDriver, std::shared_ptr<NrfPmicDriver>>(m, "NrfPmicDriver")
-        .def(py::init<const std::string&, int>(),
-             py::arg("serial_port"),
-             py::arg("baud_rate") = 115200)
-        .def("set_power48",    &NrfPmicDriver::set_power48)
-        .def("set_power5",     &NrfPmicDriver::set_power5)
-        .def("set_power19",    &NrfPmicDriver::set_power19)
-        .def("set_power12",    &NrfPmicDriver::set_power12)
-        .def("get_power48",    &NrfPmicDriver::get_power48)
-        .def("get_power5",     &NrfPmicDriver::get_power5)
-        .def("get_power19",    &NrfPmicDriver::get_power19)
-        .def("get_power12",    &NrfPmicDriver::get_power12)
-        .def("estop",          &NrfPmicDriver::estop)
-        .def("clear_estop",    &NrfPmicDriver::clear_estop)
-        .def("query_estop",    &NrfPmicDriver::query_estop)
-        .def("set_watchdog",   &NrfPmicDriver::set_watchdog)
-        .def("query_watchdog", &NrfPmicDriver::query_watchdog)
-        .def("refresh_status", &NrfPmicDriver::refresh_status)
-        .def("refresh_bms",    &NrfPmicDriver::refresh_bms)
-        .def("refresh_adc",    &NrfPmicDriver::refresh_adc,
-             py::arg("channel") = -1)
-        .def("refresh_version",&NrfPmicDriver::refresh_version);
-        .def("get_field", &BmsDriver::get_field, py::arg("name"));
 }

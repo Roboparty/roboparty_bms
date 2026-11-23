@@ -124,7 +124,15 @@ SCUD485 runs **dual protocols side by side**:
 uses scale=1 / offset=0 (raw wire values) until the spec's fixed-point parameters land -- only
 the table constants change then. Voltage/capacity fields are unsigned, current/temperature
 two's complement; `get_current()` merges `chg_ma`/`dis_ma` as charging positive, discharging
-negative. The 0x31 alarm word is expanded into named boolean bits (`uv_alarm`, `ov_alarm`,
+negative. Version words `sw_version`/`hw_version` are **BCD** (the four hex digits are the
+decimal value: `0x0075` -> 75, `0x0100` -> 100). Since firmware v75 the 0x31 payload grew from
+39 to 61 bytes, adding `soh` (SOH %) at BYTE39 and a 21-byte ASCII product serial number at
+BYTE40..60 (21 ASCII bytes where **spaces count as content**, e.g. `ROBO-RP1 261332 99999`;
+blank on unprogrammed packs). The serial number is a string and cannot ride the double-only
+field map: it is delivered via `read_serial_number()` and
+written with the 0x27 command (`write_serial_number(sn)`: LEN=21, shorter input is
+space-padded, longer rejected; acks with a 1-byte status, 0x00 = OK; verify with
+`read_serial_number()`). The 0x31 alarm word is expanded into named boolean bits (`uv_alarm`, `ov_alarm`,
 `chg_h_alarm_flag`, `chg_l_alarm_flag`, `dsg_h_alarm_flag`, `dsg_l_alarm_flag`,
 `mos_h_alarm_flag`, `cap_low_alarm`, `cell_volt_dif_alarm`, `cell_temp_dif_alarm`,
 `cell_temp_h_alarm`, `cell_temp_l_alarm`, `afe_com_err`); the raw word stays under `alarm`.

@@ -143,7 +143,15 @@ if (std::isnan(bms->get_field("nope"))) { /* 字段不存在或暂无数据 */ }
   `cell_mv_max`、`cell_idx_max`、`cell_mv_min`、`cell_idx_min`、`cap_mah`、`remain_mah`、
   `soc_pct`、`cycles`、`vdif_mv`；0x31——`cell1_mv`..`cell13_mv`、`mos_temp`、`cell_temp1`、
   `cell_temp2`、`heater_temp1`、`heater_temp2`、`tdiff`、`sw_version`、`hw_version`、
-  `alarm`、`protect2`（及上文全部位字段）。
+  `alarm`、`protect2`、`soh`（及上文全部位字段）；
+- **版本号**：`sw_version`/`hw_version` 按 **BCD** 解读——4 个十六进制位即十进制数值
+  （`0x0075` → 75、`0x0100` → 100）；
+- **SOH / 产品序列号**（固件 v75 起，0x31 载荷自 39 扩为 61 字节）：`soh` 为 SOH %；
+  序列号为 **21 字节 ASCII**（BYTE40..60，**空格计入内容**，格式示例
+  `ROBO-RP1 261332 99999`，未烧录的包为空格），是字符串所以不进 FieldMap，经
+  `read_serial_number()` 交付；用 **0x27 命令写入**
+  （`write_serial_number(sn)`：LEN=21，不足 21 字节右侧补空格，超长拒绝；应答 1 字节
+  状态 0x00=成功，写后用 `read_serial_number()` 校验）。
 
 ## 🔄 OTA 固件升级
 

@@ -33,8 +33,9 @@ constexpr uint8_t FRAME_TAIL = 0xBB;          // tail marker
 constexpr uint8_t QUERY_PARAM = 0x01;         // query parameter is fixed 0x01
 constexpr uint8_t CMD_USER_INFO = 0x61;       // user communication info
 constexpr uint8_t CMD_BATTERY_SUMMARY = 0x31; // battery summary info
+constexpr uint8_t CMD_SET_SN = 0x27;          // write product serial number
 constexpr int LEN_USER_INFO = 30;       // BYTE0..BYTE29
-constexpr int LEN_BATTERY_SUMMARY = 39; // BYTE0..BYTE38
+constexpr int LEN_BATTERY_SUMMARY = 61; // BYTE0..BYTE60（含 SOH+SN）
 } // namespace
 
 ScudBmsProtocol::ScudBmsProtocol(const std::string& port_name, int baud_rate,
@@ -251,17 +252,56 @@ bool ScudBmsProtocol::read_version_info(bms::BatteryStatus& status) {
     FieldMap map;
     if (!read_fields(map)) return false;
 
-    // The protocol carries no SOH; zero it so the upper layer never prints
-    // uninitialized values.
-    status.soh = 0;
+    status.soh = static_cast<uint16_t>(field_or(map, "soh", 0));
     status.cycles = static_cast<uint32_t>(field_or(map, "cycles", 0));
     status.sw_version = static_cast<uint16_t>(field_or(map, "sw_version", 0));
     status.hw_version = static_cast<uint16_t>(field_or(map, "hw_version", 0));
     return true;
 }
 
-bool ScudBmsProtocol::read_serial_number(std::string&) {
-    return false; // the protocol has no serial number command
+// SN rides 0x31 BYTE40..60 (21-byte ASCII); blank = unprogrammed.
+bool ScudBmsProtocol::read_serial_number(std::string& sn)
+{
+    std::vector<uint8_t> s;
+    if (!query_0x31(s)) {
+        return false;
+    }
+    sn = parse_sn(s.data(), s.size());
+    return true;
+}
+
+// 0x27: FE FE | 27 | 15 | SN(21 ASCII, spaces count) | CRC | BB.
+// Ack: FE FE | 27 | 01 | status | CRC | BB (0x00 = OK).
+bool ScudBmsProtocol::write_serial_number(const std::string& sn) {
+    if (sn.size() > kSnLen) return false; // 21 ASCII bytes is the hard limit
+    std::string padded = sn;
+    padded.resize(kSnLen, ' ');
+
+    std::vector<uint8_t> body;
+    body.reserve(2 + kSnLen);
+    body.push_back(CMD_SET_SN);
+    body.push_back(static_cast<uint8_t>(kSnLen));
+    body.insert(body.end(), padded.begin(), padded.end());
+
+    const uint16_t crc = crc16_ccitt(body.data(), body.size());
+    std::vector<uint8_t> frame;
+    frame.reserve(2 + body.size() + 3);
+    frame.push_back(FRAME_HEAD);
+    frame.push_back(FRAME_HEAD);
+    frame.insert(frame.end(), body.begin(), body.end());
+    frame.push_back(static_cast<uint8_t>(crc >> 8));
+    frame.push_back(static_cast<uint8_t>(crc & 0xFF));
+    frame.push_back(FRAME_TAIL);
+
+    flush();
+    usleep(10000);
+    if (serial_.write_raw(frame.data(), frame.size()) !=
+        static_cast<ssize_t>(frame.size())) {
+        return false;
+    }
+    std::vector<uint8_t> ack;
+    if (!read_frame(ack, CMD_SET_SN, 1)) return false; // no ack in time
+    return ack.size() == 1 && ack[0] == 0x00;
 }
 
 bool ScudBmsProtocol::set_discharge_output(bool) {

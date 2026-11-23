@@ -223,6 +223,7 @@ public:
     bool read_fields(std::unordered_map<std::string, double>& out);
     bool read_version_info(bms::BatteryStatus& status);
     bool read_serial_number(std::string& sn);
+    bool write_serial_number(const std::string& sn); // 0x27, ack 0x00 OK
     bool set_discharge_output(bool enable);
 
 private:
